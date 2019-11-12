@@ -133,6 +133,9 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
+                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
+                    </li>
+                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -140,9 +143,6 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
-                    </li>
-                    <li>
-                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,6 +158,286 @@
 </section>
 	
 	<div id="main">
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2893630.html">Spring 3.1을 활용한 AspectJ 표현식  테스트</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Jan 18, 2012'>
+            Jan 18, 2012</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>AOP에서 AspectJ표현식은 다양하고 강력한 기능을 제공합니다.
+예를 들면 Aspect가 결합될 JoinPoint를 아래와 같이 표현을 할 수 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>execution(public void set*(..))</code> : 리턴 타입이 void이고 메소드 이름이 set으로 시작되고 파라미터가 0개 이상인 메소드</p>
+</li>
+<li>
+<p><code>execution(* com.benelog.ftpserver.<strong>.</strong>()</code> : com.benelog.ftpserver패키지의 파라미터가 없는 모든 메소드</p>
+</li>
+<li>
+<p><code>execution(String com.benelog.ftpserver..<strong>.</strong>(..)</code> : 리턴타입이 String이면서 com.benelog.ftpserver패키지 및 하위 패키지에 있는 파라미터가 0개 이상인 메소드</p>
+</li>
+<li>
+<p><code>execution(String com.benelog.ftpserver.Server.insert(..)</code> : 리턴타입이 String인 com.benelog.ftpserver.Server의 파라미터가 0개 이상인 메소드</p>
+</li>
+<li>
+<p><code>execution(* get*(*))</code> : get으로 이름이 시작하고 1개의 파라미터를 갖는 메소드</p>
+</li>
+<li>
+<p><code>execution(* get*(<strong>,</strong>))</code> : get으로 이름이 시작하고 2개의 파라미터를 갖는 메소드 exceution(* read*(Interger,&#8230;&#8203;)) : read로 이름이 시작하고, 첫번째 파라미터 타입이 Integer이며, 1개 이상의 파라미터를 갖는 메소드</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>그러나 다양하고 강력한 대신에 모든 문법을 다 익숙하게 쓰기는 힘들고, 컴파일 타임에 체크도 안 되기 때문에 실수할 여지도 큽니다. 조금이라도 표현식을 바꾸었을 때 유지하고 싶은 기존의 동작이 변함없이 작동되는지도 파악하기 어렵습니다.</p>
+</div>
+<div class="paragraph">
+<p>그래서 AOP는 강력한만큼  통제되지 못한 부작용이 생기기도 쉽습니다. 표현식 한글자를 바꾸어도 어떤 동작을 하는지 테스트를 촘촘히 해봐야하는데, 그럴 때마다 WAS를 띄워서 테스트를 해본다면 시간이 많이 들어갈 것입니다.</p>
+</div>
+<div class="paragraph">
+<p>Spring 3.1부터는 테스트 코드 안에서 <code>@Configuration</code> , <code>@Bean</code> 과 같은 JavaConfig 설정들이 지원됩니다.
+그 기능을 이용하면 XML없이 보다 짧은 코드로 AOP에 대한 다양한 테스트를 편하게 해 볼 수 있습니다.
+단순한 예제로 Spring 3.1의 기능으로 AOP 테스트하는 방식을 정리해보았습니다.
+아래 설명한 예제들은 gist에 올라가 있습니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://gist.github.com/1625374" class="bare">https://gist.github.com/1625374</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logaspect_java">LogAspect.java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LogAspect.java는 간단하게 로그를 저장소에 입력하는 Aspect입니다.
+<code>@Before("execution(void *.run())")</code> 라는 표현식으로 run 메소드가 실행되기 전에 로그메시지를 저장하도록 taget 객체와 결합됩니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Aspect
+public class LogAspect {
+    private LogRepository repository;
+
+    public LogAspect(LogRepository repository){
+        this.repository = repository;
+    }
+
+    @Before("execution(void *.run())")
+    public void log(JoinPoint jp){
+        String message = jp.getKind() + ":" + jp.getSignature().getName();
+        repository.insertLog(message);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logrepository_java">LogRepository.java</h3>
+<div class="paragraph">
+<p>로그저장소 역할을 하는 클래스입니다. 실무에서라면 DB나 파일 등을 사용하겠지만, 여기서는 단순한 예제를 만들고 싶어서 그냥 String을 화면에 찍었습니다. 정교하게 만든다면 Log정보를 담는 Domain Object를 정의해서 String대신 사용해야 할 것입니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class LogRepository  {
+    public void insertLog(String message) {
+        System.out.println(message);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="taget_클래스">Taget 클래스</h3>
+<div class="paragraph">
+<p>LogAspect와 결합될 Target 클래스입니다. 역시나 단순하게 화면에 메시지를 뿌려줍니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class Printer implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("hello!");
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="실제_코드에서의_applicationcontext_설정">실제 코드에서의 applicationContext 설정</h3>
+<div class="paragraph">
+<p>applicationContext를 설정하는 xml파일에서   aop: 네임스페이스를 이용해서 aspect J 표현식을 쓸 수 있게 하고, Aspect가 정의된 LogAspect를 bean으로 등록합니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">&lt;aop:aspectj-autoproxy/&gt;
+&lt;bean id="printer" class="edu.tdd.aop.Printer"/&gt;
+&lt;bean id="logAspect" class="edu.tdd.aop.LogAspect"&gt;
+    &lt;constructor-arg&gt;
+        &lt;bean class="edu.tdd.aop.LogRepository"/&gt;
+    &lt;/constructor-arg&gt;
+&lt;/bean&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logaspecttest_java">LogAspectTest.java</h3>
+<div class="paragraph">
+<p>드디어 LogAspect의 표현식을 테스트하는 코드입니다. @Bean으로 Aspect와 tagetObject를 모드 XML설정 대신 java로 한 파일 안에서 표현했습니다.</p>
+</div>
+<div class="paragraph">
+<p>각 테스트 메소드별로  2가지를 검증했습니다.</p>
+</div>
+<div class="paragraph">
+<p>(1) proxyCreated() 메소드 : Proxy클래스가 생성되었는지 확인
+(2) logInserted 메소드: LogAspect에서 호출하는 LogRepository에 원하는 메시지가 저장되었는지 확인</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class)
+public class LogAspectTest {
+    @Autowired Runnable targetProxy;
+    @Autowired LogRepository repository;
+
+    @Test
+    public void proxyCreated() {
+        assertTrue(AopUtils.isAopProxy(targetProxy));
+    }
+
+    @Test
+    public void logInserted() {
+        targetProxy.run();
+        verify(repository).insertLog("method-execution:run");
+    }
+
+    @Configuration
+    @EnableAspectJAutoProxy
+    static public class TestContext {
+        @Bean LogAspect aspect() {
+            return new LogAspect(repository());
+        }
+
+        @Bean LogRepository repository(){
+            return mock(LogRepository.class); // 검증용 객체를 application에다 등록
+        }
+
+        @Bean Runnable target(){
+            return new Printer();
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>클래스 선언부분에서 @ContextConfiguration(loader=AnnotationConfigContextLoader.class) 를 붙이면 외부의 XML 대신 테스트 클래스 안에 포함된 JavaConfig로된 설정을 읽어올 수 있습니다. TestContext라는 내부 클래스에다 @Configuration을 붙여서 필요한 Bean을 등록했습니다.
+<code>@EnableAspectJAutoProxy</code> 는 &lt;aop:aspectj-autoproxy/&gt;와 같은 역할을 하는 애노테이션입니다.</p>
+</div>
+<div class="paragraph">
+<p>아래와 같의 ApplicationContext에 LogRepository는 mock()으로 생성한 가짜 객체를 등록했습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Bean LogRepository repository(){
+        return mock(LogRepository.class); // 검증용 객체를 application에다 등록
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>이 객체를 다시 Autowired로 받아온 후에 verify()를 했습니다.   XML로 이와 비슷한 일을 하려면 코드가 더 길어지고, 별도의 파일로 분리가 됩니다. Mock을 Application에 등록하는 것이 바람직할지는 고민의 여지가 있지만 Aspect와 결합된 Proxy 클래스는 ApplicationContext를 통해야만 얻을 수 있고, 그 동작을  검증하고자 한다면 이 방식이 편하다고 느껴집니다.</p>
+</div>
+<div class="paragraph">
+<p>여기서는 Printer객체를 target클래스로 사용했는데, 이 부분도 실제로 원하는 AOP 적용을 원하는 클래스나 제외 되어야할 클래스, 또는  직접 만든 테스트 전용 객체 등을 바꿔끼워가면서 다양한 조건을 검증할 수 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>덧붙여 <code>verify(repository).insertLog("method-execution:run");</code> 부분에서 문자열을 직접 검증하는 것도 바람직하지 못한 방식일지도 모릅니다.  문자열 대신에 Log정보를 담는 도메인 객체를 따로 정의했다면, 그 객체에 메시지에 핵심키를 담고, equals를 override했을 것 같습니다.
+문자열을 직접 검증하면 메시지의 형식이 바뀔 때마다 테스트가 깨어져서 유지보수가 번거로운 테스트 코드가 됩니다. 이 예제에서는 코드를 짧게 하고 테스트 코드 안에서 검증하고자 하는 동작을 단순하게 나타내려고 이 방식을 택했습니다.</p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2893630.html&text=Spring 3.1을 활용한 AspectJ 표현식  테스트&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2893630.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2893630.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2893630.html&title=Spring 3.1을 활용한 AspectJ 표현식  테스트" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2893630.html&title=Spring 3.1을 활용한 AspectJ 표현식  테스트" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2893630.html&title=Spring 3.1을 활용한 AspectJ 표현식  테스트" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2893630.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/AOP.html'>AOP</a></li>
+ 	        <li><a href='../tags/Spring-Test.html'>Spring-Test</a></li>
+ 	        <li><a href='../tags/Spring.html'>Spring</a></li>
+ 	        <li><a href='../tags/test.html'>test</a></li>
+
+				<li><a class="icon fa-comment" href="../2893630.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 <article class="post">
    <header>
     <div class="title">
@@ -669,204 +949,6 @@ WTP에서 'Serve modules without publishing ' 옵션을 써서 이를 해결하�
     	
     </footer>
 </article>
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2874354.html">Java Stack dump 다운로드를 편하게</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Nov 20, 2011'>
-            Nov 20, 2011</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>실행 중인 Java 프로세스의 Stack dump를 뜨는 작업은 간단합니다.  Jstack 이나 kill -3 뒤에 process id를 지정하기만 하면 됩니다. Stack dump를 서버에 있는 stack dump파일을 PC로 옮길때면 Secure CRT나 putty에서 console에 찍히는 내용을 파일로 저장하는 기능을 주로 쓰고 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>언젠가 테스트를 한다고 자주 Stack dump를 뜨다보니 이런 작업마저도 번거롭게 느껴졌습니다. 그리고  파일이름에 timestamp가 들어가 있으면 나중에 찾아보기가 편한데, 그런 파일명 지정도 수동으로 하려니까 귀찮았습니다. 그래서 간단한 프로그램을 만들어 봤었습니다.</p>
-</div>
-<div class="paragraph">
-<p>보통은 서버에서 vi로 덤프를 보는 때가 많아서 저도 잘 쓰지는 않는데, 그래도 코딩하면서는 재밌었던 기억이 나네요.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="다운로드">다운로드</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>wget file.benelog.net/dumper.jar</code> 혹은 웹브라우저로 benelog.net/dumper.jar 접근해서 저장</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="실행">실행</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Windows : <code>java -cp "dumper.jar;%JAVA_HOME%/lib/tools.jar" Start [port number]</code></p>
-</li>
-<li>
-<p>Linux : <code>java -cp "dumper.jar:$JAVA_HOME/lib/tools.jar" Start [port number]</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Console 창에는 아래 메시지가 찍힙니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>Usage:
-
- (Windows)
-
-   Prompt&gt;java -cp "dumper.jar;%JAVA_HOME%/lib/tools.jar" Start [port]
-
- (Linux)
-
-   Prompt&gt;java -cp dumper.jar:$JAVA_HOME/lib/tools.jar Start [port]
-
------------------------------
-
-The port is selected by ramdom.
-
-Web address: http://192.168.0.11:17456
-
-2011-11-20 04:04:32.901:INFO::jetty-7.x.y-SNAPSHOT
-
-2011-11-20 04:04:33.248:INFO::started o.e.j.s.ServletContextHandler\{/,null}
-
-2011-11-20 04:04:34.526:INFO::Started SelectChannelConnector@0.0.0.0:17456</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>파라미터로 port번호를 넘겨서 원하는 포트로 웹페이지를 띄울 수가 있는데, 지정된 포트가 없다면 10000번에서 20000번 사이의 포트를 임의로 찍어서 띄어줍니다. 위에 "Web address" 라고 적힌 칸 옆의 주소가 접근할 수 있는 URL입니다.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="사용법">사용법</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Console창에서 알려주는 주소를 웹브라우저 입력하면 아래처럼 jps의 정보를 보여주는 화면이 뜹니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/my-program/dumper-jps.jpg" alt="dumper jps" title="JPS"></span></p>
-</div>
-<div class="paragraph">
-<p>pid를 찍으면 지정한 JVM의 jstack dump를 바로 다운로드할 수 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>파일명은 {pid}_{연도}-{일월}-{시분초}.log의 형식으로 했습니다.</p>
-</div>
-<div class="paragraph">
-<p>혹시 덤프파일을 생성하는데 아래 에러 메시지가 뜬다면, 장비에 여러개의 JVM이 설치되어 있으면서 덤프를 뜨려는 JVM 프로세스와 tools.jar를 classpath로 지정한 경로의 JVM이 다르지 않는지 확인해보셔야 합니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>java.lang.UnsatisfiedLinkError: no attach in java.library.path
-com.sun.tools.attach.AttachNotSupportedException: no providers installed
-        at com.sun.tools.attach.VirtualMachine.attach(VirtualMachine.java:190)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="구현방식">구현방식</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Jps나 Jstack과 유사하게 sun.jvmstat.monitor 패키지의 클래스를 이용한 프로그램입니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.java2s.com/Open-Source/Java-Document/6.0-JDK-Modules-sun/jvmstat/sun.jvmstat.monitor.htm" class="bare">http://www.java2s.com/Open-Source/Java-Document/6.0-JDK-Modules-sun/jvmstat/sun.jvmstat.monitor.htm</a></p>
-</div>
-<div class="paragraph">
-<p>참고로 jdk의 tools.jar는 따로 배포하면 license에 어긋난다고 알고 있어서 묶어서 패키징하지 않고 classpath로 지정하도록 했습니다.</p>
-</div>
-<div class="paragraph">
-<p>전체 소스는 github에 올렸습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/benelog/dumper" class="bare">https://github.com/benelog/dumper</a></p>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2874354.html&text=Java Stack dump 다운로드를 편하게&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Java.html'>Java</a></li>
- 	        <li><a href='../tags/자작도구.html'>자작도구</a></li>
-
-				<li><a class="icon fa-comment" href="../2874354.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 		
 <ul class="actions pagination">
     <li><a href="../6/"
@@ -939,6 +1021,17 @@ com.sun.tools.attach.AttachNotSupportedException: no providers installed
                     <li>
                         <article>
                             <header>
+                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
+                                 <time class="published"
+							            datetime='Nov 12, 2019'>
+							            Nov 12, 2019</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -965,17 +1058,6 @@ com.sun.tools.attach.AttachNotSupportedException: no providers installed
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
-                                 <time class="published"
-							            datetime='Feb 25, 2015'>
-							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1212,7 +1294,7 @@ com.sun.tools.attach.AttachNotSupportedException: no providers installed
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
+                                <span style="float:right;"> 2 </span>
                             </header>
                         </article>
                     </li>
@@ -1507,6 +1589,15 @@ com.sun.tools.attach.AttachNotSupportedException: no providers installed
                     <li>
                         <article>
                             <header>
+                                <a href="../tags/ktlint.html">ktlint</a>
+                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
+                                <span style="float:right;"> 1 </span>
+                            </header>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1715,6 +1806,15 @@ com.sun.tools.attach.AttachNotSupportedException: no providers installed
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
+                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
+                                <span style="float:right;"> 1 </span>
+                            </header>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
