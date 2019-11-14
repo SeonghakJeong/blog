@@ -184,7 +184,7 @@
 <ul class="sectlevel2">
 <li><a href="#editorconfig_설정">1.1. <code>.editorconfig</code> 설정</a></li>
 <li><a href="#build_gradle_설정">1.2. <code>build.gradle</code> 설정</a></li>
-<li><a href="#스타일_검사_수행">1.3. 스타일 검사 수행</a></li>
+<li><a href="#스타일_검사">1.3. 스타일 검사</a></li>
 <li><a href="#스타일_일괄_변환">1.4. 스타일 일괄 변환</a></li>
 <li><a href="#git_hook으로_설정">1.5. Git hook으로 설정</a></li>
 </ul>
@@ -246,6 +246,7 @@ charset = utf-8
 end_of_line = lf
 indent_size = 4
 indent_style = space
+trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = 120
 tab_width = 4</code></pre>
@@ -305,7 +306,7 @@ tab_width = 4</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>max_line_length</code> , <code>insert_final_newline</code> 과 같은 규칙을 Kotlin 공식 코딩 컨벤션에는 명시되어 있지는 않습니다. 그러나 같은 소스를 고치면서 협업하는 개발자들이 이를 통일하지 않을 경우 불필요한 Diff 가 발생하여 코드 변경분을 파악할 때 불편해집니다.</p>
+<p><code>max_line_length</code> , <code>insert_final_newline</code> 과 같은 규칙을 Kotlin 공식 코딩 컨벤션에는 명시되어 있지는 않습니다. 그러나 같은 소스를 고치면서 협업하는 개발자들이 이를 통일하지 않을 경우 불필요한 diff 가 발생하여 코드 변경분을 파악할 때 불편해집니다.</p>
 </li>
 </ul>
 </div>
@@ -361,7 +362,7 @@ plugins {
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>는 Gradle 버전 5.4.1이상에서만 사용할 수 있습니다. 그 이하버전에서는 아래와 같은 에러가 나옵니다.</p>
+<p><a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>는 Gradle 버전 5.4.1이상에서만 사용할 수 있습니다. 그 이하 버전에서는 아래와 같은 에러가 나옵니다.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -374,7 +375,7 @@ Could not determine the dependencies of task ':ktlintCheck'.
 </div>
 </div>
 <div class="paragraph">
-<p>이럴 경우에는 Gradle 버전을 업그레이드해야합니다.
+<p>이럴 경우에는 Gradle 버전을 업그레이드 해야합니다.
 다양한 Gradle 버전을 설치하는데에는 <a href="https://sdkman.io/">SDKMAN</a> 을 권장합니다.
 Gradle Wrapper를 업그레이드하는 방법은 <a href="https://java.ihoney.pe.kr/476" class="bare">https://java.ihoney.pe.kr/476</a> 을 참조합니다.</p>
 </div>
@@ -398,11 +399,11 @@ Gradle Wrapper를 업그레이드하는 방법은 <a href="https://java.ihoney.p
 <p>IntellJ에서 프로젝트를 import할때 위의 설정을 참조할 수 있습니다.</p>
 </div>
 <div class="paragraph">
-<p>플러그인 설정이 완료되면 ktlint를 실행하는 Gradle 태스크는  <code>./gradlew tasks | grep ktlint</code> 명령으로 확인할 수 있습니다.</p>
+<p>플러그인 설정이 완료되면 ktlint를 실행하는 Gradle 태스크는  <code>./gradlew tasks | grep ktlint</code> 명령으로 확인합니다.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="스타일_검사_수행">1.3. 스타일 검사 수행</h3>
+<h3 id="스타일_검사">1.3. 스타일 검사</h3>
 <div class="paragraph">
 <p><code>./gradlew ktlintCheck</code> 태스크는 스타일 검사를 수행합니다.
 이 태스크는 <code>./gradlew build</code> 를 실행했을 때 연결되는 전체 프로젝트 빌드 싸이클에 포함됩니다. 따라서 디폴트 설정으로는  ktlint에서 가이드하는 코드 스타일을 지키지 않으면 빌드가 실패합니다.</p>

@@ -6,8 +6,8 @@
     <atom:link href="https://blog.benelog.net//feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 12 Nov 2019 21:30:48 +0000</pubDate>
-    <lastBuildDate>Tue, 12 Nov 2019 21:30:48 +0000</lastBuildDate>
+    <pubDate>Thu, 14 Nov 2019 13:29:30 +0000</pubDate>
+    <lastBuildDate>Thu, 14 Nov 2019 13:29:30 +0000</lastBuildDate>
 
     <item>
       <title>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</title>
@@ -22,7 +22,7 @@
 &lt;ul class=&quot;sectlevel2&quot;&gt;
 &lt;li&gt;&lt;a href=&quot;#editorconfig_설정&quot;&gt;1.1. &lt;code&gt;.editorconfig&lt;/code&gt; 설정&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#build_gradle_설정&quot;&gt;1.2. &lt;code&gt;build.gradle&lt;/code&gt; 설정&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#스타일_검사_수행&quot;&gt;1.3. 스타일 검사 수행&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#스타일_검사&quot;&gt;1.3. 스타일 검사&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#스타일_일괄_변환&quot;&gt;1.4. 스타일 일괄 변환&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#git_hook으로_설정&quot;&gt;1.5. Git hook으로 설정&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -84,6 +84,7 @@ charset = utf-8
 end_of_line = lf
 indent_size = 4
 indent_style = space
+trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = 120
 tab_width = 4&lt;/code&gt;&lt;/pre&gt;
@@ -143,7 +144,7 @@ tab_width = 4&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;max_line_length&lt;/code&gt; , &lt;code&gt;insert_final_newline&lt;/code&gt; 과 같은 규칙을 Kotlin 공식 코딩 컨벤션에는 명시되어 있지는 않습니다. 그러나 같은 소스를 고치면서 협업하는 개발자들이 이를 통일하지 않을 경우 불필요한 Diff 가 발생하여 코드 변경분을 파악할 때 불편해집니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;max_line_length&lt;/code&gt; , &lt;code&gt;insert_final_newline&lt;/code&gt; 과 같은 규칙을 Kotlin 공식 코딩 컨벤션에는 명시되어 있지는 않습니다. 그러나 같은 소스를 고치면서 협업하는 개발자들이 이를 통일하지 않을 경우 불필요한 diff 가 발생하여 코드 변경분을 파악할 때 불편해집니다.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -199,7 +200,7 @@ plugins {
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/jlleitschuh/ktlint-gradle&quot;&gt;jlleitschuh/ktlint-gradle&lt;/a&gt;는 Gradle 버전 5.4.1이상에서만 사용할 수 있습니다. 그 이하버전에서는 아래와 같은 에러가 나옵니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jlleitschuh/ktlint-gradle&quot;&gt;jlleitschuh/ktlint-gradle&lt;/a&gt;는 Gradle 버전 5.4.1이상에서만 사용할 수 있습니다. 그 이하 버전에서는 아래와 같은 에러가 나옵니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -212,7 +213,7 @@ Could not determine the dependencies of task &apos;:ktlintCheck&apos;.
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;이럴 경우에는 Gradle 버전을 업그레이드해야합니다.
+&lt;p&gt;이럴 경우에는 Gradle 버전을 업그레이드 해야합니다.
 다양한 Gradle 버전을 설치하는데에는 &lt;a href=&quot;https://sdkman.io/&quot;&gt;SDKMAN&lt;/a&gt; 을 권장합니다.
 Gradle Wrapper를 업그레이드하는 방법은 &lt;a href=&quot;https://java.ihoney.pe.kr/476&quot; class=&quot;bare&quot;&gt;https://java.ihoney.pe.kr/476&lt;/a&gt; 을 참조합니다.&lt;/p&gt;
 &lt;/div&gt;
@@ -236,11 +237,11 @@ Gradle Wrapper를 업그레이드하는 방법은 &lt;a href=&quot;https://java.
 &lt;p&gt;IntellJ에서 프로젝트를 import할때 위의 설정을 참조할 수 있습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;플러그인 설정이 완료되면 ktlint를 실행하는 Gradle 태스크는  &lt;code&gt;./gradlew tasks | grep ktlint&lt;/code&gt; 명령으로 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;플러그인 설정이 완료되면 ktlint를 실행하는 Gradle 태스크는  &lt;code&gt;./gradlew tasks | grep ktlint&lt;/code&gt; 명령으로 확인합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;스타일_검사_수행&quot;&gt;1.3. 스타일 검사 수행&lt;/h3&gt;
+&lt;h3 id=&quot;스타일_검사&quot;&gt;1.3. 스타일 검사&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;code&gt;./gradlew ktlintCheck&lt;/code&gt; 태스크는 스타일 검사를 수행합니다.
 이 태스크는 &lt;code&gt;./gradlew build&lt;/code&gt; 를 실행했을 때 연결되는 전체 프로젝트 빌드 싸이클에 포함됩니다. 따라서 디폴트 설정으로는  ktlint에서 가이드하는 코드 스타일을 지키지 않으면 빌드가 실패합니다.&lt;/p&gt;
