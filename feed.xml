@@ -6,8 +6,8 @@
     <atom:link href="https://blog.benelog.net//feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 20 Nov 2019 04:34:33 +0000</pubDate>
-    <lastBuildDate>Wed, 20 Nov 2019 04:34:33 +0000</lastBuildDate>
+    <pubDate>Thu, 21 Nov 2019 12:10:42 +0000</pubDate>
+    <lastBuildDate>Thu, 21 Nov 2019 12:10:42 +0000</lastBuildDate>
 
     <item>
       <title>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</title>
