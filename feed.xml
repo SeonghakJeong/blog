@@ -6,8 +6,8 @@
     <atom:link href="https://blog.benelog.net//feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 21 Nov 2019 12:10:42 +0000</pubDate>
-    <lastBuildDate>Thu, 21 Nov 2019 12:10:42 +0000</lastBuildDate>
+    <pubDate>Sun, 1 Dec 2019 06:13:09 +0000</pubDate>
+    <lastBuildDate>Sun, 1 Dec 2019 06:13:09 +0000</lastBuildDate>
 
     <item>
       <title>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</title>
@@ -61,7 +61,7 @@
 &lt;p&gt;&lt;a href=&quot;https://ktlint.github.io/&quot;&gt;ktlint&lt;/a&gt;는 jar 파일로 제공되고, &lt;a href=&quot;https://jcenter.bintray.com/&quot; class=&quot;bare&quot;&gt;https://jcenter.bintray.com/&lt;/a&gt; 에도 배포되어 있습니다.
 따라서 별도의 Gradle plugin이 없어도 Gradle에서 task를 정의해서도 쓸 수 있습니다.
 그런데 ktlint의 공식 사이트에서는 Gradle plugin을 더 권장한다고 나와 있습니다.
-이 글에서는 ktlin를 래핑만 Gradle plugin 중 Github에서 별 갯수가 가장 높은 &lt;a href=&quot;https://github.com/jlleitschuh/ktlint-gradle&quot;&gt;jlleitschuh/ktlint-gradle&lt;/a&gt;를 사용했습니다.&lt;/p&gt;
+이 글에서는 ktlin를 래핑한 Gradle plugin 중 Github에서 별 갯수가 가장 높은 &lt;a href=&quot;https://github.com/jlleitschuh/ktlint-gradle&quot;&gt;jlleitschuh/ktlint-gradle&lt;/a&gt;를 사용했습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;editorconfig_설정&quot;&gt;1.1. &lt;code&gt;.editorconfig&lt;/code&gt; 설정&lt;/h3&gt;
