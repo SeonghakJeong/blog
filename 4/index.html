@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,135 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../3007743.html">Spring tag library +  Tomcat7.x 또는 Glassfish 2.2.x의 EL Injection 위험</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Mar 05, 2013'>
-            Mar 05, 2013</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div class="sect2">
-<h3 id="취약점의_조건">취약점의 조건</h3>
-<div class="paragraph">
-<p>아래 조건을 모두 충족시킨다면 코드는 치명적인 Remote code execution 취약성이 존재할 여지가 있습니다.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="http://jcp.org/aboutJava/communityprocess/mrel/jsr245/index.html">EL 2.2</a>를 지원하는 서블릿 컨테이너를 쓰거나 EL 2.2 라이브러리를 직접 jar파일로 참조해서 쓰고 있다. (대표적으로 Tomcat 7.x혹은 Glassfish 2.2.x)</p>
-</li>
-<li>
-<p>Spring 3.1.x 미만 버전을 쓰고 있다.</p>
-</li>
-<li>
-<p>Spring의 JSP Tag( &lt;spring:message.. 등)을 쓰고 있다.</p>
-</li>
-<li>
-<p>Spring의 JSP Tag에서 EL을 지원하는 속성에 사용자가 입력한 값이 들어갈 수 있다.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>각 태그의 속성의 EL지원 여부는 <a href="https://docs.google.com/document/d/1dc1xxO8UMFaGLOwgkykYdghGWm_2Gn0iCrxFsympqcE/edit">Stefano Di Paola 등의 Expression Language Injection 보고서</a> 참조</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>위에서 첫번째 조건이 해당하지 않더라도 다른 취약점을 조심해야 합니다. EL 2.2을 사용하지 않더라도 JSP 2.0이상을 지원하는 서블릿 컨테이너를 쓰면서 2,3,4에 해당하는 코드라면 어플리케이션의 중요한 정보를 노출시킬 수 있는 취약점이 존재할 위험이 있습니다. Remote code execution만큼 심각하지는 않지만, 역시나 조치가 필요합니다.</p>
-</div>
-<div class="paragraph">
-<p>이 취약 지점은 의도하지 않은 정보를 노출할 수 있는 위험성으로 이미 2011년 9월 지적되어 보안되었으나, 이번달인 2013년 1월에는 같은 취약 지점을 통해서 원격 코드를 실행하는 기법이 발견되어 위험성 등급이 올라갔습니다. 즉, 해당 라이브러리가 취약성을 유발한다는 점 자체는 새로운 것이 아니고, 이미 이를 보강하는 버전이 나와 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>이 취약점의 원인과 조치방법은 아래 링크에 정리해놓았습니다. (코드가 들어간 글은 GIST를 쓰는 것이 훨씬 편하네요.)</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://gist.github.com/benelog/4582041" class="bare">https://gist.github.com/benelog/4582041</a></p>
-</li>
-</ul>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//3007743.html&text=Spring tag library +  Tomcat7.x 또는 Glassfish 2.2.x의 EL Injection 위험&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//3007743.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//3007743.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//3007743.html&title=Spring tag library +  Tomcat7.x 또는 Glassfish 2.2.x의 EL Injection 위험" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//3007743.html&title=Spring tag library +  Tomcat7.x 또는 Glassfish 2.2.x의 EL Injection 위험" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//3007743.html&title=Spring tag library +  Tomcat7.x 또는 Glassfish 2.2.x의 EL Injection 위험" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//3007743.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Spring.html'>Spring</a></li>
- 	        <li><a href='../tags/보안.html'>보안</a></li>
-
-				<li><a class="icon fa-comment" href="../3007743.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -640,6 +511,309 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2962391.html">코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Sep 08, 2012'>
+            Sep 08, 2012</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>계속 이어지는 인사이트 문제입니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.insightbook.co.kr/post/3876" class="bare">http://www.insightbook.co.kr/post/3876</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.insightbook.co.kr/wp-content/uploads/2012/08/%EC%BD%94%EB%94%A9%EC%9D%B8%ED%84%B0%EB%B7%B0-%ED%91%9C%EC%A7%801.jpg"><span class="image"><img src="http://www.insightbook.co.kr/wp-content/uploads/2012/08/%EC%BD%94%EB%94%A9%EC%9D%B8%ED%84%B0%EB%B7%B0-%ED%91%9C%EC%A7%801-204x300.jpg" alt="image" width="132" height="194" title="코딩인터뷰-표지"></span></a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="문제">문제</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>코딩 인터뷰 완전 분석』210쪽 17.3 변형 문제</p>
+</div>
+<div class="paragraph">
+<p>자연수 n을 입력받고, n!의 계산 결과 중 마지막에 붙은 연속된 0의 개수와 연속된 0 바로 앞에 나오는 숫자를 구하라.</p>
+</div>
+<div class="sect2">
+<h3 id="실행_예">실행 예</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>input n: 15
+output: 3 8</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="설명">설명</h3>
+<div class="paragraph">
+<p>15!은 1307674368000이므로, 마지막에 연속된 0은 3개이고, 바로 앞의 숫자는 8이다.</p>
+</div>
+<div class="paragraph">
+<p>조건</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>n의 범위는 1 이상, 10000 이하입니다.</p>
+</li>
+<li>
+<p>테스트 입력은 다음과 같습니다.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>20! = 2432902008176640000
+30! = 265252859812191058636308480000000
+40! = 815915283247897734345611269596115894272000000000
+50! = 30414093201713378043612608166064768844377641568960512000000000000
+100! = 93326215443944152681699238856266700490715968264381621468592963
+8952175999932299156089414639761565182862536979208272237582511852
+10916864000000000000000000000000</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>프로그래밍 언어에서 제공하는 자릿수 제한 없는 곱셈을 이용하거나, 이런 형태의 곱셈 함수를 직접 구현해도 답을 얻을 수 있지만, 문제의 의도와는 다릅니다.</p>
+</li>
+<li>
+<p>정답 검토의 편의를 위해 블로그 포스팅에 2012!와 10000!의 결과를 남겨주세요.</p>
+</li>
+<li>
+<p>(심화 문제) 연속된 0 앞에 나오는 여러 숫자를 구하는 것도 가능하니, 심심하신 분은 도전해보세요. ^^</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="풀이">풀이</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>먼저 입력값이 2012와 10000일 때의 결과는 아래와 같습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>input : 2012
+
+output: 501 8
+
+
+input : 10000
+
+output: 2499 8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>제가 푼 방식은 10은 5와 2의 배수라는 점을 이용했습니다.
+곱해지는 숫자를 2와 5로만 소인수 분해하고  그 갯수를 각각 누적해서 구합니다.
+즉 최종 팩토리안 값의 약수 중에서 2와 5가 몇 번 들어가 있는지를 계산하는 것이죠.
+그리고 2,5가 아닌 나머지 약수는 구하고자하는 자릿수만큼만 잘라서 보관합니다.</p>
+</div>
+<div class="paragraph">
+<p>예를 들면 5!에서 0의 갯수가 0이 아닌 마지막 숫자를 구한다면</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>5! = 1 * 2 * 3 * 4 *5 = 2^3 * 5 * 3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>이이므로 2는 3번, 5는 1번 들어갑니다. 0의 갯수는 2,5가 짝이 맞는 갯수이므로 둘 중에 작은 숫자인 5의 약수의 갯수, 즉 1개입니다.</p>
+</div>
+<div class="paragraph">
+<p>그리고 마지막 0이 아닌 숫자는 나머지 약수의 마지막 숫자인 3과 5와 짝이 맺어지지 못한 2의 배수를 곱해서 구합니다.</p>
+</div>
+<div class="paragraph">
+<p>여기서는 약수인 2중 1개는 5와 짝이 맺어졌고, 나머지 2개가 남았으므로 2^2*3 = 12, 마지막 숫자만 남기면 2입니다.</p>
+</div>
+<div class="paragraph">
+<p>테스트 코드에서는 이미 알려진 숫자를 검증했습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class FactorianAnalyzerTest {
+    FactorianAnalyzer analyzer = new FactorianAnalyzer();
+
+    @Test
+
+    public void test5(){
+        assertFactorianResult(5, 1, 2);
+    }
+
+    @Test
+    public void test15(){
+        assertFactorianResult(15, 3, 8);
+    }
+
+    @Test
+    public void test20(){
+        assertFactorianResult(20, 4, 4);
+    }
+
+    @Test
+    public void test30(){
+        assertFactorianResult(30, 7, 8);
+    }
+
+    @Test
+    public void test40(){
+        assertFactorianResult(40, 9, 2);
+    }
+
+    @Test
+    public void test50(){
+        assertFactorianResult(50, 12, 2);
+    }
+
+    @Test
+    public void test100(){
+        assertFactorianResult(100, 24, 4);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>그리고 꼭 마지막 1개의 숫자가 아닌 여러 숫자로 구할 수 있도록 확장했기 때문에 그것도 검증해보았습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class FactorianAnalyzerNonZeroTwoDigitsTest {
+
+    FactorianAnalyzer analyzer = new FactorianAnalyzer();
+
+    @Test
+    public void test5(){
+        assertFactorianResult(5, 2, 1, 12);
+    }
+
+    @Test
+    public void test6(){
+        assertFactorianResult(6, 2, 1, 72);
+    }
+
+    @Test
+    public void test7(){
+        assertFactorianResult(7, 3, 1, 504);
+    }
+
+    @Test
+    public void test8(){
+        assertFactorianResult(8, 2, 1, 32);
+    }
+
+    private void assertFactorianResult(int n,  int numOfLastNonZeroDigits, int expectedZeroCount, int expectedNonzeroDigit) {
+        FactorianResult result = analyzer.countZero(n, numOfLastNonZeroDigits);
+        assertThat(result.getZeroCount(), is(expectedZeroCount));
+        assertThat(result.getNonZeroDigits(), is(expectedNonzeroDigit));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>전체 코드는 아래 주소에 올렸습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/benelog/quiz/blob/master/src/test/java/net/benelog/quiz/insight/FactorianAnalyzerTest.java">FactorianAnalyzerTest.java</a></p>
+</li>
+<li>
+<p><a href="https://github.com/benelog/quiz/blob/master/src/main/java/net/benelog/quiz/insight/FactorianResult.java">FactorianResult.java</a></p>
+</li>
+<li>
+<p><a href="https://github.com/benelog/quiz/blob/master/src/main/java/net/benelog/quiz/insight/FactorianAnalyzer.java">FactorianAnalyzer.java</a></p>
+</li>
+<li>
+<p><a href="https://github.com/benelog/quiz/blob/master/src/test/java/net/benelog/quiz/insight/FactorianAnalyzerNonZeroTwoDigitsTest.java">FactorianAnalyzerNonZeroTwoDigitsTest.java</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2962391.html&text=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/코딩연습.html'>코딩연습</a></li>
+
+				<li><a class="icon fa-comment" href="../2962391.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../3/"
@@ -712,17 +886,6 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -749,6 +912,17 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -985,7 +1159,7 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1280,15 +1454,6 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1497,15 +1662,6 @@ Markdown을 지원하는 서비스나 도구들은 앞으로 계속 나올 듯�
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

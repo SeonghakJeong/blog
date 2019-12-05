@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,557 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2626007.html">BeanUtils 성능비교 - Apache commons, Opensymphony, Spring</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Jun 17, 2010'>
-            Jun 17, 2010</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="ulist">
-<div class="title">수정이력</div>
-<ul>
-<li>
-<p>2019.04.14</p>
-<div class="ulist">
-<ul>
-<li>
-<p>테스트한 코드를 <a href="https://github.com/benelog/beanutils-test" class="bare">https://github.com/benelog/beanutils-test</a> 로 올림</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>2010.06.21</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://colus.egloos.com/">EP</a>님의 지적으로 Apache commons Beanutils에서도 <a href="http://commons.apache.org/beanutils/api/org/apache/commons/beanutils/PropertyUtils.html#getPropertyDescriptor(java.lang.Object,%20java.lang.String)">PropertyUtils.getPropertyDescriptor</a>를 사용한 방식으로 비교해봤습니다.</p>
-</li>
-<li>
-<p><a href="http://www.tuning-java.com/">이상민님</a>의 지적으로 직접 Bean의 setter를 호출하는 방식의 자료도 추가</p>
-</li>
-<li>
-<p>BeanUtils.populate의 경우 다양한 type을 가진 property 변환을 하는 등의  실제로 많은 기능을 수행함을 설명 추가를 했습니다.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">덧붙임</div>
-<p>2019년 2월 시점에 다시 이글을 보니, JMH로 테스트하는 것이 좋았을것 같다는 생각이 듭니다.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="조사_내용">조사 내용</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>getter, setter가 있는 Java Bean들의 property들을 복사할 때 apache commons  beanutils(<a href="http://commons.apache.org/beanutils/" class="bare">http://commons.apache.org/beanutils/</a> ) 가 많이 쓰이고 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>그리고 Spring이나 Opensympony 쪽에도 간단한 BeanUtils가 따로 있습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Spring BeanUtils : <a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/beans/BeanUtils.html" class="bare">http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/beans/BeanUtils.html</a></p>
-</li>
-<li>
-<p>Opensymphony BeanUtils  : <a href="http://www.opensymphony.com/oscore/api/com/opensymphony/util/BeanUtils.html" class="bare">http://www.opensymphony.com/oscore/api/com/opensymphony/util/BeanUtils.html</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>이러한 BeanUtils들은 reflection을 내부적으로 쓰고 있으니 성능이 안 좋을 것이라는 우려를 할 수 있습니다. 어느 정도 성능 손해는 개발 편의성을 위해서 희생할 수 있는 경우도 많습니다. 그런데, 유사한 용도로 Bean복사를 하더라도 Apache commons BeanUtils쪽이 성능이 더 안 좋다는 소문은 있고 아래 자료에 의하면 100k byte object를 다룰 때는 Spring의 beanUtils에 비하면 거의 5~6배정도의 성능차이가 나는 것으로 알려져있습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.christianschenk.org/blog/java-bean-mapper-performance-tests/" class="bare">http://www.christianschenk.org/blog/java-bean-mapper-performance-tests/</a></p>
-</div>
-<div class="paragraph">
-<p>이는 commons BeanUtils가 단순히 bean을 복사하는 것보다는 많은 기능을 가진 상위수준의 라이브러리 이기 때문에 당연한 결과라고 보여집니다.
-Spring이나 Opensymphony의 BeanUtils는 단순히 Bean간의 데이터 복사, 속성정보를 얻어오는 정도인데, apache commons의 BeanUtils는 DynaBean 등 보다 넓은 개념들을 확장해서 제공하고 있습니다.
-그리고 BeanUtils.populate는 복사하려는 type이 정확하게 일치하지 않을 경우에도 복사를 해주는 등, 더 확장된 기능을 제공하고 있습니다.
-(첨부한 소스의 BeanConverterTypeConversionTest 파일을 보면 Map에 String으로 들어간 속성이 Bean에는 Integer, BigDecimal로 선언되어 있을 때, BeanUtils.populate는 제대로 복사를 해주는 것을 보여줍니다.)</p>
-</div>
-<div class="paragraph">
-<p>그렇다면 type이 일치하는 단순한 Bean간의 복사등에는 굳이 apache commons beanutils까지 사용할 필요가 없은 경우도 많을 것입니다.</p>
-</div>
-<div class="paragraph">
-<p>아래에서는 <code>List&lt;Map&gt;</code> &#8594; <code>List&lt;Bean&gt;</code> 로 변환을 시켜주는 기능을 각각의 library로 구현해서 성능비교를 해보았습니다. 소스들은 Eclipse project형태로 첨부파일에 들어가 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>비교군은 아래와 같습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>By Hand : 직접 map.get과 bean의 setter를 이용해서 복사</p>
-</li>
-<li>
-<p>Spring(property descriptor)  : Spring의 BeanUtils.getPropertyDescriptors를 사용. Spring의 BeanUtils에는 직접적으로 Map에서 Bean으로 복사해주는 메소드가 없어서 이 방식을 이용했습니다.</p>
-</li>
-<li>
-<p>Apache Commons(property descriptor) : 2번과 같은 방식을 사용하고, 라이브러리만 Apache commons BeanUtils의 PropertyUtils.getPropertyDescriptor를 사용</p>
-</li>
-<li>
-<p>Apache Commons(populate) : Apache comons BeanUtils의 BeanUtils.populate 메소드를 사용</p>
-</li>
-<li>
-<p>OpenSymphony(setValues) : Opensymphony의 BeanUtils.setValues를 사용</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="실행_시간_비교_결과">실행 시간 비교 결과</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>1만번부터 10만번까지 변환갯수를 늘여주면서(X축), 밀리세컨트 단위로 간단히 수행시간(Y축)을 측정했습니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/beanutils/graph-1.jpg" alt="image"></span></p>
-</div>
-<div class="paragraph">
-<p>Opensymphony 쪽이 너무 많이 차이가 나서 제외하고 나머지 4개만 다시 그려봤습니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/beanutils/graph-2.jpg" alt="image"></span></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-right valign-top">size</th>
-<th class="tableblock halign-right valign-top">By hand</th>
-<th class="tableblock halign-right valign-top">Spring (property descriptor)</th>
-<th class="tableblock halign-right valign-top">Apache Commons (property descriptor)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">10,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">15</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">78</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">63</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">20,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">32</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">93</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">125</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">30,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">15</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">141</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">141</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">40,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">32</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">188</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">187</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">50,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">15</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">218</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">250</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">60,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">15</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">250</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">297</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">70,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">32</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">297</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">359</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">80,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">32</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">359</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">360</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">90,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">46</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">406</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">438</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-right valign-top"><p class="tableblock">100,000</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">63</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">454</p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">484</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="결론">결론</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>19개의 속성을 가진 Bean을 대상으로 했을 때, Map&#8594;Bean 변환의 10만건의 경우 순위는 아래와 같았습니다.</p>
-</div>
-<div class="paragraph">
-<p>By Hand &gt; Spring(property descriptor) = Apache Commons(property descriptor) &gt; Apache Commons(populate) &gt; OpenSymphony(setValues)</p>
-</div>
-<div class="paragraph">
-<p>직접 손으로 한 것이 Sprng BeanUtils나 Commons의 PropertyUtils로 propery descriptor를 통해 호출한 것보다 7배 이상 빨랐습니다.</p>
-</div>
-<div class="paragraph">
-<p>그리고 PropertyDescriptor를 활용한 방식들이 그 다음 순위로, 비슷한 실행속도가 나왔습니다. Spring BeanUtils쪽에서는 Bean객체의 정보를 <a href="http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/beans/CachedIntrospectionResults.html">CachedIntrospectionResults</a>라는 클래스에 저장을 해 두고 있습니다. 그리고 Apache commons의 PropertyUtils에서도 유사하게 PropertyUtilsBean안에 descriptorsCache라는 속성으로 Bean정보를 Cache하고 있습니다. 그래서 실행속도가 거의 비슷하게 나온듯 합니다.</p>
-</div>
-<div class="paragraph">
-<p>Apache commons BeanUtils.populate는 2,3위 순위의 Property descriptor를 활용한 것들보다  6배 정도 실행시간이 더 걸리는 것으로 나왔습니다.</p>
-</div>
-<div class="paragraph">
-<p>BeanUtils.populate가 더 느린 이유는 두가지로 분석이 됩니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>위에서 말한 것처럼 좀 더 확장된 type변환을 지원하기 떄문입니다.</p>
-</li>
-<li>
-<p>PropertyDescriptor의 배열을 순회하는 방식이 아닌, Map의 keySet을 순회하는 방식을 쓰고 있는데, 아무래도 배열의 순회보다는 성능에는 불리할 것 같습니다.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">Iterator names = properties.keySet().iterator();
-while (names.hasNext()) {
-    // Identify the property name and value(s) to be assigned
-    String name = (String) names.next();
-    if (name == null) {
-        continue;
-    }
-    Object value = properties.get(name);
-    // Perform the assignment for this property
-    setProperty(bean, name, value);
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Opensymphony쪽은 70배이상 더 느린데, 제가 구현한 방식이 문제가 있는 건지도 모르겠습니다.</p>
-</div>
-<div class="paragraph">
-<p>아뭏든 위의 결과를 봐서는 되도록 성능이 민감한 곳에는 직접 setter를 호출해서 복사를 하고, BeanUtils.populate의 다양한 기능이 필요하지 않다면 Spring의 BeanUtils나 Apache commons PropertyUtils를 통해 캐쉬된 PropertyDescriptor를 정보를 통해 Bean에 접근하는 것이 성능에는 유리하다는 것을 알 수 있습니다.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="소스">소스</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/benelog/beanutils-test" class="bare">https://github.com/benelog/beanutils-test</a></p>
-</div>
-<div class="listingblock">
-<div class="title">Apache commons BeanUtils의 BeanUtils.populate 활용</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public &lt;T extends Map&lt;String,Object&gt;, C&gt; List&lt;C&gt; convertMapToBean(List&lt;T&gt; list,
-  Class&lt;C&gt; clazz) {
-    List&lt;C&gt; beanList = new ArrayList&lt;C&gt;();
-
-    for (T item : list) {
-        C bean = null;
-        try {
-            bean = clazz.newInstance();
-            BeanUtils.populate(bean, item);
-        } catch (InstantiationException e) {
-            new IllegalArgumentException("Cannot initiate class",e);
-        } catch (IllegalAccessException e) {
-            new IllegalStateException("Cannot access the property",e);
-        } catch (InvocationTargetException e) {
-            new IllegalArgumentException(e);
-        }
-        beanList.add(bean);
-    }
-    return beanList;
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Apache commons BeanUtils : PropertyUtils.getPropertyDescriptors활용</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public &lt;T extends Map&lt;String, Object&gt;, C&gt; List&lt;C&gt; convertMapToBean(
-    List&lt;T&gt; list, Class&lt;C&gt; clazz) {
-    List&lt;C&gt; beanList = new ArrayList&lt;C&gt;();
-
-    for (T source : list) {
-        C bean = null;
-
-        try {
-            bean = clazz.newInstance();
-
-            PropertyDescriptor[] targetPds = PropertyUtils.getPropertyDescriptors(clazz);
-
-            for (PropertyDescriptor desc : targetPds) {
-                Object value = source.get(desc.getName());
-                if (value != null) {
-                    Method writeMethod = desc.getWriteMethod();
-                    if (writeMethod != null) {
-                        writeMethod.invoke(bean, new Object[] { value });
-                    }
-                }
-            }
-        } catch (InstantiationException e) {
-            new IllegalArgumentException("Cannot initiate class",e);
-        } catch (IllegalAccessException e) {
-            new IllegalStateException("Cannot access the property",e);
-        } catch (InvocationTargetException e) {
-            new IllegalArgumentException(e);
-        }
-        beanList.add(bean);
-    }
-    return beanList;
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">OpenSymphony BeanUtils : setValues 활용</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public &lt;T extends Map&lt;String, Object&gt;, C&gt; List&lt;C&gt; convertMapToBean(List&lt;T&gt; list, Class&lt;C&gt; targetClass) {
-    List&lt;C&gt; beanList = new ArrayList&lt;C&gt;();
-
-    for (Map&lt;String, Object&gt; map : list) {
-        C bean = null;
-        try {
-            bean = targetClass.newInstance();
-            BeanUtils.setValues(bean, map, null);
-        } catch (InstantiationException e) {
-            new IllegalArgumentException("Cannot initiate class", e);
-        } catch (IllegalAccessException e) {
-            new IllegalStateException("Cannot access the property", e);
-        }
-        beanList.add(bean);
-    }
-    return beanList;
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Spring BeanUtils : getPropertyDescriptors 활용</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public &lt;T extends Map&lt;String, Object&gt;, C&gt; List&lt;C&gt; convertMapToBean(
-    List&lt;T&gt; list, Class&lt;C&gt; clazz) {
-    List&lt;C&gt; beanList = new ArrayList&lt;C&gt;();
-    for (Map&lt;String, Object&gt; source : list) {
-        C bean = toBean(source, clazz);
-    beanList.add(bean);
-
-    }
-    return beanList;
-}
-
-private &lt;C&gt; C toBean(Map&lt;String, Object&gt; source, Class&lt;C&gt; targetClass) {
-    C bean = null;
-    try {
-        bean = targetClass.newInstance();
-        PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(targetClass);
-
-        for (PropertyDescriptor desc : targetPds) {
-            Object value = source.get(desc.getName());
-            if (value != null) {
-                Method writeMethod = desc.getWriteMethod();
-                if (writeMethod != null) {
-                    writeMethod.invoke(bean, new Object[] { value });
-                }
-            }
-        }
-    } catch (InstantiationException e) {
-        new IllegalArgumentException("Cannot initiate class",e);
-    } catch (IllegalAccessException e) {
-        new IllegalStateException("Cannot access the property",e);
-    } catch (InvocationTargetException e) {
-        new IllegalArgumentException(e);
-    }
-    return bean;
-}</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="성능측정_코드">성능측정 코드</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Test
-public void testApacheCommonsBeanUtils() {
-    BeanConverter converter = new ApacheCommonsBeanUtilsBeanConverter();
-    executeIncrementally(converter);
-}
-
-@Test
-public void testApacheCommonsPropertyUtils() {
-    BeanConverter converter = new ApacheCommonsPropertyUtilsBeanConverter();
-    executeIncrementally(converter);
-}
-
-@Test
-public void testOpenSymphony() {
-    BeanConverter converter = new OpenSymphonyBeanConverter();
-    executeIncrementally(converter);
-}
-
-@Test
-public void testSpring() {
-    BeanConverter converter = new SpringBeanConverter();
-    executeIncrementally(converter);
-}
-
-@Test
-public void testByHand() {
-    BeanConverter converter = new UserConverter();
-    executeIncrementally(converter);
-}
-
-private void excuecteBeanConverter(BeanConverter converter, int iterations) {
-    List&lt;Map&lt;String, Object&gt;&gt; testList = createMapListForTest(iterations);
-    long start = System.currentTimeMillis();
-    List&lt;User&gt; beanList = converter.convertMapToBean(testList, User.class);
-    long end = System.currentTimeMillis();
-    System.out.printf("%s,%d times, %d milliseconds \r\n", converter.getClass().getSimpleName(), iterations, (end - start));
-}
-
-private void executeIncrementally(BeanConverter converter) {
-    for (int i = 0; i &lt;= 100000; i += 10000) {
-        excuecteBeanConverter(converter, i);
-    }
-}
-
-private List&lt;Map&lt;String, Object&gt;&gt; createMapListForTest(int iterations) {
-    List&lt;Map&lt;String, Object&gt;&gt; list = new ArrayList&lt;Map&lt;String, Object&gt;&gt;();
-
-    Map&lt;String, Object&gt; user = new HashMap&lt;String, Object&gt;();
-    user.put("id", 1);
-    user.put("age", 1);
-    user.put("name", "내이름");
-    user.put("name1", "내이름");
-    user.put("name2", "내이름");
-    user.put("name3", "내이름");
-    user.put("name4", "내이름");
-    user.put("name5", "내이름");
-    user.put("name6", "내이름");
-    user.put("name7", "내이름");
-    user.put("name8", "내이름");
-    user.put("name9", "내이름");
-    user.put("name10", "내이름");
-    user.put("income", new BigDecimal("1000100100"));
-    user.put("address", "오늘 아침 내가 행복한 이유는 이런거지 오늘아침 내가 서러운 이유는 그런거야 ");
-    user.put("introduce", "오늘 아침 내가 행복한 이유는 이런거지 오늘아침 내가 서러운 이유는 그런거야 ");
-    user.put("married", true);
-    user.put("nickName", "뻐꾸기");
-
-    for (int i = 0; i &lt; iterations; i++) {
-        list.add(user);
-    }
-    return list;
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2626007.html&text=BeanUtils 성능비교 - Apache commons, Opensymphony, Spring&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2626007.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2626007.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2626007.html&title=BeanUtils 성능비교 - Apache commons, Opensymphony, Spring" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2626007.html&title=BeanUtils 성능비교 - Apache commons, Opensymphony, Spring" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2626007.html&title=BeanUtils 성능비교 - Apache commons, Opensymphony, Spring" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2626007.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/BeanUtils.html'>BeanUtils</a></li>
- 	        <li><a href='../tags/성능.html'>성능</a></li>
- 	        <li><a href='../tags/Java.html'>Java</a></li>
-
-				<li><a class="icon fa-comment" href="../2626007.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -1108,6 +557,196 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2229687.html">Java의 auto boxing과 unbox은 어떻게 컴파일될까?</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Feb 10, 2009'>
+            Feb 10, 2009</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div class="paragraph">
+<p>아래 코드는 [프리미티브 타입과 Wrapper 클래스, 자동 Boxing, 자동 UnBoxing]이라는 글에 나오는 것을 입력해 본 것입니다. int와 java.lang.Integer객체를 "=="와 "equals()"메소드로 비교하고 있습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/java/auto-boxing-test.jpg" alt="auto boxing test" title="auto-boxing-test.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>위의 코드에서 생성한 .class파일을 역컴파일해보면 아래와 같은 코드가 나옵니다. autoboxing과 unboxing이 어떤 방식으로 이루어 지는지 잘 확인할 수 있습니다. java.lang.Integer가 int로 바뀔 때는 intValue() 메소드, int가 java.lang.Integer로 바뀔 때는 Integer.valueOf()메소드를 사용하고 있습니다. JDK 1.4이하 버전과의 하위호환성을 위해서 이런 방식을 쓰는 것이겠죠.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">int a = 1;
+int b = 1;
+Integer c = new Integer(1);
+Integer d = new Integer(1);
+System.out.println((new StringBuilder("1:")).append(System.identityHashCode(Integer.valueOf(a))).toString());
+System.out.println((new StringBuilder("2:")).append(System.identityHashCode(Integer.valueOf(b))).toString());
+System.out.println((new StringBuilder("3:")).append(System.identityHashCode(c)).toString());
+System.out.println((new StringBuilder("4:")).append(System.identityHashCode(d)).toString());
+System.out.println((new StringBuilder("5:")).append(a == b).toString());
+System.out.println((new StringBuilder("7:")).append(c == d).toString());
+System.out.println((new StringBuilder("8:")).append(c.equals(d)).toString());
+System.out.println((new StringBuilder("9:")).append(a == c.intValue()).toString());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>new Integer()</code> 로 생성자를 호출하면 매로 새로 객체를 생성하는데, Integer.valueOf()메소드를 사용하면 캐쉬된 값을 사용할 수 있습니다. 이 메소드의 소스를 보면 -128부터 127까지의 static영역에 캐쉬로 쌓아두고 있습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java"> static {
+  cache = new Integer[256];
+  for (int i = 0; i &lt; cache.length; i++)
+  cache[i] = new Integer(i - 128);
+}
+
+public static Integer valueOf(int i) {
+  if (i &gt;= -128 &amp;&amp; i &lt;= 127)
+  return IntegerCache.cache[i + 128];
+  else
+  return new Integer(i);
+}
+---
+
+처음에 나왔던 저의 Eclipse 캡쳐화면을 보면 findbugs 플러그인에서 new Integer()사용 코드에 대한 경고를 보여주고 있습니다. 자세한 설명을 보니, `Integer.valueOf()` 를 사용할 경우 약 3.5배 정도 실행속도가 빠르다고 하네요.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>M P Bx] Method invokes inefficient Number constructor; use static valueOf instead [DM_NUMBER_CTOR]</p>
+</div>
+<div class="paragraph">
+<p>Using new Integer(int) is guaranteed to always result in a new object whereas Integer.valueOf(int) allows caching of values to be done by the compiler, class library, or JVM. Using of cached values avoids object allocation and the code will be faster.</p>
+</div>
+<div class="paragraph">
+<p>Values between -128 and 127 are guaranteed to have corresponding cached instances and using valueOf is approximately 3.5 times faster than using constructor. For values outside the constant range the performance of both styles is the same.</p>
+</div>
+<div class="paragraph">
+<p>Unless the class must be compatible with JVMs predating Java 1.5, use either autoboxing or the valueOf() method when creating instances of Long, Integer, Short, Character, and Byte.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>이런 원리들을 잘 염두해 둬서, auto boxing과 unboxing이 사용될 때 필요없는 객체가 생성되지 않는지 유의해야 합니다.
+
+다음 코드는 Effective Java 2nd Edition의 Item 5 - '불필요한 객체를 생성하지 마라'에 나오는 예제입니다.
+
+[source,java]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Long sum = 0L;
+for(long i=0;i&lt; Integer.MAX_VALUE;i++){
+   sum += i;
+}
+System.out.println(sum);</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  이 코드를 컴파일한 후 다시 역컴파일 해보면 다음과 같이 나옵니다.
+
+[source,java]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Long sum = Long.valueOf(0L);
+for(long i = 0L; i &lt; 0x7fffffffL; i++)  sum = Long.valueOf(sum.longValue() + i);</p>
+</div>
+<div class="paragraph">
+<p>System.out.println(sum);</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>java.lang.Double.valueOf(double) 메서드는 매번 새로운 객체를 생성하게 되어 있습니다.
+
+[source,java]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>public static Double valueOf(double d) {
+  return new Double(d);
+}</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>이렇듯 불필요한 객체생성을 막기 위해 되도록 primitive type을 선호해야 합니다. auto boxing은 Collection이나 Map에 들어가는 요소로 변수가 쓰일 때, generics가 적용한 코드를 작성할 때 등이 적절한 사용의 예입니다. (Effective Java 2nd Edition, Item 49 참조)</pre>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2229687.html&text=Java의 auto boxing과 unbox은 어떻게 컴파일될까?&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Java.html'>Java</a></li>
+ 	        <li><a href='../tags/autoboxing.html'>autoboxing</a></li>
+
+				<li><a class="icon fa-comment" href="../2229687.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../14/"
@@ -1180,17 +819,6 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -1217,6 +845,17 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1453,7 +1092,7 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1748,15 +1387,6 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1965,15 +1595,6 @@ public class OracleOutputFormat&lt;K  extends DBWritable, V&gt; extends DBOutput
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

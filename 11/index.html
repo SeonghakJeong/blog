@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,172 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2790336.html">파일 업로드를 하는 Servlet을 MockHttpServletRequest로 테스트하기</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Apr 24, 2011'>
-            Apr 24, 2011</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div class="paragraph">
-<p>파일 update를 처리하는 Servlet도 Spring의 MockHttpSerlvetRequest와 MockHttpServletResponse로 테스트 할 수 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>다음 링크에 있는 소스를 참고했습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://milandinic.blogspot.com/2009/05/testing-upload-servlet-under-spring.html" class="bare">http://milandinic.blogspot.com/2009/05/testing-upload-servlet-under-spring.html</a></p>
-</div>
-<div class="paragraph">
-<p>request의 content 속성에 파일내용 등을 포함시켜 주면 됩니다.</p>
-</div>
-<div class="paragraph">
-<p>아래 예제에서 Assert부분은 화면에 출력되는 문자열을 검사하는 방식입니다.
-테스트 하고자하는 목적에 따라 파일업로드가 되었을 때의 특정 위치에 파일이 생성된 것을 확인한다거나, 그 뒤에 호출되는 클래스를 행위검증하는 방식등을 다양하게 응용하실 수 있을 것입니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">publicclassUploadServletTest {
-    UploadServlet servlet =newUploadServlet() ;
-    MockHttpServletRequest request =newMockHttpServletRequest();
-    MockHttpServletResponse response =newMockHttpServletResponse();
-
-    private static final String ENDLINE ="\r\n";
-
-    private static final String BOUNDARY ="qWeRtY";
-
-   @Test
-    public void testUploadNormalFile() throws Exception {
-        // given
-        String fileContent ="for upload test";
-        String fileName ="message.txt";
-        String reqContent = createContentWithFile(fileName, fileContent);
-        request.setContent(reqContent.getBytes());
-        request.setContentType("multipart/form-data; boundary="+ BOUNDARY);
-        request.setMethod("POST");
-
-        // when
-        servlet.service(request, response);
-
-       // then
-       String output = response.getContentAsString();
-      assertTrue("정상적으로 업로드 되었을 때에는", output.contains("File size"));
-    }
-
-    @Test
-   public void testUploadEmptyFile() throws Exception {
-       // given
-       String fileContent ="";
-       String fileName ="message.txt";
-       String reqContent = createContentWithFile(fileName, fileContent);
-       request.setContentType("multipart/form-data; boundary="+ BOUNDARY);
-       request.setMethod("POST");
-       request.setContent(reqContent.getBytes());
-
-       // when
-       servlet.service(request, response);
-
-      // then
-      String output = response.getContentAsString();
-      assertThat("빈 파일이 올라갔을 때에는", output, is("No binary data contains"));
-    }
-
-    private String createContentWithFile(String fileName, String fileContent) {
-        StringBuilder reqContent =newStringBuilder();
-        reqContent.append("--"+ BOUNDARY + ENDLINE);
-        reqContent.append("Content-Disposition: form-data; name=\"myfile\";"
-        +" filename=\""+ fileName +"\""+ ENDLINE);
-        reqContent.append(ENDLINE);
-        reqContent.append(fileContent);
-        reqContent.append(ENDLINE);
-        reqContent.append("--"+ BOUNDARY +"--"+ ENDLINE);
-        return reqContent.toString();
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>참고로 Spring에서는 MockMultipartHttpServletRequest와 MockMultipartFile 같은 첨부파일에 특화된 테스트 전용 클래스를 제공하기는 하지만, Spring MVC를 사용하지 않는 그냥 Servlet에서는 위의 방식처럼 MockHttpServletRequest을 사용해야 합니다.</p>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2790336.html&text=파일 업로드를 하는 Servlet을 MockHttpServletRequest로 테스트하기&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2790336.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2790336.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2790336.html&title=파일 업로드를 하는 Servlet을 MockHttpServletRequest로 테스트하기" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2790336.html&title=파일 업로드를 하는 Servlet을 MockHttpServletRequest로 테스트하기" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2790336.html&title=파일 업로드를 하는 Servlet을 MockHttpServletRequest로 테스트하기" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2790336.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Servlet.html'>Servlet</a></li>
- 	        <li><a href='../tags/Spring.html'>Spring</a></li>
- 	        <li><a href='../tags/Spring-Test.html'>Spring-Test</a></li>
- 	        <li><a href='../tags/Test.html'>Test</a></li>
-
-				<li><a class="icon fa-comment" href="../2790336.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -825,6 +659,158 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2710123.html">SpringOne2GX 2010 (4) Spring Roo 관련 발표들</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Nov 11, 2010'>
+            Nov 11, 2010</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div class="paragraph">
+<p>작년 SpringOne에서도 Spring Roo에 대한 발표가 있었고, Google IO 등 다른 컨퍼런스에서도 꾸준히 Spring Roo는 홍보되었지만, 이번 SpringOne에서는 부쩍 그 비중이 높게 느껴졌습니다.</p>
+</div>
+<div class="paragraph">
+<p>키노트가 있었던 주행사장에는 Spring Roo, Spring, SpringSource, Groovy, Grails의 5개의 로고가 조명으로 비추어져 있었습니다. Groovy-Grais의 관계처럼 Spring-SpringRoo의 관계를 연상시켜서, Spring의 대표 기술로  홍보하려는 전략으로 보였습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://lh3.ggpht.com/_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG" alt="_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG" width="640" height="480" title="_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://lh6.ggpht.com/_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG" alt="_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG" width="465" height="348" title="_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG"></span></p>
+</div>
+<div class="paragraph">
+<p>그리고 행사 기념품으로 나온 배찌에서도, Spring,SpringSource, Goorvy, Grails, Tomcat 등과 함께 Spring Roo의 로고가 박힌 것이 포함되었습니다. Security나 Batch같이 이미 현장에서 더 많이 쓰이고 있는 하위 프로젝트들도 있는데, Roo만 특별대우 한다는 느낌까지 들 정도였습니다.  다른 프레임웍 기술만과는 차별된 Spring만의 강점을 강조하기 위해서 Spring Roo가 전면에 나왔다고 생각됩니다.  스프링에서 지원하는 기술이 많아질 수록, API들을 전파하는 것도 쉽지 않을 것인데, Spring Roo를 통해서 사용할 수 있는 방법을 제공하면 코드가 자동생성 되므로 사용법이 더 간편해 보인다는 장점이 있을 것입니다. 그리고 Roo가 그렇게 새로운 API 전파 창구의 역할을 수행한다면 Roo를 직접 사용하지 않는 사람도 Roo가 생성해주는 코드를 샘플로 활용할 수도 있을 것입니다. Spring 3.0.4에 포함된 &lt;mvc:default-servlet-handler/&gt;가 Roo에 바로 반영된 것이나, Neo4j의 Roo addon등이 그 예입니다.</p>
+</div>
+<div class="paragraph">
+<p>컨퍼런스가 끝나고 몇일 뒤에 바로 Spring Roo 1.1.0 버전이 발표되었는데,  이번 컨퍼런스에서 1.1.0에 포함된 기능을 소개하는 발표가 많았습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://blog.springsource.com/2010/10/27/spring-roo-1-1-0-is-released/" class="bare">http://blog.springsource.com/2010/10/27/spring-roo-1-1-0-is-released/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>OSGi, GWT, GAE-J 지원,  검색서버인 Apache Solr  지원, Database reverse engineering 등 많은 발전을 보여줍니다. 아래 포스트에 있는 지난 1년간의 Roo의 commit 내력을 시각화한 그림에서도 그런 변화가 표현되었습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://stsmedia.net/spring-roo-1-1-ga-released/" class="bare">http://stsmedia.net/spring-roo-1-1-ga-released/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>벤알렉스 아저씨가 열심히 개발을 하는 모습이 보이는군요.  이번 컨퍼런스에  벤알렉스는 참석하지 않았고, 벤알렉스가 진행하기로 한 발표의 일부는 로드존슨이 직접 진행했습니다. 아파서 못 왔다고는 말했는데, 1.1 출시를 얼마 안 앞두고 마무리 작업 때문에 못 온 것이 아닌가 하는 생각도 들었습니다.</p>
+</div>
+<div class="paragraph">
+<p>저는 Roo 관련 세션 중에 Add-On 개발 관련 세션에 들어갔었습니다.
+아래 URL에 있는 toString addon을 샘플소스로 보라고 했는데,  toString을 Addon도 크게 쉬워보이지는 않았습니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://git.springsource.org/roo/roo/trees/master/addon-tostring/src/main/java/org/springframework/roo/addon/tostring" class="bare">http://git.springsource.org/roo/roo/trees/master/addon-tostring/src/main/java/org/springframework/roo/addon/tostring</a></p>
+</div>
+<div class="paragraph">
+<p>가장  흥미로운 이야기는 Roo에서 앞으로 iBatis, Spring jdbc 같은  JPA 이외의 Persistence 기술도 지원하겠다는 것이였습니다.</p>
+</div>
+<div class="paragraph">
+<p>그리고 Maven 멀티 프로젝트를 언제 지원할 수 있으냐는 질문이 세션 중에 나왔는데, 명확한 일정을 확답을 하지 못한 것으로 봐서는 가까운 시일 내에 가능해지지는 않을 것 같습니다.</p>
+</div>
+<div class="paragraph">
+<p>Roo 관련 발표 자료들은 아래에 공개되어 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/new-persistence-features-in-spring-roo-11">New Persistence Features in Spring Roo 1.1</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/next-generation-spring-mvc-with-spring-roo">Next Generation Spring MVC with Spring Roo</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/spring-one2010addondev">Spring Roo Add-On Development &amp; Distribution</a></p>
+</li>
+</ul>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2710123.html&text=SpringOne2GX 2010 (4) Spring Roo 관련 발표들&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Spring.html'>Spring</a></li>
+ 	        <li><a href='../tags/Spring-One.html'>Spring-One</a></li>
+ 	        <li><a href='../tags/행사후기.html'>행사후기</a></li>
+
+				<li><a class="icon fa-comment" href="../2710123.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../10/"
@@ -897,17 +883,6 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -934,6 +909,17 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1170,7 +1156,7 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1465,15 +1451,6 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1682,15 +1659,6 @@ API는 Application Programming Interface이니 포털의 User interface가 최�
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

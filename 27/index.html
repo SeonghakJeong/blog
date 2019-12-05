@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,207 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../1456715.html">CSS 선택자 정리</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Sep 06, 2007'>
-            Sep 06, 2007</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>주로 Head first HTML/CSS에 있는 내용을 정리했습니다.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="여러개의_element_선택">여러개의 element 선택</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">h1, h2 { }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="class_선택자">class 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">p.greentea { } /* class가 greentea인 &lt;p/&gt; 선택 */
-
-.greentea { } /* class가 greentea인 모든 태그 */</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="id_선택자">id 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">#footer {} /* id가 footer인 모든 태그 */
-
-p#footer {}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="자식child_element_선택">자식(Child) element 선택</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">div h2 {color:red} /* &lt;div/&gt; 하위에 있는&lt;h2/&gt; 선택  */
-
-.detail p {}   /* class가 "detail"로 지정되어 있는 하위의 &lt;p/&gt; 선택 */</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="상태에_따른_선택자">상태에 따른 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">a:visited\{}
-
-a:link \{}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>상태는 active, hover, link, visited, first-child 등</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="의사psdudo_element_선택자">의사(Psdudo) element 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">p:first-letter {}
-
-p:first-line {}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="속성attribute_선택자">속성(Attribute) 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">img[width] {border:black thin solid;} /* width 속성을 가진 모든 이미지 선택 */
-
-img[height="300"] {border:red thin solid; } /* 값이 300인 height 속성을 가진 모든 이미지 선택 */
-
-image[alt~="flowers"] {border:red thin solid; }  /* "flowers"라는 단어를 포함하는 alt 속성을 가진 모든 이미지 */</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="형제sibling_element_선택자">형제(Sibling) element 선택자</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">h1+p {}  /* &lt;h1&gt; 다음에 오는 &lt;p&gt; 선택 */</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="선택자_결합">선택자 결합</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-css" data-lang="css">div#greentea &gt; blockquote {}  /* &lt;blockquote/&gt;의 부모가 되어야하는 "greentea" id를 가진 &lt;div/&gt; 자손 선택자 */
-
-div#greentea &gt; blockquote p {} /* &lt;blockquote/&gt;의 자손이자 "greentea" id를 가진 &lt;div/&gt;의 자손인 &lt;p/&gt; 선택 */
-
-div#greentea &gt; blockquote p:first-line /* 그 &lt;p/&gt;의 첫 줄 */</code></pre>
-</div>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//1456715.html&text=CSS 선택자 정리&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//1456715.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//1456715.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//1456715.html&title=CSS 선택자 정리" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//1456715.html&title=CSS 선택자 정리" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//1456715.html&title=CSS 선택자 정리" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//1456715.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/CSS.html'>CSS</a></li>
-
-				<li><a class="icon fa-comment" href="../1456715.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -1153,6 +952,159 @@ ng/Object;
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../1348296.html">AOP 관련 용어 정리</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Jul 19, 2007'>
+            Jul 19, 2007</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>부서원들과 같이 하는 세미나를 위해서 정리했었던 자료 중의 일부입니다. 대충 알고 있었던 것도 막상 누가 물어보면 한마디로 설명하는 것은 어렵다고 종종 느낍니다.  세미나 발표 준비를 하면서 모르면서 알고 있었다고 착각했던 부분을 많이 발견할 수 있어서 좋았습니다.</p>
+</div>
+<div class="paragraph">
+<p>약간 엉뚱한 이야기지만, 포스트를 작성하는 동안 '그림1&#8217;을 다시 보면서 최근 읽고 있는 <a href="http://www.amazon.com/World-Flat-Updated-Expanded-Twenty-first/dp/0374292795/ref=pd_bbs_sr_1/105-2068841-6541209?ie=UTF8&amp;s=books&amp;qid=1184811573&amp;sr=8-1">'The world is flat</a>'이라는 책의 내용이 생각났습니다. 그 책의 처음에는 기업의 아웃소싱에 대한 사례가 많이 나옵니다.  기업의 핵심 업무가 아니고 밖에서 할 수있는 업무들은 보다 싼 비용으로 처리할 수 있는 해외의 조직으로 넘기는 사례가 늘어나고 있다는 것이죠. 각 업무단의 코드에는 핵심로직만 남기고 공통적인 처리는 따로 정의해 둔 것을 weaving해서 쓴다는 내용과 왠지 비슷하게 보이더군요.  (그런데 책을 아직 1장 밖에 못 읽었어요)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aop_용어">AOP 용어</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a> :보안, 예외등과 같이 프로그램에 처리해야 하는 다양한 관점을 분리(<a href="http://en.wikipedia.org/wiki/Separation_of_concerns">Separation of concerns</a>)시키고 각각의 관점별로 구현을 한 후 이를 조합하여 완성된 프로그램을 만들고자 하는 개념. (참고자료1)</p>
+</li>
+<li>
+<p>횡단관점(<a href="http://en.wikipedia.org/wiki/Cross-cutting_concern">crosscutting concerns</a>) : 분리된 모듈로 작성하기 힘든 시스템 전반적으로 산재된 기능(예로 보안, 로그, 인증)</p>
+</li>
+<li>
+<p>핵심관점(main concern) : 해당시스템의 핵심가치와 목적이 드러난 관심영역 (primary concern, <a href="http://en.wikipedia.org/wiki/Core_concern">core concern</a>)</p>
+</li>
+<li>
+<p>조인포인트(<a href="http://en.wikipedia.org/wiki/Join_point">join point</a>) : 횡단 관심모듈의 기능이 삽입되어 호출될 수 있는 실행가능한 특정위치</p>
+</li>
+<li>
+<p>포인트컷(<a href="http://en.wikipedia.org/wiki/Pointcut">point cut</a>) : 조인포인트의 집합. 어떤 클래스의 어느 조인포인트를 사용할 것인지 결정하는 선택 기능. Code와 advice를 연결해주는 설정정보.</p>
+</li>
+<li>
+<p>어드바이스(<a href="http://en.wikipedia.org/wiki/Advice_in_aspect-oriented_programming">advice</a>) : 각  조인포인트에서 행하는 행위, 삽입될 수 있는 코드. cross-cutting concern을 구현한 코드.</p>
+</li>
+<li>
+<p>조합(weaving) : 핵심관점코드와 어드바이스를 조합해 애플리케이션으로 완성하는 과정</p>
+</li>
+<li>
+<p>기술적 용어로서의 asepct : Advice와 point-cut을 함께 지칭하는 단어</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="참고자료">참고자료</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>마이크로소프트웨어 2005/11 테크니컬 컬럼 - 객체지향을 넘어 관점지향으로 AOP (이일민)   (<a href="http://www.zdnet.co.kr/builder/dev/java/0,39031622,39147106,00.htm" class="bare">http://www.zdnet.co.kr/builder/dev/java/0,39031622,39147106,00.htm</a> )</p>
+</li>
+<li>
+<p>마이크로소프트웨어 2006/09 S/W로 여는 세상 - 관점지향의 개념잡기 -상황중심의 프로그래밍 (임백준) (<a href="http://www.zdnet.co.kr/builder/dev/etc/0,39031619,39154322-1,00.htm" class="bare">http://www.zdnet.co.kr/builder/dev/etc/0,39031619,39154322-1,00.htm</a>)</p>
+</li>
+<li>
+<p>3번 자료에 대한 반론 - <a href="http://toby.epril.com/?p=229" class="bare">http://toby.epril.com/?p=229</a> (이일민님의 블로그)</p>
+</li>
+<li>
+<p>마이크로소프트웨어 2007/03 Cover Story- OOP한계 극복패러다임 AOP (이일민,김백기,박재성, 류대원)</p>
+</li>
+<li>
+<p>한빛네트워크에 올라온 AOP소개 기사 : <a href="http://network.hanb.co.kr/view.php?bi_id=968" class="bare">http://network.hanb.co.kr/view.php?bi_id=968</a></p>
+</li>
+<li>
+<p>위키페디아</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//1348296.html&text=AOP 관련 용어 정리&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//1348296.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//1348296.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//1348296.html&title=AOP 관련 용어 정리" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//1348296.html&title=AOP 관련 용어 정리" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//1348296.html&title=AOP 관련 용어 정리" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//1348296.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/AOP.html'>AOP</a></li>
+
+				<li><a class="icon fa-comment" href="../1348296.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../26/"
@@ -1225,17 +1177,6 @@ ng/Object;
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -1262,6 +1203,17 @@ ng/Object;
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1498,7 +1450,7 @@ ng/Object;
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1793,15 +1745,6 @@ ng/Object;
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -2010,15 +1953,6 @@ ng/Object;
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

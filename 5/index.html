@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,309 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2962391.html">코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Sep 08, 2012'>
-            Sep 08, 2012</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>계속 이어지는 인사이트 문제입니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.insightbook.co.kr/post/3876" class="bare">http://www.insightbook.co.kr/post/3876</a></p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.insightbook.co.kr/wp-content/uploads/2012/08/%EC%BD%94%EB%94%A9%EC%9D%B8%ED%84%B0%EB%B7%B0-%ED%91%9C%EC%A7%801.jpg"><span class="image"><img src="http://www.insightbook.co.kr/wp-content/uploads/2012/08/%EC%BD%94%EB%94%A9%EC%9D%B8%ED%84%B0%EB%B7%B0-%ED%91%9C%EC%A7%801-204x300.jpg" alt="image" width="132" height="194" title="코딩인터뷰-표지"></span></a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="문제">문제</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>코딩 인터뷰 완전 분석』210쪽 17.3 변형 문제</p>
-</div>
-<div class="paragraph">
-<p>자연수 n을 입력받고, n!의 계산 결과 중 마지막에 붙은 연속된 0의 개수와 연속된 0 바로 앞에 나오는 숫자를 구하라.</p>
-</div>
-<div class="sect2">
-<h3 id="실행_예">실행 예</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>input n: 15
-output: 3 8</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="설명">설명</h3>
-<div class="paragraph">
-<p>15!은 1307674368000이므로, 마지막에 연속된 0은 3개이고, 바로 앞의 숫자는 8이다.</p>
-</div>
-<div class="paragraph">
-<p>조건</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>n의 범위는 1 이상, 10000 이하입니다.</p>
-</li>
-<li>
-<p>테스트 입력은 다음과 같습니다.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>20! = 2432902008176640000
-30! = 265252859812191058636308480000000
-40! = 815915283247897734345611269596115894272000000000
-50! = 30414093201713378043612608166064768844377641568960512000000000000
-100! = 93326215443944152681699238856266700490715968264381621468592963
-8952175999932299156089414639761565182862536979208272237582511852
-10916864000000000000000000000000</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>프로그래밍 언어에서 제공하는 자릿수 제한 없는 곱셈을 이용하거나, 이런 형태의 곱셈 함수를 직접 구현해도 답을 얻을 수 있지만, 문제의 의도와는 다릅니다.</p>
-</li>
-<li>
-<p>정답 검토의 편의를 위해 블로그 포스팅에 2012!와 10000!의 결과를 남겨주세요.</p>
-</li>
-<li>
-<p>(심화 문제) 연속된 0 앞에 나오는 여러 숫자를 구하는 것도 가능하니, 심심하신 분은 도전해보세요. ^^</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="풀이">풀이</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>먼저 입력값이 2012와 10000일 때의 결과는 아래와 같습니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>input : 2012
-
-output: 501 8
-
-
-input : 10000
-
-output: 2499 8</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>제가 푼 방식은 10은 5와 2의 배수라는 점을 이용했습니다.
-곱해지는 숫자를 2와 5로만 소인수 분해하고  그 갯수를 각각 누적해서 구합니다.
-즉 최종 팩토리안 값의 약수 중에서 2와 5가 몇 번 들어가 있는지를 계산하는 것이죠.
-그리고 2,5가 아닌 나머지 약수는 구하고자하는 자릿수만큼만 잘라서 보관합니다.</p>
-</div>
-<div class="paragraph">
-<p>예를 들면 5!에서 0의 갯수가 0이 아닌 마지막 숫자를 구한다면</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>5! = 1 * 2 * 3 * 4 *5 = 2^3 * 5 * 3</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>이이므로 2는 3번, 5는 1번 들어갑니다. 0의 갯수는 2,5가 짝이 맞는 갯수이므로 둘 중에 작은 숫자인 5의 약수의 갯수, 즉 1개입니다.</p>
-</div>
-<div class="paragraph">
-<p>그리고 마지막 0이 아닌 숫자는 나머지 약수의 마지막 숫자인 3과 5와 짝이 맺어지지 못한 2의 배수를 곱해서 구합니다.</p>
-</div>
-<div class="paragraph">
-<p>여기서는 약수인 2중 1개는 5와 짝이 맺어졌고, 나머지 2개가 남았으므로 2^2*3 = 12, 마지막 숫자만 남기면 2입니다.</p>
-</div>
-<div class="paragraph">
-<p>테스트 코드에서는 이미 알려진 숫자를 검증했습니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class FactorianAnalyzerTest {
-    FactorianAnalyzer analyzer = new FactorianAnalyzer();
-
-    @Test
-
-    public void test5(){
-        assertFactorianResult(5, 1, 2);
-    }
-
-    @Test
-    public void test15(){
-        assertFactorianResult(15, 3, 8);
-    }
-
-    @Test
-    public void test20(){
-        assertFactorianResult(20, 4, 4);
-    }
-
-    @Test
-    public void test30(){
-        assertFactorianResult(30, 7, 8);
-    }
-
-    @Test
-    public void test40(){
-        assertFactorianResult(40, 9, 2);
-    }
-
-    @Test
-    public void test50(){
-        assertFactorianResult(50, 12, 2);
-    }
-
-    @Test
-    public void test100(){
-        assertFactorianResult(100, 24, 4);
-    }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>그리고 꼭 마지막 1개의 숫자가 아닌 여러 숫자로 구할 수 있도록 확장했기 때문에 그것도 검증해보았습니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class FactorianAnalyzerNonZeroTwoDigitsTest {
-
-    FactorianAnalyzer analyzer = new FactorianAnalyzer();
-
-    @Test
-    public void test5(){
-        assertFactorianResult(5, 2, 1, 12);
-    }
-
-    @Test
-    public void test6(){
-        assertFactorianResult(6, 2, 1, 72);
-    }
-
-    @Test
-    public void test7(){
-        assertFactorianResult(7, 3, 1, 504);
-    }
-
-    @Test
-    public void test8(){
-        assertFactorianResult(8, 2, 1, 32);
-    }
-
-    private void assertFactorianResult(int n,  int numOfLastNonZeroDigits, int expectedZeroCount, int expectedNonzeroDigit) {
-        FactorianResult result = analyzer.countZero(n, numOfLastNonZeroDigits);
-        assertThat(result.getZeroCount(), is(expectedZeroCount));
-        assertThat(result.getNonZeroDigits(), is(expectedNonzeroDigit));
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>전체 코드는 아래 주소에 올렸습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/benelog/quiz/blob/master/src/test/java/net/benelog/quiz/insight/FactorianAnalyzerTest.java">FactorianAnalyzerTest.java</a></p>
-</li>
-<li>
-<p><a href="https://github.com/benelog/quiz/blob/master/src/main/java/net/benelog/quiz/insight/FactorianResult.java">FactorianResult.java</a></p>
-</li>
-<li>
-<p><a href="https://github.com/benelog/quiz/blob/master/src/main/java/net/benelog/quiz/insight/FactorianAnalyzer.java">FactorianAnalyzer.java</a></p>
-</li>
-<li>
-<p><a href="https://github.com/benelog/quiz/blob/master/src/test/java/net/benelog/quiz/insight/FactorianAnalyzerNonZeroTwoDigitsTest.java">FactorianAnalyzerNonZeroTwoDigitsTest.java</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2962391.html&text=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2962391.html&title=코딩 인터뷰 완전 분석 210쪽 17.3 변형 문제 풀이" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2962391.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/코딩연습.html'>코딩연습</a></li>
-
-				<li><a class="icon fa-comment" href="../2962391.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -1108,6 +805,383 @@ Collections.rotate(range, k);</pre>
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2933965.html">스레드 안정성의 문서화와 JCIP 애노테이션</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='May 30, 2012'>
+            May 30, 2012</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div class="sect1">
+<h2 id="스레드_안전성을_어떻게_문서에_표기할까">스레드 안전성을 어떻게 문서에 표기할까?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Javadoc에서는 메소드 선언에 synchronized가 있는지 표시하지 않습니다. 그 이유는 동기화 여부는 세부 구현 방식이기 때문에 문서에까지 그것을 노출하지 하는 것은 적절하지 않기 때문이라고 합니다.</p>
+</div>
+<div class="paragraph">
+<p>선언부에 synchronized가 있는 메소드도 메소드 안의 모든 블럭이 synchronized(this)와 감싸진 코드와 의미입니다. 즉 아래의 코드는</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">synchronized void run() {
+//do something
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>다음과 똑같은 역할을 하는 코드입니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">void run(){
+  synchronized(this) {
+  // do something
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>구현방식을 개선하면서 동기화 구간을 메소드의 일부 구간으로 좁힐 수도 있고, this 객체 말고 다른 객체로 lock을 바꿀 수도 있습니다. 이런 세부구현 상황은 외부 인터페이스보다 더 쉽게 바뀔 여지가 있습니다. 그리고 lock으로 보호되는 모든 구간을 javadoc의 메소드 선언부에 표시하기도 어렵고, this로 전체 메소드를 lock으로 잡는 메소드인 synchronized 메소드 여부를 표시하는 것만으로 충분히 문서화가 되었다고 생각하기도 어렵습니다.내부적으로 더 효율적인 방식으로 동기화가 되어 있을 수도 있으니,Javadoc에서 synchronized가 있느냐 없느냐가 스레드 안정성을 판단할 수 있는 일관적인 기준도 되지 못합니다.</p>
+</div>
+<div class="paragraph">
+<p>따라서 현재 javadoc의 정책은 적절하다고 생각됩니다. Effective Java 2nd Edition의 Item 70에서도 그렇게 언급되었습니다.</p>
+</div>
+<div class="paragraph">
+<p>결국 현재 javadoc의 규약으로는 어떤 메소드가 멀티스레드에서의 안전한지 여부를 표시해야 하는 강제성은 없다는 이야기입니다.</p>
+</div>
+<div class="paragraph">
+<p>Effective Java 2nd Edition에서는 스레드 안정성을 다음 4자리 분류로 구분해서 문서화하라고 권장합니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Immutable</p>
+<div class="ulist">
+<ul>
+<li>
+<p>상태가 없습니다. 당연히 Thread-safe합니다.</p>
+</li>
+<li>
+<p>예) String, Long, Integer, BigDecimal</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>무조건 Thread-safe</p>
+<div class="ulist">
+<ul>
+<li>
+<p>상태가 있으나 내부적으로 알아서 동기화되어 있습니다.</p>
+</li>
+<li>
+<p>예) ConcurrentHashMap</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>조건부 Thread-safe</p>
+<div class="ulist">
+<ul>
+<li>
+<p>어떤 메소드는 외부에서 sync가 필요한 클래스입니다.</p>
+</li>
+<li>
+<p>예) Collections.synchronizedList로 받은 List의 iterator는 ConcurrentModificationException을 발생시킬수 있습니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Not Thread-safe</p>
+<div class="ulist">
+<ul>
+<li>
+<p>외부에서 synchronized를 해야 함</p>
+</li>
+<li>
+<p>예) HashMap, ArrayList</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Thread-hostile</p>
+<div class="ulist">
+<ul>
+<li>
+<p>외부에서 synchronized를 해도 멀티쓰레드에서는 못 쓰는 클래스입니다. 다행히 Java에는 거의 없습니다.</p>
+</li>
+<li>
+<p>예) System.runFinalizersOnExit</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>저렇게 잘 구분해서 Javadoc 문서의 제일 앞에 설명을 해준다면 좋겠지만, 강제적인 표준이 없다보니 기존의 문서들은 클래스 설명의 중간에서 스레드 안정성을 설명합니다.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="몇가지_클래스의_사례">몇가지 클래스의 사례</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>그렇다면 현재 Java 클래스가 스레드 안정성을 문서화하고 있는지 몇가지 예를 살펴보겠습니다.</p>
+</div>
+<div class="sect2">
+<h3 id="java_util_linkedlist">java.util.LinkedList</h3>
+<div class="paragraph">
+<p><a href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/LinkedList.html">LinkedList</a>의 javadoc에서는 클래스 설명의 중간 쯤에 볼드체로 강조해서 이 구현은 'not synchronized&#8217;되었다고 적혀 있습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jcip/LinkedList-doc.png" alt="LinkedList"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="java_text_simpledateformat">java.text.SimpleDateFormat</h3>
+<div class="paragraph">
+<p><a href="http://download.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html">SimpleDateFormat</a>의 javadoc에서는클래스 설명의 마지막 즈음에 synchronization이라는 제목의 절에서 'not synchronized&#8217;라고 설명합니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jcip/SimpleDateFormat-doc.png" alt="SimpleDateFormat"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="org_springframework_batch_item_file_flatfileitemwriter">org.springframework.batch.item.file.FlatFileItemWriter</h3>
+<div class="paragraph">
+<p>스프링배치의 클래스인 <a href="http://static.springsource.org/spring-batch/apidocs/org/springframework/batch/item/file/FlatFileItemWriter.html">FlatFileItemWriter</a>는 not의 앞 뒤로 별표를 붙여서 '<strong>not</strong> thread-safe&#8217;라고 적어놨습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jcip/FlatFileItemWriter-doc.png" alt="FlatFileItemWriter"></span></p>
+</div>
+<div class="paragraph">
+<p>이렇게 클래스가 스레드 안정성을 표시하는 방법은 제 각각이고, 나름대로는 강조하고 있지만 주의깊게 API 문서를 주의 깊게 본 사람이 아니라면 지나치기 쉽습니다. 차라리 '스레드 안정성은 클래스별 설명 제일 윗줄에 넣도록 하고, 반드시 빨간색 Bold로 표시한다' 같은 규칙이 있었으면 얼마나 좋을까하는 생각까지도 듭니다.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jcip_annotation">JCIP annotation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://jcip.net/annotations/doc/net/jcip/annotations/package-summary.html">JCIP annotation</a>은 'Java concurrent in practice' 책에서 제안된 스레드 안정성을 표시하는 기법입니다.아래 4개의 종류의 애노테이션을 제공합니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@GuardedBy</code> : 해당 객체가 어떤 Lock으로 보호되고 있는지 표시. 필드에 메소드에 사용 가능</p>
+</li>
+<li>
+<p><code>@Immutable</code> : 불변객체</p>
+</li>
+<li>
+<p><code>@NotThreadSafe</code> : 스레드 안전하지 않음</p>
+</li>
+<li>
+<p><code>@ThreadSafe</code> : 스레드 안전함</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="apache_httpclient에서_활용_사례">Apache Httpclient에서 활용 사례</h3>
+<div class="paragraph">
+<p>실제 이 JCIP 애노테이션이 활용된 사례는 <a href="http://hc.apache.org/httpcomponents-client-ga/">Apache Httpclient</a>가 있습니다. 이 라이브러리의 클래스인 <a href="http://www.docjar.org/html/api/org/apache/http/message/HttpGet.java.html">HttpGet</a>, <a href="http://www.docjar.com/html/api/org/apache/http/impl/client/DefaultHttpClient.java.html">DefaultHttpClient</a>, <a href="http://www.docjar.com/html/api/org/apache/http/impl/conn/SingleClientConnManager.java.html">SingleClientConnManager</a>는 아래와 같이 @NotThreadSafe, @ThreadSafe를 클래스 선언에 붙었습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@NotThreadSafe
+public class HttpGet extends HttpRequestBase {
+
+@ThreadSafe
+public class DefaultHttpClient extends AbstractHttpClient {
+
+@ThreadSafe
+public class SingleClientConnManager implements ClientConnectionManager {</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>이 애노테이션들은 원래의 JCIP 애노테이션의 패키지인 net.jcip.annotations 대신에 org.apache.http.annotation 패키지에 들어가 있기는 합니다.그런데 이 패키지에 있는 <a href="http://www.docjar.com/docs/api/org/apache/http/annotation/ThreadSafe.html">@ThreadSafe</a>등의 javadoc를 봐도이 애노테이션들은 JCIP책에서 유례하였다고 설명합니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/DefaultHttpClient.html">이 애노테이션이 붙어 있는 클래스의 avadoc</a>에서는 클래스 설명 단락의 위 쪽에 이 애노테이션을 보여줍니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jcip/DefaultHttpClient-doc.png" alt="DefaultHttpClient"></span></p>
+</div>
+<div class="paragraph">
+<p>일관성 있는 위치에 표시되기 때문에 한 눈에 스레드 안정성 여부를 인식할 수 있습니다.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="findbugs에서의_지원">FindBugs에서의 지원</h3>
+<div class="paragraph">
+<p>오픈소스 정적분석 도구인 <a href="http://findbugs.sourceforge.net/">Findbugs</a>에서는 JCIP 애노테이션 중 @Immutable을 인식합니다. 버전 2.0부터 JCIP라는 버그 패턴으로 등록이 되어 있습니다. 아래 페이지에서 확인할 수 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://findbugs.sourceforge.net/bugDescriptions.html#JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS" class="bare">http://findbugs.sourceforge.net/bugDescriptions.html#JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="http://findbugs.sourceforge.net/manual/eclipse.html">Findbugs Eclipse plugin</a>를 설치하면 보다 편하게 FindBugs가 주는 경고를 확인할 수 있습니다..</p>
+</div>
+<div class="paragraph">
+<p>만약 아래와 같이 @Immutable로 선언된 클래스에 final이 아닌 필드가 있다면</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">import net.jcip.annotations.Immutable;
+
+@Immutable
+public class Memo {
+  private String content;
+  public void setContent(String content) {
+   this.content = content;
+  }
+  public String getContent() {
+   return content;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Eclipse에서 경고를 보여줍니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jcip/immutable-findbugs.png" alt="findbugs"></span></p>
+</div>
+<div class="paragraph">
+<p>그러나 FindBugs에서는 @Immutable외의 애너테이션은 특별히 확인하지는 않습니다.즉 <code>@ThreadSafe</code> 로 선언된 객체에서 <code>@NotThreadSafe</code> 로 선언된 멤버변수를 접근하더라구도 아무런 경고를 보내지는 않습니다. JCIP 애노테이션과 Findbugs를 동시에 쓰면서 많은 기대를 하지는 말아야 합니다.</p>
+</div>
+<div class="paragraph">
+<p>Findbugs의 자세한 설명방법은 아래 포스트를 참고하시기 바랍니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://blog.benelog.net/2079841">FindBugs + Eclipse + Maven2 + Hudson</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="정리">정리</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java에서 어떤 클래스가 멀티스레드에서 의도하지 않게 사용될 때 그 부작용은 심각하지만, 문제가 되는 지점을 추적하기는 어렵습니다. 그렇게 때문에 스레드 안정성은 반드시 엄격하게 문서에 언급 되어야 합니다.그러나 기존의 클래스를 보면 제 각각의 표현 방식으로, 때로는 눈에 잘 띄지 않게 문서에 적혀 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>JCIP 애노테이션은 일관된 방식으로 스레드 안정성을 문서화하는데 도움이 됩니다. 이 애토테이션은 Apache httpclient 프로젝트에 적용되었고, 강력하지는 않지만 findbugs에서 JCIP annotation이 걸린 클래스를 정적 분석을 해주기도 합니다.</p>
+</div>
+<div class="paragraph">
+<p>대부분의 웹프로젝트에서는 비지니스 레이어를 상태가 없는 클래스로 멀티스레드에서도 안전하게 만드는 방식이 권장됩니다.
+그러나 때로는 스레드 안전하지 않은 클래스를 만들게 될 수도 있습니다.
+예를 들면 멀티스레드에서 공유되면 안 되는 외부 라이브러리의 클래스를 사용하는데, 그 클래스를 생성자로 받아서 멤버변수에 할당해야 하는 경우입니다.
+또, 배치나 데몬서버 등을 만드는 프로젝트에서는 스레드 안전한 클래스와 그렇지 않은 클래스가 혼재하게 될 때도 많습니다.
+그런 클래스들을 명확하게 구분하고 싶다면 JCIP 애노테이션으로 표시하는 것을 고려해볼만 합니다.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="참고자료">참고자료</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[EJ2] : Effective Java 2nd Edition - Item 70</p>
+</li>
+<li>
+<p>[JCIP] : Java concurrency in practice</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2933965.html&text=스레드 안정성의 문서화와 JCIP 애노테이션&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2933965.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2933965.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2933965.html&title=스레드 안정성의 문서화와 JCIP 애노테이션" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2933965.html&title=스레드 안정성의 문서화와 JCIP 애노테이션" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2933965.html&title=스레드 안정성의 문서화와 JCIP 애노테이션" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2933965.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Java.html'>Java</a></li>
+ 	        <li><a href='../tags/Concurrency.html'>Concurrency</a></li>
+
+				<li><a class="icon fa-comment" href="../2933965.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../4/"
@@ -1180,17 +1254,6 @@ Collections.rotate(range, k);</pre>
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -1217,6 +1280,17 @@ Collections.rotate(range, k);</pre>
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1453,7 +1527,7 @@ Collections.rotate(range, k);</pre>
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1748,15 +1822,6 @@ Collections.rotate(range, k);</pre>
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1965,15 +2030,6 @@ Collections.rotate(range, k);</pre>
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

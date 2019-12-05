@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,204 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2874354.html">Java Stack dump 다운로드를 편하게</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Nov 20, 2011'>
-            Nov 20, 2011</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>실행 중인 Java 프로세스의 Stack dump를 뜨는 작업은 간단합니다.  Jstack 이나 kill -3 뒤에 process id를 지정하기만 하면 됩니다. Stack dump를 서버에 있는 stack dump파일을 PC로 옮길때면 Secure CRT나 putty에서 console에 찍히는 내용을 파일로 저장하는 기능을 주로 쓰고 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>언젠가 테스트를 한다고 자주 Stack dump를 뜨다보니 이런 작업마저도 번거롭게 느껴졌습니다. 그리고  파일이름에 timestamp가 들어가 있으면 나중에 찾아보기가 편한데, 그런 파일명 지정도 수동으로 하려니까 귀찮았습니다. 그래서 간단한 프로그램을 만들어 봤었습니다.</p>
-</div>
-<div class="paragraph">
-<p>보통은 서버에서 vi로 덤프를 보는 때가 많아서 저도 잘 쓰지는 않는데, 그래도 코딩하면서는 재밌었던 기억이 나네요.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="다운로드">다운로드</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>wget file.benelog.net/dumper.jar</code> 혹은 웹브라우저로 benelog.net/dumper.jar 접근해서 저장</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="실행">실행</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Windows : <code>java -cp "dumper.jar;%JAVA_HOME%/lib/tools.jar" Start [port number]</code></p>
-</li>
-<li>
-<p>Linux : <code>java -cp "dumper.jar:$JAVA_HOME/lib/tools.jar" Start [port number]</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Console 창에는 아래 메시지가 찍힙니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>Usage:
-
- (Windows)
-
-   Prompt&gt;java -cp "dumper.jar;%JAVA_HOME%/lib/tools.jar" Start [port]
-
- (Linux)
-
-   Prompt&gt;java -cp dumper.jar:$JAVA_HOME/lib/tools.jar Start [port]
-
------------------------------
-
-The port is selected by ramdom.
-
-Web address: http://192.168.0.11:17456
-
-2011-11-20 04:04:32.901:INFO::jetty-7.x.y-SNAPSHOT
-
-2011-11-20 04:04:33.248:INFO::started o.e.j.s.ServletContextHandler\{/,null}
-
-2011-11-20 04:04:34.526:INFO::Started SelectChannelConnector@0.0.0.0:17456</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>파라미터로 port번호를 넘겨서 원하는 포트로 웹페이지를 띄울 수가 있는데, 지정된 포트가 없다면 10000번에서 20000번 사이의 포트를 임의로 찍어서 띄어줍니다. 위에 "Web address" 라고 적힌 칸 옆의 주소가 접근할 수 있는 URL입니다.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="사용법">사용법</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Console창에서 알려주는 주소를 웹브라우저 입력하면 아래처럼 jps의 정보를 보여주는 화면이 뜹니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/my-program/dumper-jps.jpg" alt="dumper jps" title="JPS"></span></p>
-</div>
-<div class="paragraph">
-<p>pid를 찍으면 지정한 JVM의 jstack dump를 바로 다운로드할 수 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>파일명은 {pid}_{연도}-{일월}-{시분초}.log의 형식으로 했습니다.</p>
-</div>
-<div class="paragraph">
-<p>혹시 덤프파일을 생성하는데 아래 에러 메시지가 뜬다면, 장비에 여러개의 JVM이 설치되어 있으면서 덤프를 뜨려는 JVM 프로세스와 tools.jar를 classpath로 지정한 경로의 JVM이 다르지 않는지 확인해보셔야 합니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>java.lang.UnsatisfiedLinkError: no attach in java.library.path
-com.sun.tools.attach.AttachNotSupportedException: no providers installed
-        at com.sun.tools.attach.VirtualMachine.attach(VirtualMachine.java:190)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="구현방식">구현방식</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Jps나 Jstack과 유사하게 sun.jvmstat.monitor 패키지의 클래스를 이용한 프로그램입니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.java2s.com/Open-Source/Java-Document/6.0-JDK-Modules-sun/jvmstat/sun.jvmstat.monitor.htm" class="bare">http://www.java2s.com/Open-Source/Java-Document/6.0-JDK-Modules-sun/jvmstat/sun.jvmstat.monitor.htm</a></p>
-</div>
-<div class="paragraph">
-<p>참고로 jdk의 tools.jar는 따로 배포하면 license에 어긋난다고 알고 있어서 묶어서 패키징하지 않고 classpath로 지정하도록 했습니다.</p>
-</div>
-<div class="paragraph">
-<p>전체 소스는 github에 올렸습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/benelog/dumper" class="bare">https://github.com/benelog/dumper</a></p>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2874354.html&text=Java Stack dump 다운로드를 편하게&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2874354.html&title=Java Stack dump 다운로드를 편하게" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2874354.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Java.html'>Java</a></li>
- 	        <li><a href='../tags/자작도구.html'>자작도구</a></li>
-
-				<li><a class="icon fa-comment" href="../2874354.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -691,6 +493,159 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2815291.html">Kent Beck과의 인터뷰 중에서..</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Jun 21, 2011'>
+            Jun 21, 2011</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>2010년 9월에 Kent Beck과의 인터뷰가 SE-Radio 사이트에 올라왔었습니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.se-radio.net/2010/09/episode-167-the-history-of-junit-and-the-future-of-testing-with-kent-beck/" class="bare">http://www.se-radio.net/2010/09/episode-167-the-history-of-junit-and-the-future-of-testing-with-kent-beck/</a></p>
+</div>
+<div class="paragraph">
+<p>이 인터뷰 중에 아래 내용이 가장 인상 깊었고, 몇달이 지나서도 기억에 남아있습니다.</p>
+</div>
+<div class="paragraph">
+<p>19분 경에 나오는 내용입니다.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="받아쓴_내용">받아쓴 내용</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<div class="title">Martin(사회자):</div>
+<blockquote>
+<div class="paragraph">
+<p>Do you think you&#8217;ve convinced most of people you talk to?</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<div class="title">Kent Beck :</div>
+<blockquote>
+<div class="paragraph">
+<p>I don&#8217;t try to convince people any more.I think I spent probably 10 years really trying to convince people TDD, pair programming, you should do this, you should do that and I don&#8217;t do that any more.</p>
+</div>
+<div class="paragraph">
+<p>I am always working to improve my own practice, I am eager to share what I learn and I try and listen and understand what other people learned and their experiences as well. So I don&#8217;t like &#8230;&#8203; I don&#8217;t really keep score by how many people do TDD.</p>
+</div>
+<div class="paragraph">
+<p>If the practice of software development is improving overall, then I think that&#8217;s a great thing, If I have some small influence on that, then I think that&#8217;s a great thing too.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="번역">번역</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<div class="title">마틴(사회자)</div>
+<blockquote>
+<div class="paragraph">
+<p>그동안 이야기한 사람들을 대부분 설득했다고 생각합니까?</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<div class="title">켄트벡 :</div>
+<blockquote>
+<div class="paragraph">
+<p>저는 더 이상 사람들을 설득하려 하지 않습니다. 저는 거의 10년동안 사람들에게 TDD를 꼭해라, 짝프로그래밍을 꼭 해라고 설득하려고 애써왔지만, 더 이상 그렇게 하지 않습니다.</p>
+</div>
+<div class="paragraph">
+<p>전 항상 제가 수행하는 방식을 개선하려고 일하고, 제가 시도하고 배운 것을 공유하려고 노력합니다.  다른 사람이 배운 것과 경험도 듣고 이해하려 하구요. 그래서 전 얼마나 많은 사람들이 TDD를 하는지를 가지고 점수를 매기지는 않습니다.</p>
+</div>
+<div class="paragraph">
+<p>소프트웨어를 개발하는 방식이 전반적으로 나아진다면 전 그걸 대단한 일이라고 생각하고, 만약 제가 거기에 약간의 영향이라도 끼친다면 역시나 대단한 일이라고 생각합니다.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2815291.html&text=Kent Beck과의 인터뷰 중에서..&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2815291.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2815291.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2815291.html&title=Kent Beck과의 인터뷰 중에서.." target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2815291.html&title=Kent Beck과의 인터뷰 중에서.." target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2815291.html&title=Kent Beck과의 인터뷰 중에서.." target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2815291.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Test.html'>Test</a></li>
+
+				<li><a class="icon fa-comment" href="../2815291.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../7/"
@@ -763,17 +718,6 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -800,6 +744,17 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1036,7 +991,7 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1331,15 +1286,6 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1548,15 +1494,6 @@ gDataSource@be8958, logWriter=java.io.PrintWriter@12b1ff9, abandonedConfig=null,
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

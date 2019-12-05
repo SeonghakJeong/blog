@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,196 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2229687.html">Java의 auto boxing과 unbox은 어떻게 컴파일될까?</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Feb 10, 2009'>
-            Feb 10, 2009</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div class="paragraph">
-<p>아래 코드는 [프리미티브 타입과 Wrapper 클래스, 자동 Boxing, 자동 UnBoxing]이라는 글에 나오는 것을 입력해 본 것입니다. int와 java.lang.Integer객체를 "=="와 "equals()"메소드로 비교하고 있습니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/java/auto-boxing-test.jpg" alt="auto boxing test" title="auto-boxing-test.jpg"></span></p>
-</div>
-<div class="paragraph">
-<p>위의 코드에서 생성한 .class파일을 역컴파일해보면 아래와 같은 코드가 나옵니다. autoboxing과 unboxing이 어떤 방식으로 이루어 지는지 잘 확인할 수 있습니다. java.lang.Integer가 int로 바뀔 때는 intValue() 메소드, int가 java.lang.Integer로 바뀔 때는 Integer.valueOf()메소드를 사용하고 있습니다. JDK 1.4이하 버전과의 하위호환성을 위해서 이런 방식을 쓰는 것이겠죠.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">int a = 1;
-int b = 1;
-Integer c = new Integer(1);
-Integer d = new Integer(1);
-System.out.println((new StringBuilder("1:")).append(System.identityHashCode(Integer.valueOf(a))).toString());
-System.out.println((new StringBuilder("2:")).append(System.identityHashCode(Integer.valueOf(b))).toString());
-System.out.println((new StringBuilder("3:")).append(System.identityHashCode(c)).toString());
-System.out.println((new StringBuilder("4:")).append(System.identityHashCode(d)).toString());
-System.out.println((new StringBuilder("5:")).append(a == b).toString());
-System.out.println((new StringBuilder("7:")).append(c == d).toString());
-System.out.println((new StringBuilder("8:")).append(c.equals(d)).toString());
-System.out.println((new StringBuilder("9:")).append(a == c.intValue()).toString());</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>new Integer()</code> 로 생성자를 호출하면 매로 새로 객체를 생성하는데, Integer.valueOf()메소드를 사용하면 캐쉬된 값을 사용할 수 있습니다. 이 메소드의 소스를 보면 -128부터 127까지의 static영역에 캐쉬로 쌓아두고 있습니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java"> static {
-  cache = new Integer[256];
-  for (int i = 0; i &lt; cache.length; i++)
-  cache[i] = new Integer(i - 128);
-}
-
-public static Integer valueOf(int i) {
-  if (i &gt;= -128 &amp;&amp; i &lt;= 127)
-  return IntegerCache.cache[i + 128];
-  else
-  return new Integer(i);
-}
----
-
-처음에 나왔던 저의 Eclipse 캡쳐화면을 보면 findbugs 플러그인에서 new Integer()사용 코드에 대한 경고를 보여주고 있습니다. 자세한 설명을 보니, `Integer.valueOf()` 를 사용할 경우 약 3.5배 정도 실행속도가 빠르다고 하네요.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>M P Bx] Method invokes inefficient Number constructor; use static valueOf instead [DM_NUMBER_CTOR]</p>
-</div>
-<div class="paragraph">
-<p>Using new Integer(int) is guaranteed to always result in a new object whereas Integer.valueOf(int) allows caching of values to be done by the compiler, class library, or JVM. Using of cached values avoids object allocation and the code will be faster.</p>
-</div>
-<div class="paragraph">
-<p>Values between -128 and 127 are guaranteed to have corresponding cached instances and using valueOf is approximately 3.5 times faster than using constructor. For values outside the constant range the performance of both styles is the same.</p>
-</div>
-<div class="paragraph">
-<p>Unless the class must be compatible with JVMs predating Java 1.5, use either autoboxing or the valueOf() method when creating instances of Long, Integer, Short, Character, and Byte.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>이런 원리들을 잘 염두해 둬서, auto boxing과 unboxing이 사용될 때 필요없는 객체가 생성되지 않는지 유의해야 합니다.
-
-다음 코드는 Effective Java 2nd Edition의 Item 5 - '불필요한 객체를 생성하지 마라'에 나오는 예제입니다.
-
-[source,java]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Long sum = 0L;
-for(long i=0;i&lt; Integer.MAX_VALUE;i++){
-   sum += i;
-}
-System.out.println(sum);</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>  이 코드를 컴파일한 후 다시 역컴파일 해보면 다음과 같이 나옵니다.
-
-[source,java]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Long sum = Long.valueOf(0L);
-for(long i = 0L; i &lt; 0x7fffffffL; i++)  sum = Long.valueOf(sum.longValue() + i);</p>
-</div>
-<div class="paragraph">
-<p>System.out.println(sum);</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>java.lang.Double.valueOf(double) 메서드는 매번 새로운 객체를 생성하게 되어 있습니다.
-
-[source,java]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>public static Double valueOf(double d) {
-  return new Double(d);
-}</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>이렇듯 불필요한 객체생성을 막기 위해 되도록 primitive type을 선호해야 합니다. auto boxing은 Collection이나 Map에 들어가는 요소로 변수가 쓰일 때, generics가 적용한 코드를 작성할 때 등이 적절한 사용의 예입니다. (Effective Java 2nd Edition, Item 49 참조)</pre>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2229687.html&text=Java의 auto boxing과 unbox은 어떻게 컴파일될까?&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2229687.html&title=Java의 auto boxing과 unbox은 어떻게 컴파일될까?" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2229687.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Java.html'>Java</a></li>
- 	        <li><a href='../tags/autoboxing.html'>autoboxing</a></li>
-
-				<li><a class="icon fa-comment" href="../2229687.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -804,6 +614,209 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2208368.html">JDepend + Eclipse + Maven2</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Jan 19, 2009'>
+            Jan 19, 2009</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://clarkware.com/software/JDepend.html">JDepend</a>는 Java패키지간의 의존성에 대한 수치들을 알려 주는 도구입니다.</p>
+</div>
+<div class="paragraph">
+<p>JDepend의 Eclipse의 Plugin은 <a href="http://andrei.gmxhome.de/eclipse/를" class="bare">http://andrei.gmxhome.de/eclipse/를</a> Update site에 추가하면 설치할 수 있습니다. 다음의 링크들에서 보다 자세한 내용을 참조할 수 있습니다. 분석을 하고자 하는 소스폴더 위에서 우클릭을 한 후 'Run JDepend Analysis' 메뉴를 선택하면 의존성 분석 결과가 나옵니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jdepend/eclipse-jdepend.jpg" alt="eclipse-jdepend.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>이를 Maven을 통해서 생성하는 <a href="http://mojo.codehaus.org/jdepend-maven-plugin/">jdepend-maven-plugin</a> 은 pom.xml에 아래와 같이 추가할 수 있습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;reporting&gt;
+
+.....
+
+&lt;plugin&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;jdepend-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;2.0-beta-2&lt;/version&gt;
+&lt;/plugin&gt;
+
+&lt;/reporting&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>mvn jdepend:generate</code> 또는 <code>mvn site</code> 명령을 통해서 보고서가 생성됩니다. mvn site로 실행했다면 Hudson의 프로젝트 홈에서 Maven Generated Site 메뉴를 통해서도 확인할 수 있습니다.
+<a href="http://mojo.codehaus.org/jdepend-maven-plugin/examples/jdepend-report.html">샘플페이지</a> 에 생성된 보고서의 형식이 나와있습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jdepend/jdepend-report.jpg" alt="jdepend-report.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p><a href="http://clarkware.com/software/JDepend.html">JDepend 첫페이지</a>나 생성된 보고서 안에서도 위의 요약 테이블에  수치들에 대한 설명이 잘 나와있습니다. 간단히 요약해서 정리하면,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TC (Total Classes) : 전체 클래스 수. CC + AC</p>
+</li>
+<li>
+<p>CC (Concrete Classes) : Inteface나 추상클래스가 아닌 구상 클래스 수</p>
+</li>
+<li>
+<p>AC (Abstract Classes) : Interface나 Abstract Class로 선언된 클래스 수</p>
+</li>
+<li>
+<p>Ca (<span id="intelliTxt">Afferent Couplings</span>) : 이 패키지를 의존하고 있는 다른 패키지의 수. 이 패키지의 책임감을 나타내는 지표</p>
+</li>
+<li>
+<p>Ce (<span id="intelliTxt">Efferent Couplings</span>) : 이 패키지가 의존하고 있는 클래스가 있는 다른 패키지의 수. 이 패키지의 독립성을 나타내는 지표.</p>
+</li>
+<li>
+<p>A (<span id="intelliTxt">Abstractness</span>) : 총 클래스 갯수 중 인터페이스나 추상클래스의 비율. 1이라면 해당 패키지는 추상클래스나 인터페이스 밖에 없는 것.</p>
+</li>
+<li>
+<p>I (<span id="intelliTxt">Instability</span>) :   총 결합도 중 이 패키지의 외부의존성의 비율 (Ce / (Ce + Ca)). 변화에 대한 내성을 나타내는 지표. I=0이라면 완전하게 안정적인 것.</p>
+</li>
+<li>
+<p>D <span id="intelliTxt">(Distance from Main Sequence</span>) :  이상적인 균형의 상태인  A + I = 1 의 함수에서 수직으로 떨어진 거리. (아래 그래프 참조)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://www.onjava.com/onjava/2004/01/21/graphics/figure3.gif" alt="onjava/2004/01/21/graphics/figure3.gif" title="onjava/2004/01/21/graphics/figure3.gif"></span></p>
+</div>
+<div class="paragraph">
+<p>이미지 출저 : <a href="http://www.onjava.com/pub/a/onjava/2004/01/21/jdepend.html">Managing Your Dependencies with JDepend</a></p>
+</div>
+<div class="paragraph">
+<p>가장 중요한 것은 패키지 간의 순환참조를 보여주는 Cycles 부분입니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/jdepend/jdepend-cycles.jpg" alt="jdepend-cycles.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>순환참조 관계의 패키지들은 부분적으로 배포될 수도 없고, 한 패키지를 변경할 때 그 영향력을 파악하기도 힘들게 만듭니다. 순환 참조에 대한 자세한 내용은 아래의 링크를 참조하시기 바랍니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://toby.epril.com/?p=263">Code Organization &amp; Cyclic Dependency Problem</a></p>
+</li>
+<li>
+<p><a href="http://blog.kirkk.com/index.php?itemid=30">Cyclic Dependencies</a></p>
+</li>
+<li>
+<p><a href="http://www.onjava.com/pub/a/onjava/2004/01/21/jdepend.html">Managing Your Dependencies with JDepend</a></p>
+</li>
+<li>
+<p><a href="http://whiteship.tistory.com/1767">Code Organization Guidelines for Large Code Bases - 유겐 휄러</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="관련자료">관련자료</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://younghoe.info/50">JDepend에서 지원하는 설계 품질 측정치(design quality metrics)</a></p>
+</li>
+<li>
+<p><a href="http://www.powerjava.net/blog/soulcarta/entry/Eclipse-Plugin-JDepend%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9D%98%EC%A1%B4%EC%84%B1-%EA%B2%80%EC%82%AC">[Eclipse Plugin</a> JDepend를 이용한 의존성 검사 개발관련]</p>
+</li>
+<li>
+<p><a href="http://whiteship.tistory.com/967">Eclipse에서 JDepend 사용하기</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2208368.html&text=JDepend + Eclipse + Maven2&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2208368.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2208368.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2208368.html&title=JDepend + Eclipse + Maven2" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2208368.html&title=JDepend + Eclipse + Maven2" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2208368.html&title=JDepend + Eclipse + Maven2" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2208368.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Maven.html'>Maven</a></li>
+ 	        <li><a href='../tags/Eclipse.html'>Eclipse</a></li>
+ 	        <li><a href='../tags/정적분석.html'>정적분석</a></li>
+
+				<li><a class="icon fa-comment" href="../2208368.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../15/"
@@ -876,17 +889,6 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -913,6 +915,17 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1149,7 +1162,7 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1444,15 +1457,6 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1661,15 +1665,6 @@ EMMA가 JVM의 종료 때도 기록을 하기 때문에 그렇다는군요. 다�
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

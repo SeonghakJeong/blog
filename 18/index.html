@@ -133,9 +133,6 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
-                    </li>
-                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -143,6 +140,9 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                    </li>
+                    <li>
+                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,538 +158,6 @@
 </section>
 	
 	<div id="main">
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2173103.html">Effective &amp; Agile Java Generics</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Dec 16, 2008'>
-            Dec 16, 2008</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div id="preamble">
-<div class="sectionbody">
-<div class="ulist">
-<div class="title">수정이력</div>
-<ul>
-<li>
-<p>2019.04.13</p>
-<div class="ulist">
-<ul>
-<li>
-<p>유효하지 않은 JavaDoc 문서 링크 최신화</p>
-</li>
-<li>
-<p>예제에서 Diamond 문법 활용</p>
-</li>
-<li>
-<p>JUnit4에 대한 일반적인 설명 링크 제거</p>
-</li>
-<li>
-<p>`ServletRequest.getParameterMap()`에 대한 최신 JavaDoc 내용 추가</p>
-</li>
-<li>
-<p>`List&lt;ScheduledFuture&lt;?&gt;&gt;`가 쓰인 예시를 Spring Integration의 소스에서 LogBack의 것으로 변경</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="generics가_들어간_테스트_코드를_통과시켜_봅시다">Generics가 들어간 테스트 코드를 통과시켜 봅시다.</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>아래에 있는 테스트 1~5까지의  테스트 코드들을 모두 한번에 통과시키는 ListUtils.max메서드는 어떻게 선언하고 구현해야 할까요?</p>
-</div>
-<div class="paragraph">
-<p>Generics를 써보신 분이라면 <a href="http://benelog.springnote.com/pages/2231980/attachments/1026628?dummy=1229420647470">ListUtilsTest.java</a>를 다운 받으셔서 한번 풀어 보시기 바랍니다. Collections.max()를 아시는 분도 그 메소드를 참고하시지 마시고 직접 메서드를 만들어 보시면 재미있으실 겁니다.</p>
-</div>
-<div class="paragraph">
-<p>제약조건은 다음과 같습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>@SuppressWarnings("unchecked")</code> 를 쓰지 않고도 Generics에 대한 warning이 없고, Casting도 한번도 하지 않아야 하고</p>
-</li>
-<li>
-<p>컴파일 시점에서 ListUtils.max 메소드에 Comparable 인터페이스를 구현한 객체들을 쌓은 List가 넘어온다는 것을 검증할 수 있어야 한다.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">테스트 1 :  빈 리스트가 넘어오면 null값 반환</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Test
-    public void getNullIfEmptyList(){
-        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
-        Integer max = ListUtils.max(numbers);
-        assertThat(max,is(nullValue()));
-    }</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">테스트 2 :  Integer객체의 최대값 구하기</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Test
-    public void getMaxInteger(){
-        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
-        numbers.add(Integer.valueOf(1))
-        numbers.add(Integer.valueOf(2));
-        Integer max = ListUtils.max(numbers);
-        assertThat(max,is(Integer.valueOf(2)));
-    }</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">테스트 3 :  BigInteger객체의 최대값 구하기</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Test
-    public void getMaxBigInteger(){
-        List&lt;BigInteger&gt; numbers = new ArrayList&lt;&gt;();
-        numbers.add(BigInteger.ZERO);
-        numbers.add(BigInteger.ONE);
-	BigInteger max = ListUtils.max(numbers);
-        assertThat(max,is(BigInteger.ONE));
-    }</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">테스트 4: java.sql.Date 객체의 최대값 구하기</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Test
-    public void getMaxDate(){
-        java.sql.Date now = new java.sql.Date(new Date().getTime());
-        java.sql.Date afterAWhile = new java.sql.Date(new Date().getTime()+6000);
-        List&lt;java.sql.Date&gt; dates = new ArrayList&lt;java.sql.Date&gt;();
-        dates.add(now);
-        dates.add(afterAWhile);
-        java.sql.Date max = ListUtils.max(dates);
-        assertThat(max,is(afterAWhile));
-    }</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">테스트5 : ScheduledFuture를 구현한 객체의 최대값 구하기</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Test
-    public void getMaxScheduledFuture() throws InterruptedException{
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
-        ScheduledFuture&lt;?&gt; after1Second = executor.schedule(getTask("first"),1,TimeUnit.SECONDS);
-        ScheduledFuture&lt;?&gt; after2Seconds = executor.schedule(getTask("second"),2,TimeUnit.SECONDS);
-        List&lt;ScheduledFuture&lt;?&gt;&gt; futures = new ArrayList&lt;ScheduledFuture&lt;?&gt;&gt;();
-        futures.add(after1Second);
-        futures.add(after2Seconds);
-        ScheduledFuture&lt;?&gt; max = ListUtils.max(futures);
-        long maxDelay = max.getDelay(TimeUnit.SECONDS);
-        assertThat(maxDelay,is(after2Seconds.getDelay(TimeUnit.SECONDS)));
-        Thread.sleep(3000);
-        assertTrue(max.isDone());
-    }
-    private Runnable getTask(final String message) {
-        Runnable task = new Runnable(){
-            public void run() {
-                System.out.println(message);
-            }
-        };
-        return task;
-    }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(<a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/ScheduledFuture.html" class="bare">https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/ScheduledFuture.html</a>]  API문서 참조)</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="풀이와_설명">풀이와 설명</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>테스트 1,2,3번 까지의 코드만이라면 아래와 같이 선언하셔도 됩니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트 1: 간단한 max 메서드 선언</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public static &lt;T extends Comparable&lt;T&gt;&gt; T max(List&lt;T&gt; list)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>이렇게 <code>&lt;T extends Comparable&lt;T&gt;&gt;</code> 처럼 Type parameter가 그 자신이 포함된 표현으로 그 범위가 선언되는 것을 recursive type bound라고 합니다.</p>
-</div>
-<div class="paragraph">
-<p>Integer와 BigDecimal의 클래스 선언을 보면 아래와 같습니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트 2: Integer 와 BigInteger 클래스 선언부</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public final class Integer extends Number implements Comparable&lt;Integer&gt;
-
-public class BigInteger extends Number implements Comparable&lt;BigInteger&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>두 클래스 모두 자신의 타입이 Parameterized type으로 들어간 Comparable 인터페이스를 구현하고 있기 때문에 리스트3의 메소드 선언으로도 Integer나 BigInteger가 담긴 리스트를 받을 수 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>그러나 리스트 1의 선언으로는 테스트4,5에 있는 메서드에서 컴파일 에러가 날 것입니다. 그 이유는 다음과 같습니다.</p>
-</div>
-<div class="paragraph">
-<p>테스트4의 <a href="https://docs.oracle.com/javase/8/docs/api/java/sql/Date.html">java.sql.Date</a>는 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html">java.util.Date</a>를 상속한 클래스입니다.
-그런데 <code>java.sql.Date</code> 는 따로 comparesTo 메서드를 재정의하고 있지 않고, 상위클래스인 <code>java.util.Date</code> 에 있는 메서드를 그대로 쓰고 있습니다.
-<code>java.sql.Date</code> 는 <code>Comparable&lt;java.sql.Date&gt;</code> 한 것이 아닌 <code>Comparable&lt;java.util.Date&gt;</code> 를 구현한 것이라고 볼 수 있습니다.
-(두 클래스의 이름이 같아서 혼동이 되실 수도 있습니다.
-<a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2600965&amp;CategoryNumber=001001003016003014">Java Puzzler</a>에서는 이 두 클래스의 예를 들면서 자바 플랫폼 설계자가 이름을 지으면서 깜빡 존 듯하다고 언급하고 있습니다.)</p>
-</div>
-<div class="paragraph">
-<p>그리고 테스트5의 <code>java.util.concurrent.ScheduledFuture</code> 인터페이스는 <code>Comparable&lt;ScheduledFuture&gt;</code> 를 구현한 것이 아닌, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Delayed.html">Delayed</a>라는 인터페이스를 상속한 것이고, 이 Delayed는 <code>Comparable&lt;Delayed&gt;</code> 를 상속한 인터페이스입니다. 리스트 3의 인터페이스 선언을 보시면 쉽게 이해가 되실 것입니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트 3: Delayed 인터페이스 선언부</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface ScheduledFuture&lt;V&gt; extends Delayed, Future&lt;V&gt;
-
-public interface Delayed extends Comparable&lt;Delayed&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>이런 경우도 모두 통과할 수 있게 <code>ListUtils.max()</code> 메서드를 선언하고 구현하면 아래와 같습니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트4: ListUtils 구현</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class ListUtils {
-    public static &lt;T extends Comparable&lt;? super T&gt;&gt; T max(List&lt;T&gt; list){
-        T result = null;
-        for(T each : list) {
-            if (result==null) result = each;
-            if(each.compareTo(result)&gt;0) result = each;
-        }
-        return result;
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>public static &lt;T extends Comparable&lt;? super T&gt;&gt; T max(List&lt;T&gt; list)</code> 라는 긴 메서드 선언입니다. 이 선언 안에는 recursive type bound, wild card, upper bound, lower bound가  다 들어가 있습니다. 이 정도 메서드를 설계할 수 있어야지, Java generics를 제대로 아는 것이라고 할 수 있겠습니다.</p>
-</div>
-<div class="paragraph">
-<p>bounded wild card를 적용하는 기준은 Effective Java 2nd Edition에 나와 있는 PECS(Producer-extends, Consumer-super)원칙을 기억하시면 도움이 됩니다. 원래 <a href="http://engdic.daum.net/dicen/contents.do?query1=ED00866730">PECS의 뜻</a>은 가슴 근육이라는군요.</p>
-</div>
-<div class="sect2">
-<h3 id="t_extends_comparable"><code>&lt;T extends Comparable&#8230;&#8203;.</code></h3>
-<div class="paragraph">
-<p>Comparable인터페이스를 구현한 클래스가 그 대상이어야 max내부에서 Comparable.compareTo를 이용해서 최대값을 구할 수 있습니다. 그래서 타입 T는 T extends Comparable이 되어야 합니다. PECS원칙으로도 리턴값으로 생산되는 (Producer) 타입이 T이므로 extends를 쉽게 연상하실 수 있습니다.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="comparable_super_t_부분"><code>Comparable&lt;? super T&gt; 부분</code></h3>
-<div class="paragraph">
-<p>max 메서드 내부에서 타입 T는 Comparable.compareTo(T o)메서드 뒤에 파라미터로 넘어가는, 소비되는(Consumer) 대상으로 쓰이기에 PECS원칙으로 super로 연결시킬 수 있습니다. 테스트5의 코드를 예로 보면, ScheduledFuture는 ScheduledFuture의 상위 인터페이스인 Delayed가 Comparable의 Parameterized type으로 넘어가는 Comparable&lt;Delayed&gt;형태의 Comparable인터페이스를 상속하고 있습니다.  T를 ScheduledFuture로 봤을 때 Comparable&lt;? super T&gt;는 Comparable&lt;Delayed&gt;와 잘 맞아떨어집니다.</p>
-</div>
-<div class="paragraph">
-<p>이 리스트4의 ListUtils.max 메서드는 <a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2416238&amp;CategoryNumber=002">Effective Java 2nd Edition</a>의 Item28에 나오는 코드를 보고서 약간 변경을 해 본 것입니다. 원래 책에 나오는 코드는 아래와 같습니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트5: Effective Java 2nd Edition에 있는 max메서드</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public static &lt;T extends Comparable&lt;? super T&gt;&gt; T max(List&lt;? extends T&gt; list){
-  Iterator&lt;? extends T&gt; i = list.iterator();
-  T result = i.next();
-  while(i.hasNext()){
-            T t = i.next();
-            if (t.compareTo(result)&gt;0) result = t;
-   }
-   return result;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>메서드 선언이 <code>public static &lt;T extends Comparable&lt;? super T&gt;&gt; T max(List&lt;? extends T&gt; list)</code> 로 예제보다 더 늘어난 부분이 있습니다. 끝에 있는 <code>List&lt;? extends T&gt;</code> 가 추가된 것입니다. 이 부분은 PECS원칙에 따르면 List객체로부터 T를 생산(Producer)해 오기 때문에 <code>? extends T</code> 로 하는 것이 적절해 보이는 합니다. 그러나 테스트1~5의 코드에서는 <code>List&lt;T&gt;</code> 만으로도 컴파일러가 수행하는 형추론(type inference)에 문제가 없었기에 제가 만든 코드인 리스트4에는 추가하지는 않았습니다. 컴파일러가 수행하는 Type inference는 굉장히 복잡하고, Java Language Spec에서 16페이지나 차지한다고 합니다.</p>
-</div>
-<div class="paragraph">
-<p>그리고 리스트5에서는 길이가 0인 List가 넘어간 값일 때는 첫번째 i.next();에서 NoSuchElementException을 내게 되어 있습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#max-java.util.Collection-">java.util.Collections.max</a> 메서드에서도 같은 결과가 나오는 것으로 보아서, 유사한 구현방식이 쓰인 것으로 추측됩니다. 제가 만든 문제에서는 Collection.max와 약간 다른 부분을 만들어 보고 싶어서 길이가 0일 list가 올 때는 null을 반환하는 방식으로 바꾸어 보았습니다.</p>
-</div>
-<div class="paragraph">
-<p>그렇다면 `java.util.Collections.max`의 메서드 시그니처는 어떻게 되어 있을까요?</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트6: java.util.Collections.max 메서드</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">static &lt;T extends Object &amp; Comparable&lt;? super T&gt;&gt; T max(Collection&lt;? extends T&gt; coll)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>일단 대상이 List보다 확장된 Collection이니 Parameter가 Collection인 것이 눈에 들어 옵니다. 그런데 T의 제약조건이 &lt;T extends Object &amp; Comparable&lt;? super T&gt;&gt;로 선언되어 있는 것이 리스트5의 코드보다 'Object &amp;' 부분이 더 들어가 있습니다.</p>
-</div>
-<div class="paragraph">
-<p>이것은 java1.4와의 하위 호환성을 위한 것입니다. Java에서는 하위호환성 지원 때문에 컴파일 시에 Generics관련 정보를 모두 검사한 후에는 실제로는 Generics 정보가 전혀 없는 바이트코드를 생성하게 되어 있습니다. 그래서 리스트5처럼 메서드를 선언했을 때에는 런타임시에는 리스트 7과 같은 코드와 같은 바이트코드가 생성됩니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트 7: 리스트5의 메서드 선언이 자료형 지우기가 수행된 뒤의 모습</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">static Comparable max(Collection c)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>그러나 이전 버전에서의 max메서드의 모습은 다음과 같았습니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트8: Java5 이전의 Collections.max 메서드</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public static Object max(Collection c)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>따라서 리스트7처럼 Comparable을 반환하게 된다면 이것은 이전버전의 메서드 Signature를 바꿔버린 것이 되므로 하위버전에서 컴파일된 코드에서 Collections.max를 호출할 때 에러를 발생시키게 됩니다. 그래서 Object &amp;이 더 추가된 것이죠. (Agile Java의 Lesson 12 중 Additional Bounds에서 참조)</p>
-</div>
-<div class="paragraph">
-<p>여기까지 이해하셨으면, 실무에서 어떤 Generics 관련 코드를 봐도 이제 쉬워보이실 겁니다.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="generics의_표현력">Generics의 표현력</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>하나의 예제로 Generics의 많은 부분을 설명하기 위해서 다소 복잡한 코드를 보여드렸습니다. 혹시나 Generics를 이제 막 적용하시고 싶으신 분들의 마음을 어둡게 한 것이 아닌가 걱정이 되기도합니다. 그러나 대부분의 Generics적용 사례는 훨씬 간단하고, 특히 Collection 선언에 genercics를 활용하는 정도는 어렵지 않습니다.</p>
-</div>
-<div class="paragraph">
-<p>Generics는 컴파일시점에서의 에러 검출 영역을 넓혀줘서 보다 이른 시점에 버그를 잡을 수 있게 해주고, 코드I의 설명력을 높여줘서 API사용자들이 보다 쉽게 API를 쓸 수 있게 해줍니다. 컴파일타입의 에러체크 능력은 위의 예제를 통해서 설명했으니, 표현력에 대해서도 제가 겪은 사례를 이야기해 볼까 합니다.</p>
-</div>
-<div class="paragraph">
-<p>오래　전에 저는 Java 인터페이스를 엑셀파일로 만드는 산출물 작업을 했었는데, 리턴타입이 List인 메서드들은 그 안에 어떤 객체들이 들어있는지 메서드 시그니처만으로는 표현할 수 없어서 답답했던 적이 있었습니다. 그래서 아예 List대신 배열을 쓸까도 고민하다가 List가 가진 편의성들을 버릴 수가 없어서 List를 쓰고 따로 문서에 그 안에 어떤 객체가 들어가 있는지를 적을 수 밖에 없었습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://docs.oracle.com/javaee/5/api/javax/servlet/ServletRequest.html#getParameterMap()">javax.servlet.ServletRequest.getParameterMap()</a>를 사용할 때는 API사용자로서 아쉬움을 느꼈었습니다. API문서를 보면 이 메서드가 반환하는 Map에는 key로 String이, value로 String배열이 들어가 있는 것으로 설명되어 있습니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/java/request-getParametersMap.gif" alt="request getParametersMap"></span></p>
-</div>
-<div class="paragraph">
-<p>저는 처음에 이 문서를 안 보고 key가 String, 값이 하나일 때는 그냥 String, 값이 2개 이상이면 String배열이 들어가 있지 않을까하는 추측을 바탕으로 한 코드를 짜서 몇번 에러를 냈었었습니다.
-결국 API문서를 보고서 어떤 형식으로 자료가 들어가 있는지 알게 되어있습니다.
-이 메소드의 리턴타입이 <code>Map&lt;String,String[]&gt;</code> 과 같이 선언되어 있었다면, 문서를 안 보고도, Runtime 에러를 안 겪고도 바로 올바른 자료형으로 사용이 가능했을 것입니다.
-이렇듯 Generics를 잘 활용할 수 없는 API를 쓸 때에는 소비자 입장에서 불편합니다.</p>
-</div>
-<div class="paragraph">
-<p>나중에 저는 이 메서드를 호출하는 부분을 아래와 같이 감싸는 부분을 넣었습니다.</p>
-</div>
-<div class="listingblock">
-<div class="title">리스트9: <code>javax.servlet.ServletRequest.getParameterMap()</code> 메서드를 Generics를 이용한 코드로 감싸기</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SuppressWarnings("unchecked")
-Map&lt;String,String[]&gt; requestMap = request.getParameterMap();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>@SuppressWarnings("unchecked")</code> 은 어쩔 수 없는 경우에만 써야 하고, 쓸 때도 클래스 단위, 메서드 단위가 아닌 이런 최소 라인 단위로 써야 합니다.
-Effective Java 2nd Edition Item 24참조)
-이 경우는 Generics지원하지 않는 외부 인터페이스를 호출하는 것이라서 불가피한 경우입니다.
-형에 대해서는 API 문서에 명시된 내용라서 이렇게 @SuppressWarnings을 선언해도 문제가 없습니다.
-필요에 따라서 이 requestMap을 리턴해 준다면 그것을 쓰는 코드에서는 더 이상 이 안에 무엇이 들어있는지 문서를 찾아보지 않아도 됩니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterMap()">
-JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`의 반환형이 `Map&lt;String,String[]&gt;</code> 으로 바뀌어 있음을 확인할 수 있습니다.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="img/java/request-getParametersMap-ee6.png" alt="request getParametersMap ee6"></span></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="관련자료_모음">관련자료 모음</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="generics_관련_자료">Generics 관련 자료</h3>
-<div class="paragraph">
-<p>이 포스트는 주로 아래 두 책을 보면서 얻은 정보를 통해 작성되었습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2416238&amp;CategoryNumber=002">Effective Java 2nd Edition</a> : <a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2416238&amp;CategoryNumber=002" class="bare">http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2416238&amp;CategoryNumber=002</a>Chater 4: Item23 ~ Item 29</p>
-</li>
-<li>
-<p><a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=1534922&amp;CategoryNumber=002001026004">Agile Java</a> : <a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=1534922&amp;CategoryNumber=002001026004" class="bare">http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=1534922&amp;CategoryNumber=002001026004</a>Lesson 14</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Agile java처럼 테스트 코드를 먼저 보여주었고 , ListUtils.max 메서드는 Effective Java의 내용을 주로 참조해서 작성했습니다. Effective Java에서는 ScheduledFuture의 경우에 대해서 언급만 되어 있고 예제코드가 없는 것이 아쉬워서 테스트5의 코드를 작성했고, 비슷한 사례의 보다 친숙한 클래스를 찾다가  Agile java에서 java.sql.Date 클래스가 예제에 많이 쓰인 것을 보고 테스트4를 추가했습니다.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=2416238&amp;CategoryNumber=002">Effective Java 2nd Edition</a> 에 포함된 내용 중 Java5 관련 내용은 Joshua Bloch이 했던 발표에 잘 요약되어 있습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://developers.sun.com/learning/javaoneonline/2006/coreplatform/TS-1512.pdf">Effective Java Reloaded, JavaOne Conference 2006</a></p>
-</li>
-<li>
-<p><a href="http://javapolis.libsyn.com/index.php?post_id=380974">Effective Java Reloaded - 2008</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>그외 Generics에 관한 자료들의 링크는 아래와 같습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://java.sun.com/j2se/1.5/pdf/generics-tutorial.pdf">Genercis tutorial</a></p>
-</li>
-<li>
-<p><a href="http://mkseo.pe.kr/blog/?p=1691">Summary on some java generics presentations/postings</a></p>
-</li>
-<li>
-<p><a href="http://www.ibm.com/developerworks/kr/library/j-jtp04298.html">자바 이론과 실습: 제네릭스 해부, Part 1</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://whiteship.me/1932">Generic 팩토리 메소드</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="http://www.ibm.com/developerworks/kr/library/j-jtp07018.html">자바 이론과 실습: 제네릭스 해부, Part 2</a></p>
-</li>
-<li>
-<p><a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html">Super Type Tokens</a></p>
-</li>
-<li>
-<p><a href="http://www.ibm.com/developerworks/java/library/j-jtp01255.html">Generics gotchas</a></p>
-</li>
-<li>
-<p><a href="http://whiteship.tistory.com/1614">Generic 메타데이터 활용하기</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="concurrent_관련자료">Concurrent 관련자료</h3>
-<div class="paragraph">
-<p>Effective Java에서 언급한 ScheduledFuture를 이용한 예제코드를 만들다 보니 Concurrent관련 API들이 몇개 포함되었습니다. 그 API들에 관심이 있으신 분은 아래 자료를 참조하시면 됩니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://www.yes24.com/Goods/FTGoodsView.aspx?goodsNo=3015162&amp;CategoryNumber=001001003016003014">자바 병렬프로그래밍 :</a> 6장 작업실행</p>
-</li>
-<li>
-<p>관련 API 문서</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Executors.html">java.util.concurrent.Executors</a></p>
-</li>
-<li>
-<p><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/ScheduledExecutorService.html">java.util.concurrent.ScheduledExecutorService</a></p>
-</li>
-<li>
-<p><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html">java.util.concurrent.ScheduledThreadPoolExecutor</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>List&lt;ScheduledFuture&lt;?&gt;&gt;</code> 의 코드가 실전에서 쓰인 것이 없을까해서 찾아보니 로깅　프레임워크인　Logback의　소스 코드에서 그런 코드가 발견되었습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/qos-ch/logback/blob/master/logback-core/src/main/java/ch/qos/logback/core/ContextBase.java#L52［ContextBase.java］" class="bare">https://github.com/qos-ch/logback/blob/master/logback-core/src/main/java/ch/qos/logback/core/ContextBase.java#L52［ContextBase.java］</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2173103.html&text=Effective &amp; Agile Java Generics&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2173103.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2173103.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2173103.html&title=Effective &amp; Agile Java Generics" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2173103.html&title=Effective &amp; Agile Java Generics" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2173103.html&title=Effective &amp; Agile Java Generics" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2173103.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/Java.html'>Java</a></li>
- 	        <li><a href='../tags/generics.html'>generics</a></li>
-
-				<li><a class="icon fa-comment" href="../2173103.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 <article class="post">
    <header>
     <div class="title">
@@ -1068,6 +536,187 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
     	
     </footer>
 </article>
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2073073.html">Cubrid에서 commit시에 Statement가 닫히는 현상</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Sep 25, 2008'>
+            Sep 25, 2008</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div class="paragraph">
+<p>다음의  코드는 1000건을 insert하면서 100건마다 한번씩 commit을 하는 기능을 수행합니다. 대용량 데이터를 입력 할 때 이렇게 주기적으로 commit을 해주는 것은 일반적인 처리방식입니다. Cubrid DB에서는 이와 같은 코드를 실행시키면 'Attempt to access a closed PreparedStatement.'라는 에러 메시지를 받게 될 수도 있습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">package test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Properties;
+
+public class JDBCTest {
+
+  public static void main(String[] args) {
+    String query = "INSERT into common_cd(cd_type, cd, cd_name) values(?, ?, ?);";
+    Properties cubrid = new Properties();
+    cubrid.put("url","jdbc:cubrid:127.0.0.1:43003:test:::");
+    cubrid.put("driver","cubrid.jdbc.driver.CUBRIDDriver");
+    cubrid.put("user","test");
+    cubrid.put("password","test");
+
+    insertAndCommit(cubrid, query);
+ }
+
+  private static void insertAndCommit(Properties prop,String query) {
+    Connection con =  null;
+    PreparedStatement psmt  = null;
+    try{
+     Class.forName (prop.getProperty("driver"));
+     con = DriverManager.getConnection(prop.getProperty("url"),prop);
+     con.setAutoCommit(false);
+     psmt = con.prepareStatement(query);
+     for(int i=1;i&lt;=1000;i++)\{
+       psmt.setString(1, "00");
+       psmt.setString(2, String.valueOf(i));
+       psmt.setString(3, "code:"+i);
+       psmt.execute();
+       System.out.println(i+"th row set");
+       if(i%100==0) {
+         con.commit();
+         System.out.println("commit-------------------------------------");
+       }
+     }
+    } catch (Exception ex){
+      ex.printStackTrace();
+    } finally{
+     try{ psmt.close();} catch(Exception e){}
+     try{ con.close();} catch(Exception e){}
+    }
+ }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>commit 을 했을 뿐인데, Statement가 닫혀버리는 형상이 발생한 것이죠. 원인을 찾기 위해 Cubrid JDBC드라이버의 클래스 파일들을 역컴파일 해서 봤더니, 아래와 같은 completeAllStatements()라는 메소드가 commit 메소드 안에서 호출이 되는 것이였습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">private void completeAllStatements() throws SQLException {
+    for (int i = 0; i &lt; statements.size(); i++) {
+        UniSQLStatement unisqlstatement = (UniSQLStatement) statements.get(i);
+        if (unisqlstatement instanceof UniSQLPreparedStatement) {
+            statements.remove(i);
+            if (u_con.brokerInfoStatementPooling())   unisqlstatement.complete();
+            else   unisqlstatement.close();
+        } else{
+        unisqlstatement.complete();
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Connection의 close시에 Statement가 close되는 것은  JDBC명세에 나와있지만 commit시에 close될 수 있다는 것은 의외였습니다. 혹시나 싶어서 MySql, Oracle, Hsql의 JDBC구현들을 다 살펴보았지만, 비슷한 동작을 할 가능성이 있는 코드들은 찾을 수가 없었습니다. Cubrid만의 독특한 점이죠.</p>
+</div>
+<div class="paragraph">
+<p>이 문제를 해결하는 방법은 DB 서버에 있는 설정파일인 Cubrid_broker.conf 파일에서 STATEMENT_POOLING속성을 ON으로 표시해주는 것이라고 합니다.</p>
+</div>
+<div class="paragraph">
+<p>이 속성은 서버에서 Statement Pooling을 하겠다는 의미가 아니고, Connection을 받아서 쓰는 Client 쪽에서 Connection Pooling을 하고 있으니 Commit시에 Statement를 끊지 말라고 알려주는 것이라고 합니다. 위에 있는 completeAllStatements메소드 안의  u_con.brokerInfoStatementPooling()코드가 그것을 검사하는 것 같습니다. 사실 앞의 코드의 commit을 여러번 하는 예는 Statement pooling도 아니고 한 번 만들어진 Statement를 계속 쓰는 것 뿐인데, 이것을 Statement pooling을 쓰는 것으로 인식시켜야 한다니 논리적으로 이상하기는 합니다.</p>
+</div>
+<div class="paragraph">
+<p>그리고, Cubrid에 접근하는 Client는 CAS(Common Application Server)라는 것을 거치게 되어 있는데, 이 CAS보다 요청하는 Client의 갯수가 많을 때에는 항상 에러를 내는 것이 아니고, 이미 연결되어 있는 다른 Connection이 Transaction 중이 아니라면 그 Connection의 Statement자원을 해제시켜 버리고 가져와서 쓸 수 도 있다고 합니다. 이것을 막는 설정이 KEEP_CONNECTION이라는 속성입니다. CUBRID Manager Client프로그램에서 바꿀 수 있습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="img/cubrid-keep-config.jpg" alt="Cubrid설정.JPG" title="Cubrid설정.JPG"></span></p>
+</div>
+<div class="paragraph">
+<p>또, Cubrid는 하나의 Connection에서 동시에 두개의 Prepare를 오픈 할 수 없는 구조라고 하네요. (참고자료:http://cubrid.com/bbs/view.php?id=faq&amp;no=318&amp;category=3[] <a href="http://cubrid.com/bbs/view.php?id=faq&amp;no=318&amp;category=3" class="bare">http://cubrid.com/bbs/view.php?id=faq&amp;no=318&amp;category=3</a>)</p>
+</div>
+<div class="paragraph">
+<p>이런 특징들을 보면, Cubrid는 Client의 명시적인 요청이 없이도 자원을 최대한 빨리 해제시켜 버리는 것이 사상이 아닌가 하는 생각도 듭니다. 어쩌면  제대로 자원 해제를 못하는 JDBC 코드가 많았던 시절에 그로 인해 생기는 문제들을 대응하면서 생긴 구조일 것 같다는 추측도 해봅니다.(참고: <a href="http://blog.benelog.net/1898928">JDBC에서 Connection, Statement,ResultSet의 close</a> ) 그러나 대부분 프레임웍 기반의 개발을 하고 필요할 때 자원을 close시켜주는 코드들이 정착되고 있는 지금 시점에서는 큰 의미가 없는 특징이고, 오히려 다른 DB나 JDBC명세에 없는 동작으로 인한 혼란만 불러 일으킨다고 생각됩니다.</p>
+</div>
+<div class="paragraph">
+<p>그래서 결론은 Cubrid에서 개발자의 의도보다 Statement를 먼저 해제시킬 수 있는 기능을 안 쓰려면 STATEMENT_POOLING과 KEEP_CONNECTION속성을 ON으로 하면 된다는 것입니다.</p>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2073073.html&text=Cubrid에서 commit시에 Statement가 닫히는 현상&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2073073.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2073073.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2073073.html&title=Cubrid에서 commit시에 Statement가 닫히는 현상" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2073073.html&title=Cubrid에서 commit시에 Statement가 닫히는 현상" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2073073.html&title=Cubrid에서 commit시에 Statement가 닫히는 현상" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2073073.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Cubrid.html'>Cubrid</a></li>
+ 	        <li><a href='../tags/JDBC.html'>JDBC</a></li>
+
+				<li><a class="icon fa-comment" href="../2073073.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 		
 <ul class="actions pagination">
     <li><a href="../17/"
@@ -1140,17 +789,6 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
-                                 <time class="published"
-							            datetime='Nov 12, 2019'>
-							            Nov 12, 2019</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -1177,6 +815,17 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
+                                 <time class="published"
+							            datetime='Feb 25, 2015'>
+							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1413,7 +1062,7 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 2 </span>
+                                <span style="float:right;"> 1 </span>
                             </header>
                         </article>
                     </li>
@@ -1708,15 +1357,6 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -1925,15 +1565,6 @@ JavaEE6 버전의 JavaDoc</a>을 보니 이제는 <code>request.getParamersMap`�
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
-                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
