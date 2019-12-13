@@ -133,6 +133,9 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
+                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
+                    </li>
+                    <li>
                         <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
@@ -140,9 +143,6 @@
                     </li>
                     <li>
                         <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
-                    </li>
-                    <li>
-                        <a href="../../3134907.html"><p>'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</p></a>
                     </li>
             </ul>
         </section>
@@ -158,6 +158,158 @@
 </section>
 	
 	<div id="main">
+<article class="post">
+   <header>
+    <div class="title">
+                    <h2><a href="../2710123.html">SpringOne2GX 2010 (4) Spring Roo 관련 발표들</a></h2>
+
+
+    </div>
+    <div class="meta">
+         <time class="published"
+            datetime='Nov 11, 2010'>
+            Nov 11, 2010</time>
+            <div class="published eta"></div>
+        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+    </div>
+</header>
+
+    
+  
+         
+    <div id="content">
+       <div class="paragraph">
+<p>작년 SpringOne에서도 Spring Roo에 대한 발표가 있었고, Google IO 등 다른 컨퍼런스에서도 꾸준히 Spring Roo는 홍보되었지만, 이번 SpringOne에서는 부쩍 그 비중이 높게 느껴졌습니다.</p>
+</div>
+<div class="paragraph">
+<p>키노트가 있었던 주행사장에는 Spring Roo, Spring, SpringSource, Groovy, Grails의 5개의 로고가 조명으로 비추어져 있었습니다. Groovy-Grais의 관계처럼 Spring-SpringRoo의 관계를 연상시켜서, Spring의 대표 기술로  홍보하려는 전략으로 보였습니다.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://lh3.ggpht.com/_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG" alt="_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG" width="640" height="480" title="_oJrmz3UkGJk/TMi7gUjZNII/AAAAAAAAC0A/hSU3s8E2XCk/s640/PA220055.JPG"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="http://lh6.ggpht.com/_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG" alt="_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG" width="465" height="348" title="_oJrmz3UkGJk/TMi7hDFNR_I/AAAAAAAAC0A/mWjWPk7bMPE/s912/PA220058.JPG"></span></p>
+</div>
+<div class="paragraph">
+<p>그리고 행사 기념품으로 나온 배찌에서도, Spring,SpringSource, Goorvy, Grails, Tomcat 등과 함께 Spring Roo의 로고가 박힌 것이 포함되었습니다. Security나 Batch같이 이미 현장에서 더 많이 쓰이고 있는 하위 프로젝트들도 있는데, Roo만 특별대우 한다는 느낌까지 들 정도였습니다.  다른 프레임웍 기술만과는 차별된 Spring만의 강점을 강조하기 위해서 Spring Roo가 전면에 나왔다고 생각됩니다.  스프링에서 지원하는 기술이 많아질 수록, API들을 전파하는 것도 쉽지 않을 것인데, Spring Roo를 통해서 사용할 수 있는 방법을 제공하면 코드가 자동생성 되므로 사용법이 더 간편해 보인다는 장점이 있을 것입니다. 그리고 Roo가 그렇게 새로운 API 전파 창구의 역할을 수행한다면 Roo를 직접 사용하지 않는 사람도 Roo가 생성해주는 코드를 샘플로 활용할 수도 있을 것입니다. Spring 3.0.4에 포함된 &lt;mvc:default-servlet-handler/&gt;가 Roo에 바로 반영된 것이나, Neo4j의 Roo addon등이 그 예입니다.</p>
+</div>
+<div class="paragraph">
+<p>컨퍼런스가 끝나고 몇일 뒤에 바로 Spring Roo 1.1.0 버전이 발표되었는데,  이번 컨퍼런스에서 1.1.0에 포함된 기능을 소개하는 발표가 많았습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://blog.springsource.com/2010/10/27/spring-roo-1-1-0-is-released/" class="bare">http://blog.springsource.com/2010/10/27/spring-roo-1-1-0-is-released/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>OSGi, GWT, GAE-J 지원,  검색서버인 Apache Solr  지원, Database reverse engineering 등 많은 발전을 보여줍니다. 아래 포스트에 있는 지난 1년간의 Roo의 commit 내력을 시각화한 그림에서도 그런 변화가 표현되었습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://stsmedia.net/spring-roo-1-1-ga-released/" class="bare">http://stsmedia.net/spring-roo-1-1-ga-released/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>벤알렉스 아저씨가 열심히 개발을 하는 모습이 보이는군요.  이번 컨퍼런스에  벤알렉스는 참석하지 않았고, 벤알렉스가 진행하기로 한 발표의 일부는 로드존슨이 직접 진행했습니다. 아파서 못 왔다고는 말했는데, 1.1 출시를 얼마 안 앞두고 마무리 작업 때문에 못 온 것이 아닌가 하는 생각도 들었습니다.</p>
+</div>
+<div class="paragraph">
+<p>저는 Roo 관련 세션 중에 Add-On 개발 관련 세션에 들어갔었습니다.
+아래 URL에 있는 toString addon을 샘플소스로 보라고 했는데,  toString을 Addon도 크게 쉬워보이지는 않았습니다.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://git.springsource.org/roo/roo/trees/master/addon-tostring/src/main/java/org/springframework/roo/addon/tostring" class="bare">http://git.springsource.org/roo/roo/trees/master/addon-tostring/src/main/java/org/springframework/roo/addon/tostring</a></p>
+</div>
+<div class="paragraph">
+<p>가장  흥미로운 이야기는 Roo에서 앞으로 iBatis, Spring jdbc 같은  JPA 이외의 Persistence 기술도 지원하겠다는 것이였습니다.</p>
+</div>
+<div class="paragraph">
+<p>그리고 Maven 멀티 프로젝트를 언제 지원할 수 있으냐는 질문이 세션 중에 나왔는데, 명확한 일정을 확답을 하지 못한 것으로 봐서는 가까운 시일 내에 가능해지지는 않을 것 같습니다.</p>
+</div>
+<div class="paragraph">
+<p>Roo 관련 발표 자료들은 아래에 공개되어 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/new-persistence-features-in-spring-roo-11">New Persistence Features in Spring Roo 1.1</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/next-generation-spring-mvc-with-spring-roo">Next Generation Spring MVC with Spring Roo</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/schmidtstefan/spring-one2010addondev">Spring Roo Add-On Development &amp; Distribution</a></p>
+</li>
+</ul>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//2710123.html&text=SpringOne2GX 2010 (4) Spring Roo 관련 발표들&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2710123.html&title=SpringOne2GX 2010 (4) Spring Roo 관련 발표들" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2710123.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
+
+    <footer>
+	
+		<ul class="stats">
+    	    <!-- Display the categories associated with this post -->
+    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
+ 	        <li><a href='../tags/Spring.html'>Spring</a></li>
+ 	        <li><a href='../tags/Spring-One.html'>Spring-One</a></li>
+ 	        <li><a href='../tags/행사후기.html'>행사후기</a></li>
+
+				<li><a class="icon fa-comment" href="../2710123.html#disqus_thread"> &nbsp;</a></li>
+ 		</ul>
+    	
+    </footer>
+</article>
 <article class="post">
    <header>
     <div class="title">
@@ -889,326 +1041,6 @@ public class SharedService {
     	
     </footer>
 </article>
-<article class="post">
-   <header>
-    <div class="title">
-                    <h2><a href="../2702876.html">PMD ruleset 검토 의견 사례</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Oct 28, 2010'>
-            Oct 28, 2010</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-    
-  
-         
-    <div id="content">
-       <div class="paragraph">
-<p>이전에 PMD 룰셋 검토했을 때 정리했던  의견입니다.</p>
-</div>
-<div class="paragraph">
-<p>Rule에 대한 유용성은 프로젝트의 상황에 따라서 많이 다르기 때문에, 아래 의견은 참고만 하셨으면 합니다.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Rule Set</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Rule name</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Message</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>분류</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>의견</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>설명, 의견 사유</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>참고자료</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Basic Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EmptryInitializer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PMD 5.0에서 추가될 룰로 Maven plugin에서는 지원되지 않음</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Braces Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IfStmtsMustUseBraces</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid using if statements without curly braces</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if문뒤의 한줄짜리 처리문도 \{}가 없으면 경고를 줌. 가독성을 높여주므로 포함시키는 것이 바람직.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Code Size Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TooManyMethods</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This class has too many methods, consider refactoring it.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">한 클래스에 지나치게 많은 메소드가 포함되면 나는 경고. 적당한 클래스 크기를 정하는데 도움을 주나, 정말 논리적 연관성이 있는 작업을 많이 담고 있는 클래스도 존재할 수 있으므로 적정 숫자에 대해서는 논의 필요함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Controversial Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OnlyOneReturnRule</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A method should have only one exit point, and that should be the last statement in the method</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">메서드 중간의 return문은 복잡한 조건문의 구조를 단순하게 하는데 도움이 경우가 많고, 권장하는 사례도 있음.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">켄트백의 구현패턴 - 7장 중 '보호절'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Controversial Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DataflowAnomalyAnalysis</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Found 'DD'-anomaly for variable &#8230;&#8203;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Info</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">전체 데이터의 흐름을 분석해서 return값과 상관없는 변수에 값을 쓴다든지 하는 상식적이지 않은 경우를 잡아내줌. 캐쉬나 interceptor등 그런 흐름이 꼭 필요한 코드도 경고해줘서 지나치게 많은 경고를 생성함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Controversial Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unused Modifer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid modifiers which are implied by the context</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">interface는 당연히 모든 method가 public이니 따로 선언해줄 필요가 없는 현상등을 주의를 줌. 개발자에 따라서는 public이 있는 것이 더 명시적이라고 생각할 수도 있고, 이미 모든 인터페이스가 public으로 다 선언되어 있는 상황에서는 개발자들에게는 무의미한 수정으로 인식될 위험도 있음.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Design Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UnnecessaryLocalBeforeReturn</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consider simply returning the value vs storing it in local variable ….</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">return 전에 따로 local 변수로 반환할 값을 선언할 때 주는 경고. 기능적으로는 별 의미 없는 코드이나, return 문장에는 @SupressWarning 의 Annotation을 추가할 수 없기 때문에, Annotation 적용 범위를 최소화하기 위해 그런 선언이 필요한 때도 있음. Debug Mode에서도 값의 추적에 약간의 편리성이 생길 수 있음.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java Language Spec 9.7, Effective Java 2ed - Item 24</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Design Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UncommentedEmptyConstructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Document empty constructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">빈 생성자에 comment가 없어도 코드의 이해에 무리가 없는 경우가 많음</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Design Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UncommentedEmptyMethod</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Document empty method</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Listener류의 인터페이스의 구현에는 특정 메소드는 아무 일도 하지 않는 메소드로 남겨놓을 때도 있고, 종종 발생하는 상황임. 그리고 그 상황에 주석이 없다고 해도, 코드 이해에 무리가 없음</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Design Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ImmutableField</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private field '&#8230;&#8203;' could be made final; it is only initialized in the declaration or constructor.
-EmptyInitializer<br></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">멤버변수 중 선언되어서 한번만 값이 대입된 변수는 final로 할 수 있다고 알려주는 경고. 개발자가 Final로 의도하지 않지만, 현재 기능에서는 한번만 대입하고 있는 상황도 존재할 수 있다고 생각됨.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Jakarta Commons Logging Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ProperLog</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Logger should be defined private static final and have the correct class</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">private static final Log log = LogFactory.getLog(해당클래스) 로 로거를 선언할 것을 알려줌. 대체로 무난히 적용가능하나, 프로젝트의 로그 정책이 특별한 경우도 있으므로 논의해볼만 함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java Bean Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BeanMemberShouldSerialize</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Found non-transient, non-static member. Please mark as transient or provide accessors.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java Bean의 명세를 검사하는 규칙. 일반적인 클래스는 transient하지 않으면서도 acessor가 없는 멥버 변수가 올 수 있는 경우가 많음. 스프링에서 선언하는 bean들은 setter만 가지는 경우가 많으므로 대부분 이 규칙에 어긋나게 됨. (스프링에서 bean은 java bean명세보다 보다 넓은 bean을 의미하는 것으로 생각하면 됨)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java Loggins Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Systemprintln</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System.out.print is used</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">웹Application에서는 반드시 피해야할 코드라서 출시시에는 꼭 걸러내야하나, 분류가 Error가 되어 있는 것에 대한 논의는 필요함. 그리고 Console에서 도는 간단한 프로그램이나 테스트코드에서는 System.out이 들어가는 것이 결함이 아니므로 폴더 범위나 네이밍룰을 추가한 보다 정교한 Rule지정하는 것이 바람직함(예를 들어 Controller, Service, DAO안에는 System.out불가)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Junit Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JunitAssertionsShouldIncludeMessage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JUnit assertions should include a message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">테스트 결과를 확인할 때, 메시지가 포함된 것이 바람직하나, 테스트 코드 작성을 장려하기 위해 테스트 코드에 대한 제약은 줄이는 것이 좋을 것으로 판단됨</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Junit Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JunitTestsShouldIncludeAssert</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JUnit tests should include assert() or fail()</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">assert나 fail이 있는 테스트코드가 의미가 있으나, 그렇지 않은 코드도 없는 것 보다는 나으므로, 테스트 코드 작성을 장려하기 위해 관대한 정책을 권장함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Migration Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Junit4TestShouldUseTestAnnotation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JUnit 4 tests that execute tests should use the @Test annotation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Junit3.8로 기준으로 작성된 코드에서 Junit4의 요건을 요구하면서 warning을 냄.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Naming Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LongVariable</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid excessively long variable names like …</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">표현력이 높은 변수이름을 짓는 것을 권장하기 위해서 길이제한을 두는 것은 바람직하지 않음</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Naming Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ShortVariable</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid variables with short names like…</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"is","os"등의 2글자 변수명일 때 나는 경고. 실제로 2글자만으로도 문맥상으로 충분한 표현력을 가지는 상황도 있고, 한 메소드가 크게 길어지지만 않는다면 local variable의 경우에는 다소 관대한 정책을 넣는 것도 무리는 없음</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optimization Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AvoidInstantiatingObjectsInLoops</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid instantiating new objects inside loops</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Loop안에서 new keyword가 존재하면 나는 경고임. 피할 수 있는 경우라면 피해야 겠지만, GC시점이 약간이나마 늦어질 수 있고, collection.clear같은 청소 매서드 호출이 필요해진다거나, Thread safe해지지 않는 경우 등 손해가 있는 상황이 있으므로, 항상 지켜야할 지침이라고는 보기 어려움</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optimization Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LocalVariableCouldBeFinal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Local variable '&#8230;&#8203;' could be declared final</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제외요망</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">local 변수 중 final이 될 수 있는 것을 알려주는 정보. Final이 되면 경고를 주는 이와 상반된 룰도 존재함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optimization Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MethodArgumentCouldBeFinal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter '&#8230;&#8203;' is not assigned and could be declared final</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">방어적 프로그래밍을 위해서 파라미터는 final로 선언하는 것이 바람직하나, 모든 메서드를 그렇게 하면 메소드 시그니처가 전부 다 길어지기 단점이 있음. 기술인프라성 공통코드에만 적용하는 방안이 바람직하다고 생각함</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Strict Exception Rules</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SignatureDeclareThrowsException</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A method/constructor shouldn&#8217;t explicitly throw java.lang.Exception</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">메소드나 생성자가 throws Exception으로 최상위 Exception을 던질때 주는 경고. Checked Exception의 남발을 막고, 정교한 Exception선언을 돕는다는 장점도 있어서 되도록 권장하고 싶지만, 기존 코드의 Exception 선언이 throws Exception이 남용되어 있을 때 등 프로젝트 후반기에는 적용이 어려움</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String and StringBuffer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AvoidDpolicateLiterals</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The String literal " rows, page " appears 4 times in this file; the first occurrence is on line 70</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">논의필요</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">중복 되는 문자열 상수가 많은 경우에 나타남. 내부적으로는 java의 상수풀을 사용하게 되므로 성능에는 영향은 없음. 반복되는 문자열도 따로 상수선언을 하게 하는, 좋은 코딩습관에 도움이 되나 ,테스트 클래스 등의 안내 메시지 등의 그리 중요하지 않은 부분에서 지나친 상수선언을 하게 할 수 있음.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-    </div>
-	
-	<section id="social-share">
-        <ul class="icons">
-<!-- Social Share Button HTML -->
-
-<!-- Twitter -->
-<li><a href="//twitter.com/share?url=https://blog.benelog.net//2702876.html&text=PMD ruleset 검토 의견 사례&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-<!-- Google Plus -->
-<li><a href="//plus.google.com/share?url=https://blog.benelog.net//2702876.html" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-<!-- Facebook -->
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//2702876.html" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-<!-- Reddit (url, title) -->
-<li><a href="//reddit.com/submit?url=https://blog.benelog.net//2702876.html&title=PMD ruleset 검토 의견 사례" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-<!-- LinkedIn -->
-<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//2702876.html&title=PMD ruleset 검토 의견 사례" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-<!-- StumbleUpon (url, title) -->
-<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//2702876.html&title=PMD ruleset 검토 의견 사례" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-<!-- Email -->
-<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//2702876.html" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-        </ul>
-    </section>
-     
-
-    <footer>
-	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/PMD.html'>PMD</a></li>
- 	        <li><a href='../tags/정적분석.html'>정적분석</a></li>
-
-				<li><a class="icon fa-comment" href="../2702876.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    	
-    </footer>
-</article>
 		
 <ul class="actions pagination">
     <li><a href="../11/"
@@ -1281,6 +1113,17 @@ EmptyInitializer<br></p></td>
                     <li>
                         <article>
                             <header>
+                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
+                                 <time class="published"
+							            datetime='Nov 12, 2019'>
+							            Nov 12, 2019</time>
+                            </header>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article>
+                            <header>
                                 <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
@@ -1307,17 +1150,6 @@ EmptyInitializer<br></p></td>
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
-                            </header>
-                        </article>
-                    </li>
-
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="../3134907.html">'네이버를 만든 기술, 읽으면서 배운다 - 자바편' 출간</a></h3>
-                                 <time class="published"
-							            datetime='Feb 25, 2015'>
-							            Feb 25, 2015</time>
                             </header>
                         </article>
                     </li>
@@ -1554,7 +1386,7 @@ EmptyInitializer<br></p></td>
                             <header>
                                 <a href="../tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
-                                <span style="float:right;"> 1 </span>
+                                <span style="float:right;"> 2 </span>
                             </header>
                         </article>
                     </li>
@@ -1849,6 +1681,15 @@ EmptyInitializer<br></p></td>
                     <li>
                         <article>
                             <header>
+                                <a href="../tags/ktlint.html">ktlint</a>
+                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
+                                <span style="float:right;"> 1 </span>
+                            </header>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
                                 <a href="../tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
@@ -2057,6 +1898,15 @@ EmptyInitializer<br></p></td>
                         <article>
                             <header>
                                 <a href="../tags/생산성-도구.html">생산성-도구</a>
+                                <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
+                                <span style="float:right;"> 1 </span>
+                            </header>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <a href="../tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>

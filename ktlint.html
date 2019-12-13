@@ -7,23 +7,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title> - 개발수양록</title>
+    <title>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기 - 개발수양록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="Kotlin 언어에는 공식 코딩 컨벤션이 정의되어 있습니다. 이를 준수할수 있도록 Gradle 빌드에서 ktlint로 코드 스타일을 검사하고, IntelliJ의 포멧터, Git의 pre-commit hook과 연동하는 방법을 안내합니다.">
     <meta name="author" content="정상혁">
-    <meta name="keywords" content="">
+    <meta name="keywords" content="kotlin, ktlint, coding-convention">
     <meta name="generator" content="JBake">
-	<meta property="og:image" content="https://blog.benelog.net/img/main/intro.jpg"/>
+	<meta property="og:image" content="https://blog.benelog.net/img/kotlin-code-style/ktlint-logo.jpg"/>
 
-    <link rel="stylesheet" href="../css/google-font.css" />
-    <link rel="stylesheet" href="../css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/add-on.css" />
-    <link rel="stylesheet" href="../css/monokai-sublime.css">
+    <link rel="stylesheet" href="css/google-font.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/add-on.css" />
+    <link rel="stylesheet" href="css/monokai-sublime.css">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
+      <script src="js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="../img/favicon/favicon.png">
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
   </head>
   <body>
      <!-- Wrapper -->
@@ -44,7 +44,7 @@
     <nav class="links">
         <ul>
         			<li>
-	                    <a href=" ../archive.html">
+	                    <a href=" archive.html">
 	                       
 	                            <i class="fa fa-archive">&nbsp;</i>Archive
 	                        
@@ -53,7 +53,7 @@
         		
         		 
         			<li>
-	                    <a href=" ../about.html">
+	                    <a href=" about.html">
 	                       
 	                            <i class="fa fa-user">&nbsp;</i>About
 	                        
@@ -62,7 +62,7 @@
         		
         		 
         			<li>
-	                    <a href=" ../feed.xml">
+	                    <a href=" feed.xml">
 	                       
 	                            <i class="fa fa-rss">&nbsp;</i>Subscribe
 	                        
@@ -103,21 +103,21 @@
         <section>
             <ul class="links">
         		 <li>
-                    <a href=" ../archive.html">
+                    <a href=" archive.html">
                        
                             <i class="fa fa-archive">&nbsp;</i>Archive
                         
                     </a>
                 </li>
         		 <li>
-                    <a href=" ../about.html">
+                    <a href=" about.html">
                        
                             <i class="fa fa-user">&nbsp;</i>About
                         
                     </a>
                 </li>
         		 <li>
-                    <a href=" ../feed.xml">
+                    <a href=" feed.xml">
                        
                             <i class="fa fa-rss">&nbsp;</i>Subscribe
                         
@@ -133,16 +133,16 @@
                     <h3>Recent Posts</h3>
                 </header>
                     <li>
-                        <a href="../../ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
+                        <a href="ktlint.html"><p>ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</p></a>
                     </li>
                     <li>
-                        <a href="../../installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
+                        <a href="installing-jdk.html"><p>여러 개의 JDK를 설치하고 선택해서 사용하기</p></a>
                     </li>
                     <li>
-                        <a href="../../migration-to-static-site.html"><p>정적 사이트로 블로그 마이그레이션</p></a>
+                        <a href="migration-to-static-site.html"><p>정적 사이트로 블로그 마이그레이션</p></a>
                     </li>
                     <li>
-                        <a href="../../robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
+                        <a href="robolectric.html"><p>Robolectric을 활용한 안드로이드 쾌속 테스팅</p></a>
                     </li>
             </ul>
         </section>
@@ -156,82 +156,606 @@
         </section>
         -->
 </section>
-
-    <div id="main">
-        <h1>Tag: spiral-array</h1>
-        
-<article class="post" data-file="../1483053.html" data-target="article">
-<header>
+	<div id="main">
+<article class="post">
+   <header>
     <div class="title">
-                    <h2><a href="../1483053.html">확장된 나선형 배열 출력 문제(Spiral Array)</a></h2>
+                    <h1><a href="ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h1>
 
-
+            <p>Kotlin 언어에는 공식 코딩 컨벤션이 정의되어 있습니다. 이를 준수할수 있도록 Gradle 빌드에서 ktlint로 코드 스타일을 검사하고, IntelliJ의 포멧터, Git의 pre-commit hook과 연동하는 방법을 안내합니다.</p>
     </div>
     <div class="meta">
          <time class="published"
-            datetime='Sep 19, 2007'>
-            Sep 19, 2007</time>
+            datetime='Nov 12, 2019'>
+            Nov 12, 2019</time>
             <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
+        <span class="author"/><span class="name">정상혁</span><img src="img/main/jsh.jpeg" alt="정상혁" /></span>
     </div>
 </header>
 
+    
   
-        
-    <p></p>
+         
+    <div id="content">
+       <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#gradle_빌드_설정">1. Gradle 빌드 설정</a>
+<ul class="sectlevel2">
+<li><a href="#editorconfig_설정">1.1. <code>.editorconfig</code> 설정</a></li>
+<li><a href="#스타일_검사">1.2. 스타일 검사</a></li>
+<li><a href="#스타일_일괄_변환">1.3. 스타일 일괄 변환</a></li>
+<li><a href="#git_hook으로_설정">1.4. Git hook으로 설정</a></li>
+</ul>
+</li>
+<li><a href="#intellij_설정">2. IntelliJ 설정</a>
+<ul class="sectlevel2">
+<li><a href="#포멧터_설정">2.1. 포멧터 설정</a></li>
+<li><a href="#기존_코드_일괄_변환">2.2. 기존 코드 일괄 변환</a></li>
+<li><a href="#파일을_저장할_때마다_포멧터_적용하기">2.3. 파일을 저장할 때마다 포멧터 적용하기</a></li>
+<li><a href="#포멧터가_바꿔주지_않는_규칙_신경쓰기">2.4. 포멧터가 바꿔주지 않는 규칙 신경쓰기</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kotlin 언어의 공식 사이트에서는 코딩 컨벤션 가이드를 제공합니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://kotlinlang.org/docs/reference/coding-conventions.html" class="bare">https://kotlinlang.org/docs/reference/coding-conventions.html</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://ktlint.github.io/">ktlint</a>는 Kotlin의 공식 가이드의 규칙을 포함하여 코드 스타일을 검사하고, 맞춰주는 도구입니다.
+이 글에는 ktlint를 Gradle, IntelliJ, Git과 연동하여 사용하는 방법을 정리했습니다.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle_빌드_설정">1. Gradle 빌드 설정</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://ktlint.github.io/">ktlint</a>는 jar 파일로 제공되고, <a href="https://jcenter.bintray.com/" class="bare">https://jcenter.bintray.com/</a> 에도 배포되어 있습니다.
+따라서 별도의 Gradle plugin이 없어도 Gradle에서 task를 정의해서도 쓸 수 있습니다.
+그런데 ktlint의 공식 사이트에서는 Gradle plugin을 더 권장한다고 나와 있습니다.
+이 글에서는 ktlint를 래핑한 Gradle plugin 중 Github에서 별 갯수가 가장 높은 <a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>를 사용했습니다.</p>
+</div>
+<div class="sect2">
+<h3 id="editorconfig_설정">1.1. <code>.editorconfig</code> 설정</h3>
+<div class="paragraph">
+<p>ktlint는 <code>.editorconfig</code> 파일에 선언된 규칙을 포함하여 코드 스타일을 검사합니다.
+<code>.editorconfig</code> 는 다양한 에디터와 IDE에서 공통적으로 지원하는 코드 스타일에 대한 설정 파일입니다.
+자세한 스펙은 <a href="https://editorconfig.org/" class="bare">https://editorconfig.org/</a> 에서 파악할 수 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>아래와 같이 <code>.editorconfig</code>  설정을 추가하면 Kotlin 코딩컨벤션과 함께 쓰기에 무난합니다.</p>
+</div>
+<div class="listingblock">
+<div class="title">.editorconfig 예시</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+tab_width = 4
+
+[*.{kt,kts}]
+disabled_rules=import-ordering
+# java.* 패키지를 의존하는 경우  IntelliJ의 Orgarnize Import 기능으로는 알파벳 순서대로 import 구문을 정렬할 수 없다.
+# 이는 ktlint의 import-ordering 규칙과 맞지 않는다.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>ktlint는 <code>.editorconfig</code> 파일이 없어도 디폴트 규칙으로 실행할 수 있습니다.
+그렇지만 아래와 같은 이유로 명시적으로 이 파일을 선언하는 것을 권장합니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>의도하지 않게 상위 디렉토리의 <code>.editorconfig</code> 가 참조되는 경우를 막아줍니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.editorconfig</code> 파일의 규약에 따르면, 이 파일을 지원하는 도구들은 <code>root = true</code> 라는 선언이 된 <code>.editorconfig</code> 파일을 찾기 전까지는 모든 상위 디렉토리를 탐색합니다. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</li>
+<li>
+<p>ktlint에서도 이 규약을 준수합니다. 따라서 특정 컴퓨터에만 소스를 복제한 디렉토리의 상위 디렉토리에 <code>.editorconfig</code> 가 있다면 그 장비에서는 스타일 체크 결과가 다르게 나오게 됩니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>ktlint가 버전이 올라가면서 규칙의 디폴트 값이 변경될 경우를 대비합니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>예를 들면 ktlint 0.34.0 버전부터 <code>insert_final_newline = true</code> 가 디폴트 값이 되었습니다.  <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>다양한 IDE와 Editor등의 도구에서 이 설정을 참조합니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>IntelliJ, VSCode, GitHub등에서 뷰어,포멧터의 설정으로 자동 반영됩니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>코드 포멧에 대한 문서와 역할도 할 수 있습니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>위의 예시와 같이 <code>.editorconfig</code> 에 선언되는 속성의 이름은 이해하기 쉽습니다. 이 파일만 봐도 파일 포멧에 대한 일부 규칙을 파악할 수 있습니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://kotlinlang.org/docs/reference/coding-conventions.html">Kotlin 공식 코딩 컨벤션</a>에 명시되지 않은 규칙까지 일치시킬 수 있습니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>max_line_length</code> , <code>insert_final_newline</code> 과 같은 규칙을 Kotlin 공식 코딩 컨벤션에는 명시되어 있지는 않습니다. 그러나 같은 소스를 고치면서 협업하는 개발자들이 이를 통일하지 않을 경우 불필요한 diff 가 발생하여 코드 변경분을 파악할 때 불편해집니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>disabled_rules</code> 속성으로 검사하지 않을 규칙을 지정할 수 있습니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>특히 현시점에서는 <code>import-ordering</code> 규칙은 쓰지 않는 것이 좋습니다. 위의 예시 파일에도 이를 반영했습니다.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>는 아래와 같이 설정합니다.</p>
+</div>
+<div class="listingblock">
+<div class="title">Gradle Groovy설정 (build.gradle)</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:9.1.0'
+    }
+}
+
+plugins {
+    id 'org.jlleitschuh.gradle.ktlint' version '9.1.0'
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Gradle Kotlin설정 (build.gradle.kts)</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">buildscript {
+    repositories {
+        maven(url = "https://plugins.gradle.org/m2/")
+    }
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.1.0")
+    }
+}
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version "9.1.0"
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>는 Gradle 버전 5.4.1이상에서만 사용할 수 있습니다. 그 이하 버전에서는 아래와 같은 에러가 나옵니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>* What went wrong:
+Could not determine the dependencies of task ':ktlintCheck'.
+&gt; Could not create task ':ktlintTestSourceSetCheck'.
+   &gt; Could not create task of type 'KtlintCheckTask'.
+      &gt; Could not generate a decorated class for class org.jlleitschuh.gradle.ktlint.KtlintCheckTask.
+         &gt; org/gradle/work/InputChanges</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>이럴 경우에는 Gradle의 버전을 업그레이드해야합니다.</p>
+</div>
+<div class="paragraph">
+<p>Gradle Wrapper를 쓰고 있다면
+<code>{프로젝트홈}/gradle/wrapper/gradle-wrapper.properties</code> 파일의 distributionUrl 속성에 지정된 버전을 고쳐서 버전을 올릴 수 있습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-bin.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>다양한 Gradle 버전을 별도로 설치하는데에는 <a href="https://sdkman.io/">SDKMAN</a> 을 권장합니다.
+Gradle이 별도로 설치되어 있을 경우 Gradle Wrapper를 업그레이드하는 방법은 <a href="https://java.ihoney.pe.kr/476" class="bare">https://java.ihoney.pe.kr/476</a> 을 참조합니다.</p>
+</div>
+<div class="paragraph">
+<p>Gradle 버전을 업그레이드하기가 어려울 경우 <a href="https://ktlint.github.io/" class="bare">https://ktlint.github.io/</a> 에 안내된 다른 Gradle Plugin이나 Plugin없이 사용하는 방법을 참고하시기 바랍니다.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>gradle.properites</code> 파일에도 공식 코딩 컨벤션을 사용한다는 정책을 아래와 같이 명시합니다.</p>
+</div>
+<div class="listingblock">
+<div class="title">gradle.properites 설정</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-properties" data-lang="properties">kotlin.code.style=official</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>IntellJ에서 프로젝트를 import할때 위의 설정을 참조할 수 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>플러그인 설정이 완료되면 ktlint를 실행하는 Gradle 태스크는  <code>./gradlew tasks | grep ktlint</code> 명령으로 확인합니다.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="스타일_검사">1.2. 스타일 검사</h3>
+<div class="paragraph">
+<p><code>./gradlew ktlintCheck</code> 태스크는 스타일 검사를 수행합니다.
+이 태스크는 <code>./gradlew build</code> 를 실행했을 때 연결되는 전체 프로젝트 빌드 싸이클에 포함됩니다. 따라서 디폴트 설정으로는  ktlint에서 가이드하는 코드 스타일을 지키지 않으면 빌드가 실패합니다.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="스타일_일괄_변환">1.3. 스타일 일괄 변환</h3>
+<div class="paragraph">
+<p><code>./gradlew ktlintFormat</code> 태스크로는 스타일에 맞지 않는 코드를 바꿔줍니다. 전체 프로젝트의 소스 코드를 한꺼번에 고칠 때 사용할 수 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>그런데, 이 기능을 사용하다가 의도하지 않게 파일이 삭제되는 경우도 있었습니다.
+그래서 이 태스크는 조심해서 사용해야합니다.
+이 글에서 설명한 IntelliJ로 포멧을 일괄변환하는 방법도 참고해서 병행해서 사용하는 편이 좋습니다.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git_hook으로_설정">1.4. Git hook으로 설정</h3>
+<div class="paragraph">
+<p>앞에서 설명한 <code>ktlintCheck</code> , <code>ktlintFormat</code> 태스크를 Git의 Hook으로 등록하여 commit을 하면 자동으로 실행되게 할 수 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./gradlew addKtlintCheckGitPreCommitHook</code> : ktlintCheck 태스크를 pre-commit hook으로 등록</p>
+</li>
+<li>
+<p><code>./gradlew addKtlintFormatGitPreCommitHook</code> : ktlintFormat 태스크를 pre-commit hook으로 등록ktlintCheck 태스크로 검사하도록 설정합니다.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>앞에서 설명한 것처럼 <code>ktlintFormat</code> 태스크는 의도하지 않게 파일을 바꿀 위험이 있기 때문에 <code>addKtlintCheckGitPreCommitHook</code> 를 더 권장합니다.</p>
+</div>
+<div class="paragraph">
+<p>등록된 pre-commit hook은 <code>rm .git/hooks/pre-commit</code> 명령으로 등삭제할 수 있습니다.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intellij_설정">2. IntelliJ 설정</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>IntelliJ의 코드 포멧터는 <a href="https://kotlinlang.org/docs/reference/coding-conventions.html">Kotlin 공식 코딩 컨벤션</a>이 나오기 전부터 쓰이던 디폴트 설정이 있었습니다. IntelliJ에서는 Kotlin 1.3에서는 신규로 생성되는 프로젝트에서, Kotlin 1.4에서는 모든 프로젝트에서 공식 컨벤션에 맞춘 포멧터가 디폴트로 설정될 것이라고 합니다. <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> 오랫동안 유지보수할 Kotlin 코드라면 공식 컨벤션에 맞춰서 IntelliJ에서도 포멧터를 설정되었는지 신경을 써야 합니다.</p>
+</div>
+<div class="sect2">
+<h3 id="포멧터_설정">2.1. 포멧터 설정</h3>
+<div class="paragraph">
+<p>다음에 안내한 A, B 2가지 방법 중의 하나를 선택하셔서  공식 코딩컨벤션에 맞게 IntelliJ의 포멧터 설정을 맞출수 있습니다.</p>
+</div>
+<div class="sect3">
+<h4 id="a_predefined_을_이용한_설정">2.1.1. A. `predefined ` 을 이용한 설정</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>IntelliJ 메뉴에서 <code>Settings</code> &gt; <code>Editor</code> &gt; <code>Code Style</code> &gt; <code>Kotlin</code> 으로 이동합니다.</p>
+</li>
+<li>
+<p><code>Scheme</code> 항목을 Project로 지정합니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>여러 프로젝트에서 다른 설정을 쓸 경우를 대비해 가급적 글로벌 설정을 바꾸지 않기 위함입니다.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>Set from&#8230;&#8203;</code> &#8594; <code>Predefined Style</code> &#8594; <code>Kotlin Style Guide</code> 를 선택합니다.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/kotlin-code-style/intelli-j-kotlin-style-guide.gif" alt="IntelliJ Kotlin Style">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="b_gradle_plugin을_이용한_설정">2.1.2. B. Gradle plugin을 이용한 설정</h4>
+<div class="paragraph">
+<p>앞서 설정한 <a href="https://github.com/jlleitschuh/ktlint-gradle">jlleitschuh/ktlint-gradle</a>를 이용하여 <code>./gradlew ktlintApplyToIdea</code> 태스크를 실행합니다.
+이 태스크는 IntelliJ 설정파일의 코드 스타일 부분을 덮어써서 ktlint의 규칙과 가급적 맞는 포멧터가 설정합니다.</p>
+</div>
+<div class="paragraph">
+<p>포멧터가 설정되면 파일을 편집할 때 <code>Code</code> &gt; <code>Reformat Code</code> 메뉴를 선택하거나 단축키 <code>Ctrl + Shift + L</code> 단축키로 포멧터를 적용할 수 있습니다.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="기존_코드_일괄_변환">2.2. 기존 코드 일괄 변환</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>IntelliJ의 프로젝트 탐색기에서 프로젝트의 최상위 디렉토리를 우클릭합니다.</p>
+</li>
+<li>
+<p>Reformat Code 를 실행합니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>우클릭을 하여 나오는 메뉴에서 <code>Reformat Code</code> 를 선택하거나</p>
+</li>
+<li>
+<p><code>Ctrl + Shift + L</code> 단축키를 누릅니다.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="파일을_저장할_때마다_포멧터_적용하기">2.3. 파일을 저장할 때마다 포멧터 적용하기</h3>
+<div class="paragraph">
+<p><a href="https://plugins.jetbrains.com/plugin/7642-save-actions">Save Actions Plugin</a>를 사용하면 파일을 저장할 때 자동으로 포멧터를 실행할 수 있습니다.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>File</code> &gt; <code>Settings</code> ( <code>Ctrl + Alt + S</code> ) &gt; <code>Plugins</code> 메뉴로 이동합니다.</p>
+</li>
+<li>
+<p><code>Marketplace</code> 탭에서 'Save Actions' 로 검색합니다.</p>
+</li>
+<li>
+<p><code>Save Actions' plugin의 상세 설명 화면에서  `[Install]</code> 버튼을 누릅니다.</p>
+</li>
+<li>
+<p>IntelliJ를 재시작합니다.</p>
+</li>
+<li>
+<p><code>File</code> &gt; <code>Settings</code> &gt;  <code>Other Settions</code> &gt; <code>Save Actions</code> 메뉴로 이동합니다.</p>
+</li>
+<li>
+<p>아래 항목 혹은 그외의 원하는 정책을 체크합니다.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Activate save actions on save</code></p>
+</li>
+<li>
+<p><code>Optimize imoprts</code></p>
+</li>
+<li>
+<p><code>Refomat file</code> (전체 프로젝트의 스타일이 통일된 경우)</p>
+</li>
+<li>
+<p><code>Refomat only changed code</code> (프로젝트의 스타일이 통일되어 있지 않아서 스타일이 맞지 않는 코드를 함께 고치면 변경 부분을 알아보기가 더 어려운 경우)</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/kotlin-code-style/intelli-j-save-actions-config.jpg" alt="IntelliJ Save Actions">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="포멧터가_바꿔주지_않는_규칙_신경쓰기">2.4. 포멧터가 바꿔주지 않는 규칙 신경쓰기</h3>
+<div class="paragraph">
+<p>IntelliJ의 포멧터는 ktlint에서 검사하는 규칙을 다 자동을 맞추어주지는 못합니다.
+즉 <code>Reformat Code</code> ( <code>Ctrl + Alt + L</code> ) 을 실행하는 것만으로는 ktlint 검사를 통과한다는 보장은 없습니다.
+다음에서 설명하는 IntelliJ의 기능을 잘 활용하면 보다 빠른 시점에서 ktlint의 규칙을 준수하는데 도움이 됩니다.</p>
+</div>
+<div class="sect3">
+<h4 id="파일의_마지막에_자동으로_개행문자_추가">2.4.1. 파일의 마지막에 자동으로 개행문자 추가</h4>
+<div class="paragraph">
+<p>POSIX 명세에 따라서, 텍스트 파일의 마지막에 개행문자(LF)를 추가하는 것이 권장됩니다. <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>그런데, IntelliJ의 <code>Reformat Code</code> 기능으로는 마지막 개행문자 추가가 되지 않습니다.
+<code>File</code> &gt; <code>Settings</code> &gt; <code>Editor</code> &gt; <code>General</code> 메뉴에서 <code>Ensure line feed at file end on Save</code> 를 선택하면, 파일이 저장될 때 자동으로 마지막에 개행문자를 추가해줍니다.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/kotlin-code-style/intelli-j-lf-eof.jpg" alt="IntelliJ line feed end of file">
+</div>
+</div>
+<div class="paragraph">
+<p>이 설정은 <code>.editorconfig</code> 의 선언에 따라 자동으로 활성화될 수도 있습니다.
+그렇지만 의도대로 동작하지 않는다면 한번 확인해볼만합니다.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="intellij_경고에_따라_고치기">2.4.2. IntelliJ 경고에 따라 고치기</h4>
+<div class="paragraph">
+<p>Kotlin 공식 코딩 컨벤션에는 공백 등 단순한 파일 형식 외에도 문법적인 요소에 대한 것도 있습니다.</p>
+</div>
+<div class="paragraph">
+<p>예를 들면 String Template를 쓸 때는 꼭 필요한 경우가 아니면 중괄호를 넣지 말라는 규칙이 있습니다.
+( <a href="https://kotlinlang.org/docs/reference/coding-conventions.html#string-templates" class="bare">https://kotlinlang.org/docs/reference/coding-conventions.html#string-templates</a> )</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>(O): <code>println("$name is my friend.")</code></p>
+</li>
+<li>
+<p>(X): <code>println("${name} is my friend.")</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>이 규칙을 어긴 코드는 'Reformat Code' 로는 바로 바뀌지 않습니다.
+IntelliJ에서 이런 코드에 경고를 보내고 <code>Alt + Shift + Enter</code> 단축키로 코드로 바꾸는 기능을 제공합니다.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/kotlin-code-style/intelli-j-string-template-warning.jpg" alt="IntelliJ String template">
+</div>
+</div>
+<div class="paragraph">
+<p>이처럼 IntelliJ에서는 언어 문법을 활용할때도 Kotlin 공식 코딩 컨벤션에서 권장하는 스타일대로 쓰도록 유도하고 있습니다.
+이런 경고들을 무시하지 않고 반영한다면 ktlint의 검사에서도 통과할 가능성이 높아집니다.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://editorconfig.org/" class="bare">https://editorconfig.org/</a> 에서 'When opening a file, EditorConfig plugins look for a file named .editorconfig in the directory of the opened file and in every parent directory.'
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. 0.34.0 릴리즈 노트 참고 : <a href="https://github.com/pinterest/ktlint/blob/master/CHANGELOG.md#0340---2019-07-15" class="bare">https://github.com/pinterest/ktlint/blob/master/CHANGELOG.md#0340---2019-07-15</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://kotlinlang.org/docs/reference/code-style-migration-guide.html" class="bare">https://kotlinlang.org/docs/reference/code-style-migration-guide.html</a> 에서 설명된 계획입니다.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <a href="https://blog.coderifleman.com/2015/04/04/text-files-end-with-a-newline/" class="bare">https://blog.coderifleman.com/2015/04/04/text-files-end-with-a-newline/</a> 참조
+</div>
+</div>
+    </div>
+	
+	<section id="social-share">
+        <ul class="icons">
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+<li><a href="//twitter.com/share?url=https://blog.benelog.net//ktlint.html&text=ktlint로 Kotlin 공식 코딩 컨벤션 맞추기&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+<!-- Google Plus -->
+<li><a href="//plus.google.com/share?url=https://blog.benelog.net//ktlint.html" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+<!-- Facebook -->
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https://blog.benelog.net//ktlint.html" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+<!-- Reddit (url, title) -->
+<li><a href="//reddit.com/submit?url=https://blog.benelog.net//ktlint.html&title=ktlint로 Kotlin 공식 코딩 컨벤션 맞추기" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+<!-- LinkedIn -->
+<li><a href="//www.linkedin.com/shareArticle?url=https://blog.benelog.net//ktlint.html&title=ktlint로 Kotlin 공식 코딩 컨벤션 맞추기" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+<!-- StumbleUpon (url, title) -->
+<li><a href="//www.stumbleupon.com/submit?url=https://blog.benelog.net//ktlint.html&title=ktlint로 Kotlin 공식 코딩 컨벤션 맞추기" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+<!-- Email -->
+<li><a href="mailto:?subject=Check out this post by 정상혁&body=https://blog.benelog.net//ktlint.html" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+        </ul>
+    </section>
+     
 
     <footer>
-        <ul class="actions">
-            <li><a href="../1483053.html" class="button big">Continue Reading</a></li>
-        </ul>
 	
 		<ul class="stats">
     	    <!-- Display the categories associated with this post -->
     	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/코딩연습.html'>코딩연습</a></li>
- 	        <li><a href='../tags/spiral-array.html'>spiral-array</a></li>
+ 	        <li><a href='tags/kotlin.html'>kotlin</a></li>
+ 	        <li><a href='tags/ktlint.html'>ktlint</a></li>
+ 	        <li><a href='tags/coding-convention.html'>coding-convention</a></li>
 
-				<li><a class="icon fa-comment" href="../1483053.html#disqus_thread"> &nbsp;</a></li>
+				<li><a class="icon fa-comment" href="ktlint.html#disqus_thread"> &nbsp;</a></li>
  		</ul>
+    	
     </footer>
 </article>
-        
-<article class="post" data-file="../901106.html" data-target="article">
-<header>
-    <div class="title">
-                    <h2><a href="../901106.html">나선형 배열 출력 문제 Spiral Array</a></h2>
-
-
-    </div>
-    <div class="meta">
-         <time class="published"
-            datetime='Feb 07, 2007'>
-            Feb 07, 2007</time>
-            <div class="published eta"></div>
-        <span class="author"/><span class="name">정상혁</span><img src="../img/main/jsh.jpeg" alt="정상혁" /></span>
-    </div>
-</header>
-
-  
-        
-    <p></p>
-
-    <footer>
-        <ul class="actions">
-            <li><a href="../901106.html" class="button big">Continue Reading</a></li>
-        </ul>
+		
+<ul class="actions pagination">
+  	
+  		        <li><a href="installing-jdk.html" 
+                class="button big previous">여러 개의 JDK를 설치하고 선택해서 사용하기</a></li>
 	
-		<ul class="stats">
-    	    <!-- Display the categories associated with this post -->
-    	    <li><i class="fa fa-tags">&nbsp;</i>  Tags: </li>
- 	        <li><a href='../tags/spiral-array.html'>spiral-array</a></li>
- 	        <li><a href='../tags/코딩연습.html'>코딩연습</a></li>
-
-				<li><a class="icon fa-comment" href="../901106.html#disqus_thread"> &nbsp;</a></li>
- 		</ul>
-    </footer>
-</article>
-        
+</ul>
+		
+<div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.identifier = 'ktlint.html';
+    };
+    var disqus_shortname = 'blog-benelog';
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.setAttribute('data-timestamp', + new Date());
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <!--<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>-->
+</div>
     </div>
 
 <!-- Sidebar -->
@@ -239,7 +763,7 @@
 
     <!-- Intro -->
         <section id="intro">
-                                    <a href="/" class="logo"><img src="../img/main/intro.jpg" class="intro-circle" width="150px" alt="benelog" /></a>
+                                    <a href="/" class="logo"><img src="img/main/intro.jpg" class="intro-circle" width="150px" alt="benelog" /></a>
 
 
                 <header>
@@ -293,7 +817,7 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
+                                <h3><a href="ktlint.html">ktlint로 Kotlin 공식 코딩 컨벤션 맞추기</a></h3>
                                  <time class="published"
 							            datetime='Nov 12, 2019'>
 							            Nov 12, 2019</time>
@@ -304,7 +828,7 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
+                                <h3><a href="installing-jdk.html">여러 개의 JDK를 설치하고 선택해서 사용하기</a></h3>
                                  <time class="published"
 							            datetime='Jul 01, 2019'>
 							            Jul 01, 2019</time>
@@ -315,7 +839,7 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../migration-to-static-site.html">정적 사이트로 블로그 마이그레이션</a></h3>
+                                <h3><a href="migration-to-static-site.html">정적 사이트로 블로그 마이그레이션</a></h3>
                                  <time class="published"
 							            datetime='May 06, 2019'>
 							            May 06, 2019</time>
@@ -326,7 +850,7 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="../robolectric.html">Robolectric을 활용한 안드로이드 쾌속 테스팅</a></h3>
+                                <h3><a href="robolectric.html">Robolectric을 활용한 안드로이드 쾌속 테스팅</a></h3>
                                  <time class="published"
 							            datetime='Oct 10, 2016'>
 							            Oct 10, 2016</time>
@@ -337,7 +861,7 @@
 
                     <li>
                         <ul class="actions">
-                            <li><a href="../archive.html"
+                            <li><a href="archive.html"
                             class="button">View more posts</a></li>
                         </ul>
                     </li>
@@ -354,7 +878,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/.html"></a>
+                                <a href="tags/.html"></a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -363,7 +887,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/exception.html">exception</a>
+                                <a href="tags/exception.html">exception</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -372,7 +896,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/양병규.html">양병규</a>
+                                <a href="tags/양병규.html">양병규</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -381,7 +905,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Maven.html">Maven</a>
+                                <a href="tags/Maven.html">Maven</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 6 </span>
                             </header>
@@ -390,7 +914,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Multiline.html">Multiline</a>
+                                <a href="tags/Multiline.html">Multiline</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -399,7 +923,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Eclipse.html">Eclipse</a>
+                                <a href="tags/Eclipse.html">Eclipse</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 7 </span>
                             </header>
@@ -408,7 +932,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Naver.html">Naver</a>
+                                <a href="tags/Naver.html">Naver</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -417,7 +941,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/HTML.html">HTML</a>
+                                <a href="tags/HTML.html">HTML</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -426,7 +950,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/String.html">String</a>
+                                <a href="tags/String.html">String</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -435,7 +959,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/mashup도구.html">mashup도구</a>
+                                <a href="tags/mashup도구.html">mashup도구</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -444,7 +968,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/성능.html">성능</a>
+                                <a href="tags/성능.html">성능</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -453,7 +977,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Cubrid.html">Cubrid</a>
+                                <a href="tags/Cubrid.html">Cubrid</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -462,7 +986,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Cron.html">Cron</a>
+                                <a href="tags/Cron.html">Cron</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -471,7 +995,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Lotto.html">Lotto</a>
+                                <a href="tags/Lotto.html">Lotto</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 3 </span>
                             </header>
@@ -480,7 +1004,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/행사후기.html">행사후기</a>
+                                <a href="tags/행사후기.html">행사후기</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 9 </span>
                             </header>
@@ -489,7 +1013,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/cloud.html">cloud</a>
+                                <a href="tags/cloud.html">cloud</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -498,7 +1022,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/BeanUtils.html">BeanUtils</a>
+                                <a href="tags/BeanUtils.html">BeanUtils</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -507,7 +1031,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-Batch.html">Spring-Batch</a>
+                                <a href="tags/Spring-Batch.html">Spring-Batch</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 4 </span>
                             </header>
@@ -516,7 +1040,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/java.html">java</a>
+                                <a href="tags/java.html">java</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -525,7 +1049,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/generics.html">generics</a>
+                                <a href="tags/generics.html">generics</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -534,7 +1058,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/개발.html">개발</a>
+                                <a href="tags/개발.html">개발</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -543,7 +1067,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Test.html">Test</a>
+                                <a href="tags/Test.html">Test</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 7 </span>
                             </header>
@@ -552,7 +1076,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Concurrency.html">Concurrency</a>
+                                <a href="tags/Concurrency.html">Concurrency</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -561,7 +1085,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/MyBatis.html">MyBatis</a>
+                                <a href="tags/MyBatis.html">MyBatis</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -570,7 +1094,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/coding-convention.html">coding-convention</a>
+                                <a href="tags/coding-convention.html">coding-convention</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -579,7 +1103,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/EMMA.html">EMMA</a>
+                                <a href="tags/EMMA.html">EMMA</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -588,7 +1112,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Winstone.html">Winstone</a>
+                                <a href="tags/Winstone.html">Winstone</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -597,7 +1121,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Python.html">Python</a>
+                                <a href="tags/Python.html">Python</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -606,7 +1130,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Google.html">Google</a>
+                                <a href="tags/Google.html">Google</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -615,7 +1139,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/반복문.html">반복문</a>
+                                <a href="tags/반복문.html">반복문</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -624,7 +1148,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/JSTL.html">JSTL</a>
+                                <a href="tags/JSTL.html">JSTL</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -633,7 +1157,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/autoboxing.html">autoboxing</a>
+                                <a href="tags/autoboxing.html">autoboxing</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -642,7 +1166,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/test.html">test</a>
+                                <a href="tags/test.html">test</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 8 </span>
                             </header>
@@ -651,7 +1175,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/코딩연습.html">코딩연습</a>
+                                <a href="tags/코딩연습.html">코딩연습</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 10 </span>
                             </header>
@@ -660,7 +1184,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/뉴스.html">뉴스</a>
+                                <a href="tags/뉴스.html">뉴스</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 5 </span>
                             </header>
@@ -669,7 +1193,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Hudson.html">Hudson</a>
+                                <a href="tags/Hudson.html">Hudson</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 4 </span>
                             </header>
@@ -678,7 +1202,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Hadoop.html">Hadoop</a>
+                                <a href="tags/Hadoop.html">Hadoop</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -687,7 +1211,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/testing.html">testing</a>
+                                <a href="tags/testing.html">testing</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -696,7 +1220,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/batch.html">batch</a>
+                                <a href="tags/batch.html">batch</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -705,7 +1229,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/시간대.html">시간대</a>
+                                <a href="tags/시간대.html">시간대</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -714,7 +1238,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/날짜.html">날짜</a>
+                                <a href="tags/날짜.html">날짜</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -723,7 +1247,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring.html">Spring</a>
+                                <a href="tags/Spring.html">Spring</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 18 </span>
                             </header>
@@ -732,7 +1256,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Sybase.html">Sybase</a>
+                                <a href="tags/Sybase.html">Sybase</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -741,7 +1265,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/open-API.html">open-API</a>
+                                <a href="tags/open-API.html">open-API</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -750,7 +1274,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/FindBugs.html">FindBugs</a>
+                                <a href="tags/FindBugs.html">FindBugs</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -759,7 +1283,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/SQL.html">SQL</a>
+                                <a href="tags/SQL.html">SQL</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -768,7 +1292,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Android.html">Android</a>
+                                <a href="tags/Android.html">Android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 3 </span>
                             </header>
@@ -777,7 +1301,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-Integration.html">Spring-Integration</a>
+                                <a href="tags/Spring-Integration.html">Spring-Integration</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -786,7 +1310,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/dropbox.html">dropbox</a>
+                                <a href="tags/dropbox.html">dropbox</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -795,7 +1319,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/effective-Java.html">effective-Java</a>
+                                <a href="tags/effective-Java.html">effective-Java</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -804,7 +1328,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-Test.html">Spring-Test</a>
+                                <a href="tags/Spring-Test.html">Spring-Test</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 8 </span>
                             </header>
@@ -813,7 +1337,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/spiral-array.html">spiral-array</a>
+                                <a href="tags/spiral-array.html">spiral-array</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -822,7 +1346,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/PowerMock.html">PowerMock</a>
+                                <a href="tags/PowerMock.html">PowerMock</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -831,7 +1355,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/FTP.html">FTP</a>
+                                <a href="tags/FTP.html">FTP</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -840,7 +1364,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/보안.html">보안</a>
+                                <a href="tags/보안.html">보안</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -849,7 +1373,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/책.html">책</a>
+                                <a href="tags/책.html">책</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 5 </span>
                             </header>
@@ -858,7 +1382,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/timezone.html">timezone</a>
+                                <a href="tags/timezone.html">timezone</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -867,7 +1391,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/ktlint.html">ktlint</a>
+                                <a href="tags/ktlint.html">ktlint</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -876,7 +1400,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/android.html">android</a>
+                                <a href="tags/android.html">android</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -885,7 +1409,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/꿈.html">꿈</a>
+                                <a href="tags/꿈.html">꿈</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -894,7 +1418,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/mashup.html">mashup</a>
+                                <a href="tags/mashup.html">mashup</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -903,7 +1427,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/WAS.html">WAS</a>
+                                <a href="tags/WAS.html">WAS</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -912,7 +1436,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-One.html">Spring-One</a>
+                                <a href="tags/Spring-One.html">Spring-One</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 5 </span>
                             </header>
@@ -921,7 +1445,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/DependencyInjection.html">DependencyInjection</a>
+                                <a href="tags/DependencyInjection.html">DependencyInjection</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -930,7 +1454,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/static-site.html">static-site</a>
+                                <a href="tags/static-site.html">static-site</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -939,7 +1463,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Effective-java.html">Effective-java</a>
+                                <a href="tags/Effective-java.html">Effective-java</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -948,7 +1472,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/reload.html">reload</a>
+                                <a href="tags/reload.html">reload</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -957,7 +1481,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/자작도구.html">자작도구</a>
+                                <a href="tags/자작도구.html">자작도구</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 4 </span>
                             </header>
@@ -966,7 +1490,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/git.html">git</a>
+                                <a href="tags/git.html">git</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -975,7 +1499,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/JUnit.html">JUnit</a>
+                                <a href="tags/JUnit.html">JUnit</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -984,7 +1508,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/markdown.html">markdown</a>
+                                <a href="tags/markdown.html">markdown</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -993,7 +1517,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/JDBC.html">JDBC</a>
+                                <a href="tags/JDBC.html">JDBC</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 4 </span>
                             </header>
@@ -1002,7 +1526,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Servlet.html">Servlet</a>
+                                <a href="tags/Servlet.html">Servlet</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1011,7 +1535,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/검색.html">검색</a>
+                                <a href="tags/검색.html">검색</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1020,7 +1544,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Oracle.html">Oracle</a>
+                                <a href="tags/Oracle.html">Oracle</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1029,7 +1553,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Monitoring.html">Monitoring</a>
+                                <a href="tags/Monitoring.html">Monitoring</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1038,7 +1562,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/정적분석.html">정적분석</a>
+                                <a href="tags/정적분석.html">정적분석</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 5 </span>
                             </header>
@@ -1047,7 +1571,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Java.html">Java</a>
+                                <a href="tags/Java.html">Java</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 14 </span>
                             </header>
@@ -1056,7 +1580,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/CSS.html">CSS</a>
+                                <a href="tags/CSS.html">CSS</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -1065,7 +1589,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/AOP.html">AOP</a>
+                                <a href="tags/AOP.html">AOP</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 3 </span>
                             </header>
@@ -1074,7 +1598,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/PMD.html">PMD</a>
+                                <a href="tags/PMD.html">PMD</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -1083,7 +1607,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/생산성-도구.html">생산성-도구</a>
+                                <a href="tags/생산성-도구.html">생산성-도구</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1092,7 +1616,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/kotlin.html">kotlin</a>
+                                <a href="tags/kotlin.html">kotlin</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1101,7 +1625,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/svn.html">svn</a>
+                                <a href="tags/svn.html">svn</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1110,7 +1634,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Robolectric.html">Robolectric</a>
+                                <a href="tags/Robolectric.html">Robolectric</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1119,7 +1643,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/매쉬업.html">매쉬업</a>
+                                <a href="tags/매쉬업.html">매쉬업</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1128,7 +1652,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-MVC.html">Spring-MVC</a>
+                                <a href="tags/Spring-MVC.html">Spring-MVC</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1137,7 +1661,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/jdk.html">jdk</a>
+                                <a href="tags/jdk.html">jdk</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1146,7 +1670,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Spring-JDBC.html">Spring-JDBC</a>
+                                <a href="tags/Spring-JDBC.html">Spring-JDBC</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1155,7 +1679,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Btrace.html">Btrace</a>
+                                <a href="tags/Btrace.html">Btrace</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1164,7 +1688,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/변수범위.html">변수범위</a>
+                                <a href="tags/변수범위.html">변수범위</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1173,7 +1697,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/XML.html">XML</a>
+                                <a href="tags/XML.html">XML</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 2 </span>
                             </header>
@@ -1182,7 +1706,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/Jetty.html">Jetty</a>
+                                <a href="tags/Jetty.html">Jetty</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1191,7 +1715,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="../tags/발명.html">발명</a>
+                                <a href="tags/발명.html">발명</a>
                                 <!-- JBake 2.5.1 Issue#357 prevents accessing db, If you are using 2.5.1 or earlier comment below SPAN element. -->
                                 <span style="float:right;"> 1 </span>
                             </header>
@@ -1207,7 +1731,7 @@
             <p>introduce</p>
 
             <ul class="actions">
-                <li><a href="../about.html" class="button">Learn More</a></li>
+                <li><a href="about.html" class="button">Learn More</a></li>
             </ul>
         </section>
 
@@ -1227,13 +1751,13 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-		<script src="../js/jquery.min.js"></script>
-		<script src="../js/skel.min.js"></script>
-		<script src="../js/util.js"></script>
-		<script src="../js/main.js"></script>
-		<script src="../js/backToTop.js"></script>
-		<script src="../js/highlight.pack.js"></script>
-		<script src="../js/readingTime.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/util.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/backToTop.js"></script>
+		<script src="js/highlight.pack.js"></script>
+		<script src="js/readingTime.js"></script>
 
 			<script id="dsq-count-scr" src="//blog-benelog.disqus.com/count.js" async></script>
 <script>
@@ -1243,8 +1767,8 @@
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-138559685-1', 'auto');
   ga('send', 'pageview', {
-    'page': 'https://blog.benelog.net/',
-    'title': '개발수양록'
+    'page': 'ktlint.html',
+    'title': 'ktlint로 Kotlin 공식 코딩 컨벤션 맞추기'
       });
 </script>
 		<!-- This is called by default since this theme uses highlight.js -->
